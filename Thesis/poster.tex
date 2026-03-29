@@ -1,39 +1,212 @@
 \documentclass[20pt]{beamer}
 \usepackage[size=a0, orientation=portrait, scale=1.4]{beamerposter}
+\usepackage{changepage}
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+\usepackage{makecell}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{url}
+\usepackage[square,numbers,sort&compress]{natbib}
+\bibliographystyle{abbrvnat}
+\usetheme{Ilmenau}
+%\usecolortheme{orchid}
 
-\begin{document}
-	\begin{frame}
-		\begin{columns}
+\renewcommand{\raggedright}{\leftskip=0pt \rightskip=0pt}
+\let\olditemize\itemize
+\renewcommand{\itemize}{\olditemize\addtolength{\itemsep}{0.4\baselineskip}}
+
+\addtobeamertemplate{block begin}{}{\vspace{5mm}\begin{adjustwidth}{5mm}{5mm}}
+\addtobeamertemplate{block end}{\end{adjustwidth}}{\vspace{5mm}}
+\setbeamerfont{block title}{size={\centering\bfseries\fontsize{48}{60}\selectfont}}
+\setbeamercolor{block title}{bg = cyan!80}
+\setbeamercolor{block body}{bg=white}
+\definecolor{background}{RGB}{240 238 235}
+
+\setbeamercolor{background canvas}{bg=background}
+\definecolor{title-color}{RGB}{3 186 252}
+\definecolor{space-color}{RGB}{219 252 3}
+\setbeamercolor{chcolor}{fg=white, bg=title-color}
+\setbeamertemplate{headline}{% 
+	\begin{beamercolorbox}[wd=\paperwidth]{chcolor}\vskip5mm
+	\begin{columns}
+	\begin{column}{1\linewidth}
+		\centering\bfseries
+		{\fontsize{75}{90}\selectfont Assessing Pilot Performance in VR Landing Tasks Using Machine Learning on Physiological Signals} %\\ [6mm]
+		%{\fontsize{50}{60}\selectfont Yijun Wu }\\ [6mm]
+		%{\fontsize{50}{60}\selectfont Supervisor: Dr. Phillip Brown}
+	\end{column}
+	\end{columns}\vskip5mm
+	\end{beamercolorbox}
+	
+	\color{space-color}\rule{\paperwidth}{20pt}
+}
+
+\setbeamertemplate{background canvas}{
+	\begin{tikzpicture}[remember picture,overlay]
+		\node[anchor=south east] at (current page.south east) {
+			\includegraphics[width=0.3\linewidth]{logo}  % Adjust size
+		};
+	\end{tikzpicture}
+}
+
+\setbeamercolor{chfootcolor}{fg=white, bg=cyan}
+\setbeamertemplate{footline}{
+	\begin{beamercolorbox}[wd=\paperwidth, center, ht=1.5em]{chfootcolor}
+		\small Email: y.wu\_$1$@tilburguniversity.edu
+	\end{beamercolorbox}
+
+}
+	
+
+\begin{document}\vspace*{-2cm}
+	\begin{frame}[t]
+		\begin{columns}[t]
 		%=======================col-1======================
-			\begin{column}{0.32/linewidth}
+			\begin{column}{0.5\linewidth}
 				\begin{block}{Introduction}
-				content...
+					\begin{itemize}
+						\item Application of ML remains underexplored in pilot training within the aviation industry \cite{caballero-2023}.
+						\item ML models leveraging physiological signals integrate effectively with legacy training equipment \cite{caballero-2023}.
+						\item ML automates labor-intensive evaluation processes \cite{barry-2025}.
+						\item Project objective
+							\begin{itemize}
+								\item Real-time task performance prediction using machine learning and multimodal physiological data.
+								\item Supporting the development of adaptive, scalable training systems.
+							\end{itemize}
+					\end{itemize}
 				\end{block}
 				
-				\begin{block}{Motivation}
-					content...
+				\begin{block}{Instrument Landing Tasks}
+					\begin{figure}
+						\centering
+						\includegraphics[width=\linewidth]{ILS approach}
+						\caption{ILS Approach \cite{koerner-2025}}
+					\end{figure}
+					\vspace{1cm}
+					
+					\begin{table}[H]
+						\centering
+						\caption{ Landing Scenarios \cite{rao-2022} } 
+						\def\arraystretch{2}
+						\small
+						\begin{tabular}{|c|c|c|c|}
+							\hline
+							\textbf{Difficulty}&\textbf{Wind}&\textbf{Clouds/Visibility}&\textbf{Turbulence}\\ \hline
+							1&None&No Clouds/Visibility Unlimited&None \\ \hline
+							2&140° @ 10 kts&\makecell{Overcast above 2500’ \\ Visibility 5 statute miles}&None \\ \hline
+							3&\makecell{3000’: 80° @ 10 kts \\ 1000’: 140° @ 10 kts}&\makecell{Overcast above \\ 1000’Visibility 3 statute miles}&Light above 1000’ \\ \hline
+							4&\makecell{4800’: 250° @ 10 kts \\ 2800’: 80° @ 15 – 20 kts \\800’: 200° @ 15 kts}&\makecell{Overcast above 400’ \\ Visibility 1 statute mile}&Light \\ \hline
+						\end{tabular}
+						\vspace{2cm}
+					\end{table}
+					\begin{figure}
+						\centering
+						\includegraphics[width=\linewidth]{Order of difficulty}
+						\caption{Order of Difficulty \cite{koerner-2025}}
+					\end{figure}
 				\end{block}
-			\end{column}
-		%=======================col-2======================
-			\begin{column}{0.32/linewidth}
-				\begin{block}{Background}
-					content...
-				\end{block}
+				\vspace{1cm}
 				
-				\begin{block}{Data Description}
-					content...
-				\end{block}
-			\end{column}
-		%=======================col-3======================
-			\begin{column}{0.32/linewidth}
 				\begin{block}{Methods}
-					
+					\centering
+					\includegraphics[width=\linewidth]{flowchart}
+				\end{block}
+			\end{column}
+	
+		%=======================col-2======================
+			\begin{column}{0.5\linewidth}
+				\begin{block}{Motivation \& Background}
+					\begin{itemize}
+						\item Emissions produced during initial training \cite{paul-2025}
+						\item Limited training output due to instructor shortage \cite{caballero-2023}
+						\item VR integration remains relatively underexplored
+						\item Multimodal signals are not widely used in pilot performance analysis \cite{moore-2023,rajendran-2021}
+						\item Difficulty classification tasks achieve an AUC of 0.90 \cite{caballero-2023,moore-2023}
+						\item Physiological signals correlate with cognitive workload \cite{koerner-2025}
+					\end{itemize}
 				\end{block}
 				
-				\begin{block}{Reference}
+				\begin{block}{Dataset}
+					\begin{minipage}[t]{\linewidth}
+						\begin{itemize}
+							\item Dataset: CogPilot \cite{rao-2022} \\
+						\end{itemize}
+					\end{minipage}
+					\begin{minipage}[t]{0.32\linewidth}
+						\centering
+						\includegraphics[width=\linewidth]{EDA}
+					\end{minipage}\hfill
+					\begin{minipage}[t]{0.32\linewidth}
+						\centering
+						\includegraphics[width=\linewidth]{PPG}
+					\end{minipage}\hfill
+					\begin{minipage}[t]{0.32\linewidth}
+						\centering
+						\includegraphics[width=\linewidth]{ECG}
+					\end{minipage}
+					\vspace{1em}
 					
+					\begin{minipage}[t]{0.32\linewidth}
+						\centering
+						\includegraphics[width=\linewidth]{ACC_forearm}
+					\end{minipage}\hfill
+					\begin{minipage}[t]{0.32\linewidth}
+						\centering
+						\includegraphics[width=\linewidth]{EMG}
+					\end{minipage}\hfill
+					\begin{minipage}[t]{0.32\linewidth}
+						\centering
+						\includegraphics[width=\linewidth]{ACC_torso}
+					\end{minipage}
+					\vspace{1em}
+					
+					\begin{minipage}[t]{0.32\linewidth}
+						\centering
+						\includegraphics[width=\linewidth]{pupil_diameter}
+					\end{minipage}\hfill
+					\begin{minipage}[t]{0.32\linewidth}
+						\centering
+						\includegraphics[width=\linewidth]{gaze_direction}
+					\end{minipage}\hfill
+					\begin{minipage}[t]{0.32\linewidth}
+						\centering
+						\includegraphics[width=\linewidth]{pilot_head_position}
+					\end{minipage}
+					\vspace{1em}
+					
+					\begin{minipage}[t]{\linewidth}
+						\centering
+						\includegraphics[width=0.32\linewidth]{pilot_head_pitch}
+					\end{minipage}
+					
+					\begin{minipage}[t]{\linewidth}
+						\centering
+						\begin{table}[H]
+							\centering
+							\setlength{\belowcaptionskip}{0pt} 
+							\caption{ Performance Metrics } 
+							\def\arraystretch{2}
+							\small
+							\begin{tabular}[t]{|c|c|c|}
+								\hline
+								\textbf{Variable Name}&\textbf{Unit}&\textbf{Description}\\ \hline
+								time\_dn&datenum&LSL time stamps datenum format \\ \hline
+								localizer\_error&deg&Horizontal angular deviation\\ \hline
+								glideslope\_error&deg&Vertical deviation \\ \hline
+								ari\_speed&knots&Deviation away from 115 knots \\ \hline
+							\end{tabular}
+							\vspace{2cm}
+						\end{table}
+					\end{minipage}	
 				\end{block}
-			\end{column}	
+				
+				\begin{block}{References}
+					\scriptsize
+					\bibliography{references}
+					\vspace{1em}
+				\end{block}
+			\end{column}
 		\end{columns}
 	\end{frame}
 \end{document}
