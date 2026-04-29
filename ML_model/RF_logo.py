@@ -2,12 +2,9 @@
 
 from build_dataframe import construct_df
 import numpy as np
-from sklearn.pipeline import make_pipeline
 from sklearn.model_selection import LeaveOneGroupOut
-from sklearn.impute import SimpleImputer
-from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import mean_absolute_error, root_mean_squared_error, r2_score
-from train_model import train_ml
+from RF_train import rf_train
 
 subjects = ['03', '04', '05', '06', '08', 11, 12,
             13, 15, 16, 17, 18, 19, 20, 22, 23, 24,
@@ -17,33 +14,15 @@ subjects = ['03', '04', '05', '06', '08', 11, 12,
 # get dataframe, features and targets columns
 df_model, X, y = construct_df(subjects)
 
-# RF base model
-rf_base = make_pipeline(
-    SimpleImputer(strategy='mean'),
-    RandomForestRegressor(random_state=42)
-)
-
-# possible model hypermeters
-param_grid_rf = {
-    'randomforestregressor__n_estimators': [50, 100, 150], #[10, 25, 50, 100, 200, 500],
-    'randomforestregressor__max_depth': [None, 10, 20],
-    'randomforestregressor__min_samples_split': [2, 5, 10], # [2, 3, 4, 5, 6, 7, 8, 9, 10],
-    'randomforestregressor__min_samples_leaf': [1, 2, 4], # [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-    'randomforestregressor__bootstrap': [True],
-}
-
-# cross validation method
-# Leave one group out cross-validator
-groups = df_model['sub_id']
-logo = LeaveOneGroupOut()
-cv = logo.split(X, y, groups)
-
-best_model, best_params = train_ml(X, y, rf_base, param_grid_rf, cv)
+best_model, best_params = rf_train(df_model, X, y, cv_method='logo')
 
 # evaluate model performance using the best model 
 mae = []
 rmse = []
 r2 = []
+
+logo = LeaveOneGroupOut()
+groups = df_model['sub_id']
 
 for train_id, test_id in logo.split(X, y, groups):
     X_train, X_test = X[train_id], X[test_id]

@@ -3,12 +3,9 @@ from sklearn.pipeline import make_pipeline
 from sklearn.impute import SimpleImputer
 from sklearn.model_selection import LeaveOneGroupOut, GroupKFold
 from sklearn.ensemble import RandomForestRegressor
-from sklearn.metrics import make_scorer
-from build_dataframe import construct_df
-from train_model import train_ml
-#from multiouput_scorer import rmse_multioutput
+from train_model import train_model
 
-def rf_train(df_model, X, y, cv_method: str):
+def rf_train(df_model, X_trainval, y_trainval, cv_method: str):
     # RF base model
     rf_base = make_pipeline(
         SimpleImputer(strategy='mean'),
@@ -29,9 +26,14 @@ def rf_train(df_model, X, y, cv_method: str):
         # Leave one group out cross-validator
         groups = df_model['sub_id']
         logo = LeaveOneGroupOut()
-        cv = logo.split(X, y, groups)
+        cv = logo.split(X_trainval, y_trainval, groups=groups)
     elif cv_method == 'gkf':
-        cv = GroupKFold(n_splits=5)
+        # K-fold cross validator
+        trainval_mask = ~df_model['is_temporal_test']
+        group_trainval = df_model.loc[trainval_mask, ['sub_id', 'run_id']]
+        gkf = GroupKFold(n_splits=5)
+        cv = gkf.split(X_trainval, y_trainval, groups=group_trainval)
+
+    best_model, best_params = train_model(X_trainval, y_trainval, rf_base, param_grid_rf, cv)
     
-    best_model, best_params = train_ml(X, y, rf_base, param_grid_rf, cv)
     return best_model, best_params

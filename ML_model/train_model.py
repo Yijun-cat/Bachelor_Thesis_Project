@@ -3,7 +3,7 @@ from sklearn.model_selection import GridSearchCV
 
 
 # train model function
-def train_ml(X_trainval, y_trainval, base_model, param_grid, cv):
+def train_model(X_trainval, y_trainval, base_model, param_grid, cv):
     grid = GridSearchCV(
         estimator = base_model,
         param_grid = param_grid,
