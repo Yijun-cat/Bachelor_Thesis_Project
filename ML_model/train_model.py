@@ -1,15 +1,14 @@
 # function training model and selecet the best model using Grid Search Cross Validation
 from sklearn.model_selection import GridSearchCV
 
-
 # train model function
-def train_model(X_trainval, y_trainval, base_model, param_grid, cv):
+def train_model(X_trainval, y_trainval, base_model, param_grid, cv, device="cpu"):
     grid = GridSearchCV(
         estimator = base_model,
         param_grid = param_grid,
         scoring = 'neg_root_mean_squared_error',
         cv = cv,
-        n_jobs = -1,
+        n_jobs = 1 if device == "cuda" else -1,
         verbose = 1
     )
 

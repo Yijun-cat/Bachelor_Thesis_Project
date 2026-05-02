@@ -18,7 +18,8 @@ def construct_df(subjects: list):
             elif level == 4:
                 runs = ['04', '06', '09']
             for run_id in runs:
-                df = pd.read_csv(path + f"/data_ils/cp0{sub_id}/0{sub_id}_time_s/0{sub_id}_time_s_level-0{level}_run-0{run_id}_dat.csv", index_col=False)
+                df = pd.read_csv(path + f"/data_ils/cp0{sub_id}/0{sub_id}_time_s/0{sub_id}_time_s_level-0{level}_run-0{run_id}_dat.csv", 
+                                 index_col=False)
                 df['time_id'] = df.index
                 all_data.append(df)
     df_all = pd.concat(all_data, ignore_index=True)
@@ -43,8 +44,8 @@ def construct_df(subjects: list):
         # reserve test set
         df_model.loc[df_run.index, 'is_temporal_test'] = id_test
     # check column names of the dataframe
-    print("===Column Names===")
-    print(list(df_model.columns))
+    #print("===Column Names===")
+    #print(list(df_model.columns))
 
     # feature labels
     feature_cols = ['level',
@@ -63,7 +64,7 @@ def construct_df(subjects: list):
     target_cols = ['glideslope_error_deg', 'localizer_error_deg', 'airspeed_error_kts', 'total_error']
 
     # get feature and target columns
-    X = df_model[feature_cols].to_numpy()
-    y = df_model[target_cols].to_numpy()
+    # X = df_model[feature_cols].to_numpy()
+    # y = df_model[target_cols].to_numpy()
 
-    return df_model, X, y
+    return df_model, feature_cols, target_cols

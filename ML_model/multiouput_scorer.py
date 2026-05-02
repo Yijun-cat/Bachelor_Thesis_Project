@@ -1,6 +1,10 @@
 # define a scorer for multiple outputs
-from sklearn.metrics import mean_absolute_error, root_mean_squared_error, r2_score
+from sklearn.metrics import make_scorer
+import cupy as cp
+import numpy as np
 
 def rmse_multioutput(y_true, y_pred):
-    rmse_per_output = root_mean_squared_error(y_true, y_pred, multioutput='raw_values')
-    return rmse_per_output.mean()
+    y_true = cp.asarray(y_true)
+    y_pred = cp.asarray(y_pred)
+    return -float(cp.sqrt(cp.mean((y_true - y_pred) ** 2)).get())
+
