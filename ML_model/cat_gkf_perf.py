@@ -1,7 +1,7 @@
 from build_dataframe import construct_df
-from rf_grid import rf_grid
-from train_model import train_model
-from evaluate_rf import evaluate_temporal_rf
+from cat_grid import cat_grid
+from train_model import train_model_cat
+from evaluate_cat import evaluate_temporal_cat
 
 subjects = [
     "03", "04", "05", "06", "08",
@@ -17,21 +17,19 @@ trainval_mask = ~df_model["is_temporal_test"]
 X_trainval = df_model.loc[trainval_mask, feature_cols].to_numpy()
 y_trainval = df_model.loc[trainval_mask, target_cols].to_numpy()
 
-base_model, param_grid, cv = rf_grid(df_model, X_trainval, y_trainval, cv_method="gkf")
-best_model, best_params = train_model(X_trainval, y_trainval, base_model, param_grid, cv)
+base_model, param_grid, cv = cat_grid(df_model, X_trainval, y_trainval, cv_method="gkf")
+best_model, best_params = train_model_cat(X_trainval, y_trainval, base_model, param_grid, cv)
 
-results = evaluate_temporal_rf(
+results = evaluate_temporal_cat(
     df_model=df_model,
     feature_cols=feature_cols,
     target_cols=target_cols,
     best_model=best_model,
     lag_feature=False,
-    out_dir="rf_temporal_results",
-    shap_output_name="total_error",
-    shap_sample_size=1000
+    out_dir="cat_temporal_results",
+    shap_output_name="total_error"
 )
 
-print("=== RandomForest Performance (within-run temporal generalization) ===")
-print("Best parameters:", best_params)
+print("=== Catboost Performance (within-run temporal generalization) ===")
 print(results["df_summary"])
-print("Saved outputs to:", results["out_dir"])
+print("Best parameters:", best_params)

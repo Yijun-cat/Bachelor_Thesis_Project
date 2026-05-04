@@ -1,4 +1,4 @@
-# functions evaluate RandomForest model performance
+# functions evaluate XGBoost model performance
 import os
 import numpy as np
 import pandas as pd
@@ -35,16 +35,16 @@ def extract_expected_value(expected_value, output_idx):
         # convert to 1D array, flatten and choose scalar expected value for the output
         return np.array(expected_value).reshape(-1)[output_idx]
     # if expected_value is a single scalar
-    return expected_value 
+    return expected_value
 
 # Model performance evaluation on subject-level generalizatioon
-def evaluate_subject_level_rf(
+def evaluate_subject_level_xgb(
     df_model,
     feature_cols,
     target_cols,
     best_model,
     lag_feature = False,
-    out_dir = "rf_subject_results",
+    out_dir = "xgb_subject_results",
     shap_output_name = "total_error",
     shap_sample_size = 1000, # set shap sample size instead using whole dataset size
 ):
@@ -136,15 +136,15 @@ def evaluate_subject_level_rf(
 
     # save outputs to csv
     if lag_feature == True:
-        df_subject_metrics.to_csv(os.path.join(out_dir, "rf_subject_metrics_lag.csv"), index=False)
-        df_summary_full.to_csv(os.path.join(out_dir, "rf_subject_summary_lag.csv"), index=False)
-        df_predictions.to_csv(os.path.join(out_dir, "rf_subject_predictions_lag.csv"), index=False)
-        df_importance.to_csv(os.path.join(out_dir, "rf_feature_importance_lag.csv"), index=False)
+        df_subject_metrics.to_csv(os.path.join(out_dir, "xgb_subject_metrics_lag.csv"), index=False)
+        df_summary_full.to_csv(os.path.join(out_dir, "xgb_subject_summary_lag.csv"), index=False)
+        df_predictions.to_csv(os.path.join(out_dir, "xgb_subject_predictions_lag.csv"), index=False)
+        df_importance.to_csv(os.path.join(out_dir, "xgb_feature_importance_lag.csv"), index=False)
     else:
-        df_subject_metrics.to_csv(os.path.join(out_dir, "rf_subject_metrics.csv"), index=False)
-        df_summary_full.to_csv(os.path.join(out_dir, "rf_subject_summary.csv"), index=False)
-        df_predictions.to_csv(os.path.join(out_dir, "rf_subject_predictions.csv"), index=False)
-        df_importance.to_csv(os.path.join(out_dir, "rf_feature_importance.csv"), index=False)
+        df_subject_metrics.to_csv(os.path.join(out_dir, "xgb_subject_metrics.csv"), index=False)
+        df_summary_full.to_csv(os.path.join(out_dir, "xgb_subject_summary.csv"), index=False)
+        df_predictions.to_csv(os.path.join(out_dir, "xgb_subject_predictions.csv"), index=False)
+        df_importance.to_csv(os.path.join(out_dir, "xgb_feature_importance.csv"), index=False)
 
     # Figure 1: RMSE by subject for one key output 
     key_output = shap_output_name if shap_output_name in target_cols else target_cols[-1]
@@ -204,11 +204,11 @@ def evaluate_subject_level_rf(
     plt.barh(df_top["feature"], df_top["importance"], color="darkgreen") # plot horizontal bar chart
     plt.xlabel("Feature importance")
     plt.ylabel("Feature")
-    plt.title("Top RF feature importances")
+    plt.title("Top XGB feature importances")
     plt.tight_layout()
     if lag_feature == True:
-        plt.savefig(os.path.join(out_dir, "rf_feature_importance_top10_lag.png"), dpi=300, bbox_inches="tight")
-    plt.savefig(os.path.join(out_dir, "rf_feature_importance_top10.png"), dpi=300, bbox_inches="tight")
+        plt.savefig(os.path.join(out_dir, "xgb_feature_importance_top10_lag.png"), dpi=300, bbox_inches="tight")
+    plt.savefig(os.path.join(out_dir, "xgb_feature_importance_top10.png"), dpi=300, bbox_inches="tight")
     plt.close()
 
     # SHAP 
@@ -275,13 +275,13 @@ def evaluate_subject_level_rf(
     }
 
 # Model performance evaluation on within-run temporal generalization
-def evaluate_temporal_rf(
+def evaluate_temporal_xgb(
     df_model,
     feature_cols,
     target_cols,
     best_model,
     lag_feature = False,
-    out_dir="rf_temporal_results",
+    out_dir="xgb_temporal_results",
     shap_output_name="total_error",
     shap_sample_size=1000
 ):
@@ -360,15 +360,15 @@ def evaluate_temporal_rf(
 
     # Save tables
     if lag_feature == True:
-        df_summary_full.to_csv(os.path.join(out_dir, "rf_temporal_summary_lag.csv"), index=False)
-        df_run_metrics.to_csv(os.path.join(out_dir, "rf_temporal_run_metrics_lag.csv"), index=False)
-        df_predictions.to_csv(os.path.join(out_dir, "rf_temporal_predictions_lag.csv"), index=False)
-        df_importance.to_csv(os.path.join(out_dir, "rf_temporal_feature_importance_lag.csv"), index=False)
+        df_summary_full.to_csv(os.path.join(out_dir, "xgb_temporal_summary_lag.csv"), index=False)
+        df_run_metrics.to_csv(os.path.join(out_dir, "xgb_temporal_run_metrics_lag.csv"), index=False)
+        df_predictions.to_csv(os.path.join(out_dir, "xgb_temporal_predictions_lag.csv"), index=False)
+        df_importance.to_csv(os.path.join(out_dir, "xgb_temporal_feature_importance_lag.csv"), index=False)
     else:
-        df_summary_full.to_csv(os.path.join(out_dir, "rf_temporal_summary.csv"), index=False)
-        df_run_metrics.to_csv(os.path.join(out_dir, "rf_temporal_run_metrics.csv"), index=False)
-        df_predictions.to_csv(os.path.join(out_dir, "rf_temporal_predictions.csv"), index=False)
-        df_importance.to_csv(os.path.join(out_dir, "rf_temporal_feature_importance.csv"), index=False)
+        df_summary_full.to_csv(os.path.join(out_dir, "xgb_temporal_summary.csv"), index=False)
+        df_run_metrics.to_csv(os.path.join(out_dir, "xgb_temporal_run_metrics.csv"), index=False)
+        df_predictions.to_csv(os.path.join(out_dir, "xgb_temporal_predictions.csv"), index=False)
+        df_importance.to_csv(os.path.join(out_dir, "xgb_temporal_feature_importance.csv"), index=False)
 
     # Main output to plot
     key_output = shap_output_name if shap_output_name in target_cols else target_cols[-1]
@@ -426,18 +426,18 @@ def evaluate_temporal_rf(
     plt.savefig(os.path.join(out_dir, f"timeseries_example_{key_output}.png"), dpi=300, bbox_inches="tight")
     plt.close()
 
-     # figure 4: Feature importance
+    # figure 4: Feature importance
     topn = min(10, len(df_importance))
     df_top = df_importance.head(topn).sort_values("importance")
     plt.figure(figsize=(8, 5))
     plt.barh(df_top["feature"], df_top["importance"], color="darkgreen")
     plt.xlabel("Feature importance")
     plt.ylabel("Feature")
-    plt.title("Top RF feature importances")
+    plt.title("Top XGB feature importances")
     plt.tight_layout()
     if lag_feature == True:
-        plt.savefig(os.path.join(out_dir, "rf_feature_importance_top10_lag.png"), dpi=300, bbox_inches="tight")
-    plt.savefig(os.path.join(out_dir, "rf_feature_importance_top10.png"), dpi=300, bbox_inches="tight")
+        plt.savefig(os.path.join(out_dir, "xgb_feature_importance_top10_lag.png"), dpi=300, bbox_inches="tight")
+    plt.savefig(os.path.join(out_dir, "xgb_feature_importance_top10.png"), dpi=300, bbox_inches="tight")
     plt.close()
 
     # SHAP
@@ -473,8 +473,6 @@ def evaluate_temporal_rf(
         show=False
     )
     plt.tight_layout()
-    if lag_feature == True:
-        plt.savefig(os.path.join(out_dir, f"shap_bar_{key_output}_lag.png"), dpi=300, bbox_inches="tight")
     plt.savefig(os.path.join(out_dir, f"shap_bar_{key_output}.png"), dpi=300, bbox_inches="tight")
     plt.close()
 

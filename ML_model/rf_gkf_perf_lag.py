@@ -11,7 +11,7 @@ subjects = [
     "33", "35", "37", "38", "43"
 ]
 
-df_model, feature_cols, target_cols = construct_df(subjects, with_lag_feature=False)
+df_model, feature_cols, target_cols = construct_df(subjects, with_lag_feature=True)
 
 trainval_mask = ~df_model["is_temporal_test"]
 X_trainval = df_model.loc[trainval_mask, feature_cols].to_numpy()
@@ -25,13 +25,13 @@ results = evaluate_temporal_rf(
     feature_cols=feature_cols,
     target_cols=target_cols,
     best_model=best_model,
-    lag_feature=False,
+    lag_feature=True,
     out_dir="rf_temporal_results",
     shap_output_name="total_error",
     shap_sample_size=1000
 )
 
-print("=== RandomForest Performance (within-run temporal generalization) ===")
+print("=== RandomForest Performance with lag features (within-run temporal generalization) ===")
 print("Best parameters:", best_params)
 print(results["df_summary"])
 print("Saved outputs to:", results["out_dir"])

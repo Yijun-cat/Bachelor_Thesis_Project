@@ -2,13 +2,13 @@
 from sklearn.model_selection import GridSearchCV
 
 # train model function
-def train_model(X_trainval, y_trainval, base_model, param_grid, cv, device="cpu"):
+def train_model_rf(X_trainval, y_trainval, base_model, param_grid, cv):
     grid = GridSearchCV(
         estimator = base_model,
         param_grid = param_grid,
         scoring = 'neg_root_mean_squared_error',
         cv = cv,
-        n_jobs = 1 if device == "cuda" else -1,
+        n_jobs = -1,
         verbose = 1
     )
 
@@ -16,6 +16,42 @@ def train_model(X_trainval, y_trainval, base_model, param_grid, cv, device="cpu"
     grid.fit(X_trainval, y_trainval)
 
     # get the best model and its parameters
+    best_model = grid.best_estimator_
+    best_params = grid.best_params_
+
+    return best_model, best_params
+
+def train_model_xgb(X_trainval, y_trainval, base_model, param_grid, cv):
+    grid = GridSearchCV(
+        estimator = base_model,
+        param_grid = param_grid,
+        scoring = 'neg_root_mean_squared_error',
+        cv = cv,
+        n_jobs = -1,
+        verbose = 1
+    )
+
+    # fit train and validation set
+    grid.fit(X_trainval, y_trainval)
+
+    # get the best model and its parameters
+    best_model = grid.best_estimator_
+    best_params = grid.best_params_
+
+    return best_model, best_params
+
+def train_model_cat(X_trainval, y_trainval, base_model, param_grid, cv):
+    grid = GridSearchCV(
+        estimator=base_model,
+        param_grid=param_grid,
+        scoring="neg_root_mean_squared_error",
+        cv=cv,
+        n_jobs=1,
+        verbose=1
+    )
+
+    grid.fit(X_trainval, y_trainval)
+
     best_model = grid.best_estimator_
     best_params = grid.best_params_
 

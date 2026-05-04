@@ -8,10 +8,10 @@ def rf_grid(df_model, X_trainval, y_trainval, cv_method: str):
 
     # possible model hypermeters
     param_grid_rf = {
-        'n_estimators': [50, 100, 150], #[10, 25, 50, 100, 200, 500],
-        'max_depth': [None, 10, 20],
-        'min_samples_split': [2, 5, 10], # [2, 3, 4, 5, 6, 7, 8, 9, 10],
-        'min_samples_leaf': [1, 2, 4], # [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+        'n_estimators': [50, 100, 150],
+        #'max_depth': [None, 10, 20],
+        'min_samples_split': [2, 3, 4],
+        'min_samples_leaf': [2, 3, 4],
         'bootstrap': [True],
     }
 

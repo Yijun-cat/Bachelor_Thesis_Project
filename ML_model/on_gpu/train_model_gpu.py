@@ -5,7 +5,7 @@ os.environ["SCIPY_ARRAY_API"] = "1"
 from sklearn.model_selection import GridSearchCV
 from sklearn.metrics import make_scorer
 import cupy as cp
-from multiouput_scorer import rmse_multioutput
+from ML_model.on_gpu.multiouput_scorer import rmse_multioutput
 from sklearn import set_config
 set_config(array_api_dispatch=True)
 
@@ -19,7 +19,7 @@ def train_model_gpu(X_trainval, y_trainval, base_model, param_grid, cv, groups=N
         param_grid = param_grid,
         scoring = scorer if device =="cuda" else 'neg_root_mean_squared_error',
         cv = cv,
-        n_jobs = 20 if device == "cuda" else -1,
+        n_jobs = 1 if device == "cuda" else -1,
         verbose = 1
     )
 

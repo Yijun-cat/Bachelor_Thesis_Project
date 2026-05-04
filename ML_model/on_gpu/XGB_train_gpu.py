@@ -6,7 +6,7 @@ from sklearn.impute import SimpleImputer
 from sklearn.model_selection import LeaveOneGroupOut, GroupKFold
 from sklearn.multioutput import MultiOutputRegressor
 from xgboost import XGBRegressor
-from train_model_gpu import train_model_gpu
+from ML_model.on_gpu.train_model_gpu import train_model_gpu
 from sklearn import set_config
 set_config(array_api_dispatch=True)
 
@@ -15,7 +15,7 @@ def xgb_train_gpu(df_model, X_trainval, y_trainval, cv_method: str):
     xgb_base =XGBRegressor(
         objective='reg:squarederror',
         random_state=42,
-        n_jobs=20,
+        n_jobs=None,
         device = "cuda",
         multi_strategy = 'multi_output_tree'
     )
@@ -45,7 +45,15 @@ def xgb_train_gpu(df_model, X_trainval, y_trainval, cv_method: str):
     else:
         raise ValueError("cv_method must be 'logo' or 'gkf'")
 
-    best_model, best_params = train_model_gpu(X_trainval, y_trainval, xgb_base, param_grid_xgb, cv, groups=groups, device="cuda")
+    best_model, best_params = train_model_gpu(
+        X_trainval, 
+        y_trainval, 
+        xgb_base, 
+        param_grid_xgb, 
+        cv, 
+        groups=groups, 
+        device="cuda"
+    )
     
     return best_model, best_params
 
