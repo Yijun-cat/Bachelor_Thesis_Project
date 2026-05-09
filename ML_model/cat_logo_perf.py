@@ -12,7 +12,7 @@ subjects = [
 ]
 
 #df_model, feature_cols, target_cols = construct_df(subjects, with_lag_feature=False)
-df_model, feature_cols, target_cols = construct_df(["03", "04", "05"], with_lag_feature=False)
+df_model, feature_cols, target_cols = construct_df(subjects, with_lag_feature=False)
 X = df_model[feature_cols].to_numpy()
 y = df_model[target_cols].to_numpy()
 

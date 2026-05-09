@@ -8,17 +8,30 @@ import shap
 
 from sklearn.model_selection import LeaveOneGroupOut
 from sklearn.metrics import mean_absolute_error, root_mean_squared_error, r2_score
+from plotting_utils import (
+    save_name,
+    plot_rmse_bar,
+    plot_true_vs_pred_scatter,
+    plot_example_trace,
+    plot_all_outputs_time_traces,
+    plot_feature_importance_bar,
+    save_error_correlations_csv,
+    plot_correlations_vs_true_total_error,
+)
 
+'''
 def save_name(base_name, lag_feature=False, ext="csv"):
     if lag_feature:
         return f"{base_name}_lag.{ext}"
     return f"{base_name}.{ext}"
+'''
 
 # helper function that make sure value from SHAP explainer is scalar
 def scalar_expected_value(expected_value):
     if np.isscalar(expected_value):
         return expected_value
     return np.array(expected_value).reshape(-1)[0]
+
 
 def evaluate_subject_level_cat(
     df_model,
@@ -130,6 +143,168 @@ def evaluate_subject_level_cat(
         index=False
     )
 
+    plot_rmse_bar(
+        df_metrics=df_subject_metrics,
+        x_col="sub_id",
+        y_col=f"RMSE_{key_output}",
+        x_label="Held-out subject",
+        y_label=f"RMSE of {key_output}",
+        title=f"Subject-level generalization: {key_output} RMSE by subject",
+        out_dir=out_dir,
+        file_stub=f"rmse_by_subject_{key_output}",
+        lag_feature=lag_feature,
+        rotate_xticks=False,
+        figsize=(10, 5),
+    )
+
+    for out_col in target_cols:
+        plot_true_vs_pred_scatter(
+            df_predictions=df_predictions,
+            key_output=out_col,
+            out_dir=out_dir,
+            file_stub=f"scatter_true_vs_pred_{out_col}",
+            lag_feature=lag_feature,
+            max_points=5000,
+        )
+
+    '''
+    for out_col in target_cols:
+        plot_true_vs_pred_scatter(
+            df_predictions=df_predictions,
+            key_output=out_col,
+            out_dir=out_dir,
+            file_stub=f"scatter_true_vs_pred_{out_col}",
+            lag_feature=lag_feature,
+        )
+    '''
+
+    df_corr = save_error_correlations_csv(
+        df_predictions=df_predictions,
+        target_cols=target_cols,
+        out_dir=out_dir,
+        file_stub="error_correlations_vs_true_total_error",
+        lag_feature=lag_feature,
+        total_error_col="total_error",
+    )
+
+    plot_correlations_vs_true_total_error(
+        df_predictions=df_predictions,
+        target_cols=target_cols,
+        out_dir=out_dir,
+        file_stub="corr_vs_true_total_error",
+        lag_feature=lag_feature,
+        total_error_col="total_error",
+        # max_points_per_series=1200,
+        n_bins=20,
+        # show_points=False,
+    )
+
+    '''
+    plot_correlations_vs_true_total_error(
+        df_predictions=df_predictions,
+        target_cols=target_cols,
+        out_dir=out_dir,
+        file_stub="corr_vs_true_total_error",
+        lag_feature=lag_feature,
+        total_error_col="total_error",
+    )
+    '''
+
+    example_sub = df_predictions["sub_id"].iloc[0]
+    example_df = df_predictions[df_predictions["sub_id"] == example_sub].sort_values("time_s").copy()
+
+    plot_example_trace(
+        example_df=example_df,
+        key_output=key_output,
+        time_col="time_s",
+        title=f"Example prediction trace for held-out subject {example_sub}",
+        out_dir=out_dir,
+        file_stub=f"timeseries_example_{key_output}",
+        lag_feature=lag_feature,
+    )
+
+    plot_all_outputs_time_traces(
+        example_df=example_df,
+        x_col="time_s",
+        target_cols=target_cols,
+        title=f"Example prediction traces for held-out subject {example_sub}",
+        out_dir=out_dir,
+        file_stub="timeseries_example_all_outputs",
+        lag_feature=lag_feature,
+    )
+
+    plot_feature_importance_bar(
+        df_importance=df_importance,
+        title="Top Cat feature importances",
+        out_dir=out_dir,
+        file_stub="cat_feature_importance_top10",
+        lag_feature=lag_feature,
+    )
+
+    '''
+    plot_rmse_bar(
+        df_metrics=df_subject_metrics,
+        x_col="sub_id",
+        y_col=f"RMSE_{key_output}",
+        x_label="Held-out subject",
+        y_label=f"RMSE of {key_output}",
+        title=f"Subject-level generalization: {key_output} RMSE by subject",
+        out_dir=out_dir,
+        file_stub=f"rmse_by_subject_{key_output}",
+        lag_feature=lag_feature,
+        rotate_xticks=False,
+        figsize=(10, 5),
+    )
+
+    plot_true_vs_pred_scatter(
+        df_predictions=df_predictions,
+        key_output=key_output,
+        out_dir=out_dir,
+        file_stub=f"scatter_true_vs_pred_{key_output}",
+        lag_feature=lag_feature,
+    )
+
+    plot_all_outputs_true_vs_pred(
+        df_predictions=df_predictions,
+        target_cols=target_cols,
+        out_dir=out_dir,
+        file_stub="scatter_true_vs_pred_all_outputs",
+        lag_feature=lag_feature,
+    )
+
+    example_sub = df_predictions["sub_id"].iloc[0]
+    example_df = df_predictions[df_predictions["sub_id"] == example_sub].sort_values("time_s").copy()
+
+    plot_example_trace(
+        example_df=example_df,
+        key_output=key_output,
+        time_col="time_s",
+        title=f"Example prediction trace for held-out subject {example_sub}",
+        out_dir=out_dir,
+        file_stub=f"timeseries_example_{key_output}",
+        lag_feature=lag_feature,
+    )
+
+    plot_all_outputs_time_traces(
+        example_df=example_df,
+        x_col="time_s",
+        target_cols=target_cols,
+        title=f"Example prediction traces for held-out subject {example_sub}",
+        out_dir=out_dir,
+        file_stub="timeseries_example_all_outputs",
+        lag_feature=lag_feature,
+    )
+
+    plot_feature_importance_bar(
+        df_importance=df_importance,
+        title="Top CatBoost feature importances",
+        out_dir=out_dir,
+        file_stub="cat_feature_importance_top10",
+        lag_feature=lag_feature,
+    )
+    '''
+
+    '''
     key_rmse_col = f"RMSE_{key_output}"
 
     if key_rmse_col in df_subject_metrics.columns:
@@ -195,6 +370,7 @@ def evaluate_subject_level_cat(
         dpi=300, bbox_inches="tight"
     )
     plt.close()
+    '''
 
     X_shap_df = df_model[feature_cols].copy()
     if len(X_shap_df) > shap_sample_size:
@@ -240,7 +416,7 @@ def evaluate_subject_level_cat(
     shap.plots.waterfall(shap_exp, show=False)
     plt.tight_layout()
     plt.savefig(
-        os.path.join(out_dir, _save_name(f"shap_waterfall_example_{key_output}", lag_feature, "png")),
+        os.path.join(out_dir, save_name(f"shap_waterfall_example_{key_output}", lag_feature, "png")),
         dpi=300, bbox_inches="tight"
     )
     plt.close()
@@ -250,6 +426,7 @@ def evaluate_subject_level_cat(
         "df_summary": df_summary_full,
         "df_predictions": df_predictions,
         "df_importance": df_importance,
+        "df_corr": df_corr,
         "shap_output": key_output,
         "out_dir": out_dir
     }
@@ -353,6 +530,168 @@ def evaluate_temporal_cat(
         index=False
     )
 
+    plot_rmse_bar(
+        df_metrics=df_run_metrics,
+        x_col="group_run",
+        y_col=f"RMSE_{key_output}",
+        x_label="Run",
+        y_label=f"RMSE of {key_output}",
+        title=f"Temporal generalization: {key_output} RMSE by run",
+        out_dir=out_dir,
+        file_stub=f"rmse_by_run_{key_output}",
+        lag_feature=lag_feature,
+        rotate_xticks=True,
+        figsize=(12, 5),
+    )
+
+    for out_col in target_cols:
+        plot_true_vs_pred_scatter(
+            df_predictions=df_predictions,
+            key_output=out_col,
+            out_dir=out_dir,
+            file_stub=f"scatter_true_vs_pred_{out_col}",
+            lag_feature=lag_feature,
+            max_points=5000,
+        )
+
+    '''
+    for out_col in target_cols:
+        plot_true_vs_pred_scatter(
+            df_predictions=df_predictions,
+            key_output=out_col,
+            out_dir=out_dir,
+            file_stub=f"scatter_true_vs_pred_{out_col}",
+            lag_feature=lag_feature,
+        )
+    '''
+
+    df_corr = save_error_correlations_csv(
+        df_predictions=df_predictions,
+        target_cols=target_cols,
+        out_dir=out_dir,
+        file_stub="error_correlations_vs_true_total_error",
+        lag_feature=lag_feature,
+        total_error_col="total_error",
+    )
+
+    plot_correlations_vs_true_total_error(
+        df_predictions=df_predictions,
+        target_cols=target_cols,
+        out_dir=out_dir,
+        file_stub="corr_vs_true_total_error",
+        lag_feature=lag_feature,
+        total_error_col="total_error",
+        # max_points_per_series=1200,
+        n_bins=20,
+        # show_points=False,
+    )
+
+    '''
+    plot_correlations_vs_true_total_error(
+        df_predictions=df_predictions,
+        target_cols=target_cols,
+        out_dir=out_dir,
+        file_stub="corr_vs_true_total_error",
+        lag_feature=lag_feature,
+        total_error_col="total_error",
+    )
+    '''
+
+    example_run = df_predictions["group_run"].iloc[0]
+    example_df = df_predictions[df_predictions["group_run"] == example_run].sort_values("time_s").copy()
+
+    plot_example_trace(
+        example_df=example_df,
+        key_output=key_output,
+        time_col="time_s",
+        title=f"Example temporal prediction trace for run {example_run}",
+        out_dir=out_dir,
+        file_stub=f"timeseries_example_{key_output}",
+        lag_feature=lag_feature,
+    )
+
+    plot_all_outputs_time_traces(
+        example_df=example_df,
+        x_col="time_s",
+        target_cols=target_cols,
+        title=f"Example temporal prediction traces for run {example_run}",
+        out_dir=out_dir,
+        file_stub="timeseries_example_all_outputs",
+        lag_feature=lag_feature,
+    )
+
+    plot_feature_importance_bar(
+        df_importance=df_importance,
+        title="Top Cat feature importances",
+        out_dir=out_dir,
+        file_stub="cat_feature_importance_top10",
+        lag_feature=lag_feature,
+    )
+
+    '''
+    plot_rmse_bar(
+        df_metrics=df_run_metrics,
+        x_col="group_run",
+        y_col=f"RMSE_{key_output}",
+        x_label="Run",
+        y_label=f"RMSE of {key_output}",
+        title=f"Temporal generalization: {key_output} RMSE by run",
+        out_dir=out_dir,
+        file_stub=f"rmse_by_run_{key_output}",
+        lag_feature=lag_feature,
+        rotate_xticks=True,
+        figsize=(12, 5),
+    )
+
+    plot_true_vs_pred_scatter(
+        df_predictions=df_predictions,
+        key_output=key_output,
+        out_dir=out_dir,
+        file_stub=f"scatter_true_vs_pred_{key_output}",
+        lag_feature=lag_feature,
+    )
+
+    plot_all_outputs_true_vs_pred(
+        df_predictions=df_predictions,
+        target_cols=target_cols,
+        out_dir=out_dir,
+        file_stub="scatter_true_vs_pred_all_outputs",
+        lag_feature=lag_feature,
+    )
+
+    example_run = df_predictions["group_run"].iloc[0]
+    example_df = df_predictions[df_predictions["group_run"] == example_run].sort_values("time_s").copy()
+
+    plot_example_trace(
+        example_df=example_df,
+        key_output=key_output,
+        time_col="time_s",
+        title=f"Example temporal prediction trace for run {example_run}",
+        out_dir=out_dir,
+        file_stub=f"timeseries_example_{key_output}",
+        lag_feature=lag_feature,
+    )
+
+    plot_all_outputs_time_traces(
+        example_df=example_df,
+        x_col="time_s",
+        target_cols=target_cols,
+        title=f"Example temporal prediction traces for run {example_run}",
+        out_dir=out_dir,
+        file_stub="timeseries_example_all_outputs",
+        lag_feature=lag_feature,
+    )
+
+    plot_feature_importance_bar(
+        df_importance=df_importance,
+        title="Top CatBoost feature importances",
+        out_dir=out_dir,
+        file_stub="cat_feature_importance_top10",
+        lag_feature=lag_feature,
+    )
+    '''
+
+    '''
     key_rmse_col = f"RMSE_{key_output}"
     if key_rmse_col in df_run_metrics.columns:
         plot_df = df_run_metrics.sort_values(key_rmse_col).copy()
@@ -420,6 +759,7 @@ def evaluate_temporal_cat(
         dpi=300, bbox_inches="tight"
     )
     plt.close()
+    '''
 
     X_shap_df = df_model.loc[trainval_mask, feature_cols].copy()
     if len(X_shap_df) > shap_sample_size:
@@ -475,6 +815,7 @@ def evaluate_temporal_cat(
         "df_run_metrics": df_run_metrics,
         "df_predictions": df_predictions,
         "df_importance": df_importance,
+        "df_corr": df_corr,
         "shap_output": key_output,
         "out_dir": out_dir
     }

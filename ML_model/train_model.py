@@ -46,7 +46,7 @@ def train_model_cat(X_trainval, y_trainval, base_model, param_grid, cv):
         param_grid=param_grid,
         scoring="neg_root_mean_squared_error",
         cv=cv,
-        n_jobs=1,
+        n_jobs=8,
         verbose=1
     )
 

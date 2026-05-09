@@ -31,5 +31,5 @@ results = evaluate_temporal_cat(
 )
 
 print("=== Catboost Performance (within-run temporal generalization) ===")
-print(results["df_summary"])
 print("Best parameters:", best_params)
+print(results["df_summary"])

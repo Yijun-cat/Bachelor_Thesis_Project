@@ -1,6 +1,6 @@
 from build_dataframe import construct_df
 from rf_grid import rf_grid
-from train_model import train_model
+from train_model import train_model_rf
 from evaluate_rf import evaluate_temporal_rf
 
 subjects = [
@@ -18,7 +18,7 @@ X_trainval = df_model.loc[trainval_mask, feature_cols].to_numpy()
 y_trainval = df_model.loc[trainval_mask, target_cols].to_numpy()
 
 base_model, param_grid, cv = rf_grid(df_model, X_trainval, y_trainval, cv_method="gkf")
-best_model, best_params = train_model(X_trainval, y_trainval, base_model, param_grid, cv)
+best_model, best_params = train_model_rf(X_trainval, y_trainval, base_model, param_grid, cv)
 
 results = evaluate_temporal_rf(
     df_model=df_model,

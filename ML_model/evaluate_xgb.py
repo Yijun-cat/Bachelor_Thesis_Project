@@ -7,7 +7,17 @@ import seaborn as sns
 import shap
 
 from sklearn.model_selection import LeaveOneGroupOut
+from sklearn.multioutput import MultiOutputRegressor
 from sklearn.metrics import mean_absolute_error, root_mean_squared_error, r2_score
+from plotting_utils import (
+    plot_rmse_bar,
+    plot_true_vs_pred_scatter,
+    plot_example_trace,
+    plot_all_outputs_time_traces,
+    plot_feature_importance_bar,
+    save_error_correlations_csv,
+    plot_correlations_vs_true_total_error,
+)
 
 # Helper function get shap values
 def extract_shap_for_output(shap_values, output_idx):
@@ -129,10 +139,32 @@ def evaluate_subject_level_xgb(
     # Refit final model on all data for importance and SHAP
     best_model.fit(X, y)
 
+    # handle both single-estimator models (RF) and MultiOutputRegressor(XGB)
+    if hasattr(best_model, "feature_importances_"):
+        # RandomForestRegressor case
+        importances = best_model.feature_importances_
+    else:
+        # MultiOutputRegressor case: average importances over all outputs
+        if not hasattr(best_model, "estimators_"):
+            raise AttributeError("best_model has neither feature_importances_ nor estimators_.")
+        importances = np.mean(
+            [est.feature_importances_ for est in best_model.estimators_],
+            axis=0,
+        )
+
+    df_importance = (
+        pd.DataFrame({"feature": feature_cols, "importance": importances})
+        .sort_values("importance", ascending=False)
+    )
+
+    '''
     df_importance = pd.DataFrame({
         "feature": feature_cols,
         "importance": best_model.feature_importances_
     }).sort_values("importance", ascending=False)
+    '''
+
+    
 
     # save outputs to csv
     if lag_feature == True:
@@ -146,6 +178,96 @@ def evaluate_subject_level_xgb(
         df_predictions.to_csv(os.path.join(out_dir, "xgb_subject_predictions.csv"), index=False)
         df_importance.to_csv(os.path.join(out_dir, "xgb_feature_importance.csv"), index=False)
 
+    key_output = shap_output_name if shap_output_name in target_cols else target_cols[-1]
+
+    plot_rmse_bar(
+        df_metrics=df_subject_metrics,
+        x_col="sub_id",
+        y_col=f"RMSE_{key_output}",
+        x_label="Held-out subject",
+        y_label=f"RMSE of {key_output}",
+        title=f"Subject-level generalization: {key_output} RMSE by subject",
+        out_dir=out_dir,
+        file_stub=f"rmse_by_subject_{key_output}",
+        lag_feature=lag_feature,
+        rotate_xticks=False,
+        figsize=(10, 5),
+    )
+
+    for out_col in target_cols:
+        plot_true_vs_pred_scatter(
+            df_predictions=df_predictions,
+            key_output=out_col,
+            out_dir=out_dir,
+            file_stub=f"scatter_true_vs_pred_{out_col}",
+            lag_feature=lag_feature,
+            max_points=5000,
+        )
+
+    '''
+    for out_col in target_cols:
+        plot_true_vs_pred_scatter(
+            df_predictions=df_predictions,
+            key_output=out_col,
+            out_dir=out_dir,
+            file_stub=f"scatter_true_vs_pred_{out_col}",
+            lag_feature=lag_feature,
+        )
+    '''
+
+    df_corr = save_error_correlations_csv(
+        df_predictions=df_predictions,
+        target_cols=target_cols,
+        out_dir=out_dir,
+        file_stub="error_correlations_vs_true_total_error",
+        lag_feature=lag_feature,
+        total_error_col="total_error",
+    )
+
+    plot_correlations_vs_true_total_error(
+        df_predictions=df_predictions,
+        target_cols=target_cols,
+        out_dir=out_dir,
+        file_stub="corr_vs_true_total_error",
+        lag_feature=lag_feature,
+        total_error_col="total_error",
+        # max_points_per_series=1200,
+        n_bins=20,
+        # show_points=False,
+    )
+
+    example_sub = df_predictions["sub_id"].iloc[0]
+    example_df = df_predictions[df_predictions["sub_id"] == example_sub].sort_values("time_s").copy()
+
+    plot_example_trace(
+        example_df=example_df,
+        key_output=key_output,
+        time_col="time_s",
+        title=f"Example prediction trace for held-out subject {example_sub}",
+        out_dir=out_dir,
+        file_stub=f"timeseries_example_{key_output}",
+        lag_feature=lag_feature,
+    )
+
+    plot_all_outputs_time_traces(
+        example_df=example_df,
+        x_col="time_s",
+        target_cols=target_cols,
+        title=f"Example prediction traces for held-out subject {example_sub}",
+        out_dir=out_dir,
+        file_stub="timeseries_example_all_outputs",
+        lag_feature=lag_feature,
+    )
+
+    plot_feature_importance_bar(
+        df_importance=df_importance,
+        title="Top XGB feature importances",
+        out_dir=out_dir,
+        file_stub="xgb_feature_importance_top10",
+        lag_feature=lag_feature,
+    )
+    
+    '''
     # Figure 1: RMSE by subject for one key output 
     key_output = shap_output_name if shap_output_name in target_cols else target_cols[-1]
     key_rmse_col = f"RMSE_{key_output}"
@@ -210,19 +332,35 @@ def evaluate_subject_level_xgb(
         plt.savefig(os.path.join(out_dir, "xgb_feature_importance_top10_lag.png"), dpi=300, bbox_inches="tight")
     plt.savefig(os.path.join(out_dir, "xgb_feature_importance_top10.png"), dpi=300, bbox_inches="tight")
     plt.close()
+    '''
 
     # SHAP 
     shap_output_idx = target_cols.index(key_output)
 
+    base_for_shap = best_model
+    if isinstance(best_model, MultiOutputRegressor):
+        base_for_shap = best_model.estimators_[shap_output_idx]
+
+    explainer = shap.TreeExplainer(base_for_shap)
+
+    X_shap_df = df_model[feature_cols].copy()
+    if len(X_shap_df) > shap_sample_size:
+        X_shap_df = X_shap_df.sample(n=shap_sample_size, random_state=42)
+
+    shap_values_all = explainer.shap_values(X_shap_df)
+
+    '''
     X_shap_df = df_model[feature_cols].copy()
     if len(X_shap_df) > shap_sample_size:
         X_shap_df = X_shap_df.sample(n=shap_sample_size, random_state=42)
 
     explainer = shap.TreeExplainer(best_model)
     shap_values_all = explainer.shap_values(X_shap_df)
+    '''
 
     shap_values_target = extract_shap_for_output(shap_values_all, shap_output_idx)
     expected_value_target = extract_expected_value(explainer.expected_value, shap_output_idx)
+    
 
     # SHAP summary beeswarm
     shap.summary_plot(
@@ -270,6 +408,7 @@ def evaluate_subject_level_xgb(
         "df_summary": df_summary_full,
         "df_predictions": df_predictions,
         "df_importance": df_importance,
+        "df_corr": df_corr,
         "shap_output": key_output,
         "out_dir": out_dir
     }
@@ -351,12 +490,32 @@ def evaluate_temporal_xgb(
         rows_run_metrics.append(row)
 
     df_run_metrics = pd.DataFrame(rows_run_metrics)
+
+    # handle both single-estimator models (RF) and MultiOutputRegressor(XGB)
+    if hasattr(best_model, "feature_importances_"):
+        # RandomForestRegressor case
+        importances = best_model.feature_importances_
+    else:
+        # MultiOutputRegressor case: average importances over all outputs
+        if not hasattr(best_model, "estimators_"):
+            raise AttributeError("best_model has neither feature_importances_ nor estimators_.")
+        importances = np.mean(
+            [est.feature_importances_ for est in best_model.estimators_],
+            axis=0,
+        )
+
+    df_importance = (
+        pd.DataFrame({"feature": feature_cols, "importance": importances})
+        .sort_values("importance", ascending=False)
+    )
         
+    '''    
     # feature importance
     df_importance = pd.DataFrame({
         "feature": feature_cols,
         "importance": best_model.feature_importances_
     }).sort_values("importance", ascending=False)
+    '''
 
     # Save tables
     if lag_feature == True:
@@ -373,6 +532,105 @@ def evaluate_temporal_xgb(
     # Main output to plot
     key_output = shap_output_name if shap_output_name in target_cols else target_cols[-1]
 
+    plot_rmse_bar(
+        df_metrics=df_run_metrics,
+        x_col="group_run",
+        y_col=f"RMSE_{key_output}",
+        x_label="Run",
+        y_label=f"RMSE of {key_output}",
+        title=f"Temporal generalization: {key_output} RMSE by run",
+        out_dir=out_dir,
+        file_stub=f"rmse_by_run_{key_output}",
+        lag_feature=lag_feature,
+        rotate_xticks=True,
+        figsize=(12, 5),
+    )
+
+    for out_col in target_cols:
+        plot_true_vs_pred_scatter(
+            df_predictions=df_predictions,
+            key_output=out_col,
+            out_dir=out_dir,
+            file_stub=f"scatter_true_vs_pred_{out_col}",
+            lag_feature=lag_feature,
+            max_points=5000,
+        )
+
+    '''
+    for out_col in target_cols:
+        plot_true_vs_pred_scatter(
+            df_predictions=df_predictions,
+            key_output=out_col,
+            out_dir=out_dir,
+            file_stub=f"scatter_true_vs_pred_{out_col}",
+            lag_feature=lag_feature,
+        )
+    '''
+
+    df_corr = save_error_correlations_csv(
+        df_predictions=df_predictions,
+        target_cols=target_cols,
+        out_dir=out_dir,
+        file_stub="error_correlations_vs_true_total_error",
+        lag_feature=lag_feature,
+        total_error_col="total_error",
+    )
+
+    plot_correlations_vs_true_total_error(
+        df_predictions=df_predictions,
+        target_cols=target_cols,
+        out_dir=out_dir,
+        file_stub="corr_vs_true_total_error",
+        lag_feature=lag_feature,
+        total_error_col="total_error",
+        # max_points_per_series=1200,
+        n_bins=20,
+        # show_points=False,
+    )
+
+    '''
+    plot_correlations_vs_true_total_error(
+        df_predictions=df_predictions,
+        target_cols=target_cols,
+        out_dir=out_dir,
+        file_stub="corr_vs_true_total_error",
+        lag_feature=lag_feature,
+        total_error_col="total_error",
+    )
+    '''
+
+    example_run = df_predictions["group_run"].iloc[0]
+    example_df = df_predictions[df_predictions["group_run"] == example_run].sort_values("time_s").copy()
+
+    plot_example_trace(
+        example_df=example_df,
+        key_output=key_output,
+        time_col="time_s",
+        title=f"Example temporal prediction trace for run {example_run}",
+        out_dir=out_dir,
+        file_stub=f"timeseries_example_{key_output}",
+        lag_feature=lag_feature,
+    )
+
+    plot_all_outputs_time_traces(
+        example_df=example_df,
+        x_col="time_s",
+        target_cols=target_cols,
+        title=f"Example temporal prediction traces for run {example_run}",
+        out_dir=out_dir,
+        file_stub="timeseries_example_all_outputs",
+        lag_feature=lag_feature,
+    )
+
+    plot_feature_importance_bar(
+        df_importance=df_importance,
+        title="Top XGB feature importances",
+        out_dir=out_dir,
+        file_stub="xgb_feature_importance_top10",
+        lag_feature=lag_feature,
+    )
+
+    '''
     # figure 1: RMSE by run
     key_rmse_col = f"RMSE_{key_output}"
     if key_rmse_col in df_run_metrics.columns:
@@ -439,16 +697,30 @@ def evaluate_temporal_xgb(
         plt.savefig(os.path.join(out_dir, "xgb_feature_importance_top10_lag.png"), dpi=300, bbox_inches="tight")
     plt.savefig(os.path.join(out_dir, "xgb_feature_importance_top10.png"), dpi=300, bbox_inches="tight")
     plt.close()
+    '''
 
     # SHAP
     shap_output_idx = target_cols.index(key_output)
 
+    base_for_shap = best_model
+    if isinstance(best_model, MultiOutputRegressor):
+        base_for_shap = best_model.estimators_[shap_output_idx]
+
+    explainer = shap.TreeExplainer(base_for_shap)
+
+    X_shap_df = df_model.loc[trainval_mask, feature_cols].copy()
+    if len(X_shap_df) > shap_sample_size:
+        X_shap_df = X_shap_df.sample(n=shap_sample_size, random_state=42)
+    shap_values_all = explainer.shap_values(X_shap_df)
+
+    '''
     X_shap_df = df_model.loc[trainval_mask, feature_cols].copy()
     if len(X_shap_df) > shap_sample_size:
         X_shap_df = X_shap_df.sample(n=shap_sample_size, random_state=42)
 
     explainer = shap.TreeExplainer(best_model)
     shap_values_all = explainer.shap_values(X_shap_df)
+    '''
 
     shap_values_target = extract_shap_for_output(shap_values_all, shap_output_idx)
     expected_value_target = extract_expected_value(explainer.expected_value, shap_output_idx)
@@ -494,6 +766,7 @@ def evaluate_temporal_xgb(
         "df_run_metrics": df_run_metrics,
         "df_predictions": df_predictions,
         "df_importance": df_importance,
+        "df_corr": df_corr,
         "shap_output": key_output,
         "out_dir": out_dir
     }

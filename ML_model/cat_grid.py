@@ -7,16 +7,18 @@ def cat_grid(df_model, X_trainval, y_trainval, cv_method: str):
     base_estimator = CatBoostRegressor(
         loss_function='RMSE',
         random_seed = 42,
-        task_type = "GPU",
-        devices = "0",
+        # task_type = "GPU",
+        task_type = "CPU",
+        # devices = "0",
         verbose = False,
+        thread_count = 1,
     )
 
     base_model_cat = MultiOutputRegressor(base_estimator)
 
     param_grid_cat = {
         "estimator__depth": [2, 3],
-        "estimator__learning_rate": [0.01, 0.03, 0.05],
+        "estimator__learning_rate": [0.01, 0.02, 0.03, 0.05],
         "estimator__l2_leaf_reg": [6, 10]
     }
 
