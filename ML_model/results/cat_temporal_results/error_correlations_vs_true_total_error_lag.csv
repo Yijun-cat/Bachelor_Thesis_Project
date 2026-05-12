@@ -1,0 +1,9 @@
+output,series_type,x_col,y_col,pearson_r,n
+glideslope_error_deg,true,true_total_error,true_glideslope_error_deg,0.10479029980383756,17991
+glideslope_error_deg,pred,true_total_error,pred_glideslope_error_deg,0.09968236273844959,17991
+localizer_error_deg,true,true_total_error,true_localizer_error_deg,-0.10000116185866058,17991
+localizer_error_deg,pred,true_total_error,pred_localizer_error_deg,-0.10400598322175515,17991
+airspeed_error_kts,true,true_total_error,true_airspeed_error_kts,0.2027510324577429,17991
+airspeed_error_kts,pred,true_total_error,pred_airspeed_error_kts,0.20822490936638297,17991
+total_error,true,true_total_error,true_total_error,1.0,17991
+total_error,pred,true_total_error,pred_total_error,0.9952604199016692,17991

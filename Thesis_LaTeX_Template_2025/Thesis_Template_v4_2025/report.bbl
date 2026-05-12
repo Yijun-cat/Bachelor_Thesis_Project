@@ -1,0 +1,80 @@
+\begin{thebibliography}{}
+
+\bibitem [\protect \citeauthoryear {%
+Ananny%
+\ \BBA {} Crawford%
+}{%
+Ananny%
+\ \BBA {} Crawford%
+}{%
+{\protect \APACyear {2018}}%
+}]{%
+ananny2018seeing}
+\APACinsertmetastar {%
+ananny2018seeing}%
+\begin{APACrefauthors}%
+Ananny, M.%
+\BCBT {}\ \BBA {} Crawford, K.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2018}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Seeing without knowing: Limitations of the transparency
+  ideal and its application to algorithmic accountability} {Seeing without
+  knowing: Limitations of the transparency ideal and its application to
+  algorithmic accountability}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{New Media \& Society}{20}{3}{973--989}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+MacKay%
+\ \BBA {} Mac~Kay%
+}{%
+MacKay%
+\ \BBA {} Mac~Kay%
+}{%
+{\protect \APACyear {2003}}%
+}]{%
+mackay2003information}
+\APACinsertmetastar {%
+mackay2003information}%
+\begin{APACrefauthors}%
+MacKay, D\BPBI J.%
+\BCBT {}\ \BBA {} Mac~Kay, D\BPBI J.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYear{2003}.
+\newblock
+\APACrefbtitle {Information theory, inference and learning algorithms}
+  {Information theory, inference and learning algorithms}.
+\newblock
+\APACaddressPublisher{}{Cambridge university press}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Minsky%
+}{%
+Minsky%
+}{%
+{\protect \APACyear {1961}}%
+}]{%
+minsky1961steps}
+\APACinsertmetastar {%
+minsky1961steps}%
+\begin{APACrefauthors}%
+Minsky, M.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{1961}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Steps toward artificial intelligence} {Steps toward
+  artificial intelligence}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Proceedings of the IRE}{49}{1}{8--30}.
+\PrintBackRefs{\CurrentBib}
+
+\end{thebibliography}
