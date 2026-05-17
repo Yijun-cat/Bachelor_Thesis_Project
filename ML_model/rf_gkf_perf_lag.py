@@ -1,3 +1,4 @@
+# Random Forest temporal generalization with lagged features
 from build_dataframe import construct_df
 from rf_grid import rf_grid
 from train_model import train_model_rf
@@ -13,6 +14,7 @@ subjects = [
 
 df_model, feature_cols, target_cols = construct_df(subjects, with_lag_feature=True)
 
+# group train and validation set
 trainval_mask = ~df_model["is_temporal_test"]
 X_trainval = df_model.loc[trainval_mask, feature_cols].to_numpy()
 y_trainval = df_model.loc[trainval_mask, target_cols].to_numpy()
@@ -20,6 +22,7 @@ y_trainval = df_model.loc[trainval_mask, target_cols].to_numpy()
 base_model, param_grid, cv = rf_grid(df_model, X_trainval, y_trainval, cv_method="gkf")
 best_model, best_params = train_model_rf(X_trainval, y_trainval, base_model, param_grid, cv)
 
+# evaluate model performance
 results = evaluate_temporal_rf(
     df_model=df_model,
     feature_cols=feature_cols,

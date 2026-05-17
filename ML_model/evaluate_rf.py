@@ -181,17 +181,6 @@ def evaluate_subject_level_rf(
             max_points=5000,
         )
 
-    '''
-    for out_col in target_cols:
-        plot_true_vs_pred_scatter(
-            df_predictions=df_predictions,
-            key_output=out_col,
-            out_dir=out_dir,
-            file_stub=f"scatter_true_vs_pred_{out_col}",
-            lag_feature=lag_feature,
-        )
-    '''
-
     df_corr = save_error_correlations_csv(
         df_predictions=df_predictions,
         target_cols=target_cols,
@@ -208,21 +197,8 @@ def evaluate_subject_level_rf(
         file_stub="corr_vs_true_total_error",
         lag_feature=lag_feature,
         total_error_col="total_error",
-        # max_points_per_series=1200,
         n_bins=20,
-        # show_points=False,
     )
-
-    '''
-    plot_correlations_vs_true_total_error(
-        df_predictions=df_predictions,
-        target_cols=target_cols,
-        out_dir=out_dir,
-        file_stub="corr_vs_true_total_error",
-        lag_feature=lag_feature,
-        total_error_col="total_error",
-    )
-    '''
 
     example_sub = df_predictions["sub_id"].iloc[0]
     example_df = df_predictions[df_predictions["sub_id"] == example_sub].sort_values("time_s").copy()
@@ -254,73 +230,6 @@ def evaluate_subject_level_rf(
         file_stub="rf_feature_importance_top10",
         lag_feature=lag_feature,
     )
-
-    '''
-    # Figure 1: RMSE by subject for one key output 
-    key_output = shap_output_name if shap_output_name in target_cols else target_cols[-1]
-    key_rmse_col = f"RMSE_{key_output}"
-
-    if key_rmse_col in df_subject_metrics.columns:
-        plt.figure(figsize=(10, 5))
-        plot_df = df_subject_metrics.sort_values(key_rmse_col)
-        sns.barplot(data=plot_df, x="sub_id", y=key_rmse_col, color="steelblue")
-        plt.axhline(plot_df[key_rmse_col].mean(), color="red", linestyle="--", label="Mean") # add horizontal line at mean RMSE
-        plt.xlabel("Held-out subject")
-        plt.ylabel(f"RMSE of {key_output}")
-        plt.title(f"Subject-level generalization: {key_output} RMSE by subject")
-        plt.legend()
-        plt.tight_layout()
-        if lag_feature == True:
-            plt.savefig(os.path.join(out_dir, f"rmse_by_subject_{key_output}_lag.png"), dpi=300, bbox_inches="tight")
-        plt.savefig(os.path.join(out_dir, f"rmse_by_subject_{key_output}.png"), dpi=300, bbox_inches="tight")
-        plt.close()
-
-    # Figure 2: True vs predicted scatter
-    plt.figure(figsize=(6, 6))
-    x_true = df_predictions[f"true_{key_output}"]
-    y_pred_plot = df_predictions[f"pred_{key_output}"]
-    plt.scatter(x_true, y_pred_plot, alpha=0.25)
-    lims = [min(x_true.min(), y_pred_plot.min()), max(x_true.max(), y_pred_plot.max())]
-    plt.plot(lims, lims, "r--") # draw line for perfect predictions
-    plt.xlabel(f"True {key_output}")
-    plt.ylabel(f"Predicted {key_output}")
-    plt.title(f"True vs predicted {key_output}")
-    plt.tight_layout()
-    if lag_feature == True:
-        plt.savefig(os.path.join(out_dir, f"scatter_true_vs_pred_{key_output}_lag.png"), dpi=300, bbox_inches="tight")
-    plt.savefig(os.path.join(out_dir, f"scatter_true_vs_pred_{key_output}.png"), dpi=300, bbox_inches="tight")
-    plt.close()
-
-    # Figure 3: Example time-series trace
-    example_sub = df_predictions["sub_id"].iloc[0]
-    example_df = df_predictions[df_predictions["sub_id"] == example_sub].sort_values("time_s").copy()
-    plt.figure(figsize=(12, 4))
-    plt.plot(example_df["time_s"], example_df[f"true_{key_output}"], label=f"True {key_output}") # plot true time series
-    plt.plot(example_df["time_s"], example_df[f"pred_{key_output}"], label=f"Predicted {key_output}", alpha=0.85) # plot predicted 
-    plt.xlabel("Time (s)")
-    plt.ylabel(key_output)
-    plt.title(f"Example prediction trace for held-out subject {example_sub}")
-    plt.legend()
-    plt.tight_layout()
-    if lag_feature == True:
-        plt.savefig(os.path.join(out_dir, f"timeseries_example_{key_output}_lag.png"), dpi=300, bbox_inches="tight")
-    plt.savefig(os.path.join(out_dir, f"timeseries_example_{key_output}.png"), dpi=300, bbox_inches="tight")
-    plt.close()
-
-    # Figure 4: RF model feature importance
-    topn = min(10, len(df_importance)) # at least 10 features to plot
-    df_top = df_importance.head(topn).sort_values("importance")
-    plt.figure(figsize=(8, 5))
-    plt.barh(df_top["feature"], df_top["importance"], color="darkgreen") # plot horizontal bar chart
-    plt.xlabel("Feature importance")
-    plt.ylabel("Feature")
-    plt.title("Top RF feature importances")
-    plt.tight_layout()
-    if lag_feature == True:
-        plt.savefig(os.path.join(out_dir, "rf_feature_importance_top10_lag.png"), dpi=300, bbox_inches="tight")
-    plt.savefig(os.path.join(out_dir, "rf_feature_importance_top10.png"), dpi=300, bbox_inches="tight")
-    plt.close()
-    '''
 
     # SHAP 
     shap_output_idx = target_cols.index(key_output)
@@ -509,17 +418,6 @@ def evaluate_temporal_rf(
             max_points=5000,
         )
 
-    '''
-    for out_col in target_cols:
-        plot_true_vs_pred_scatter(
-            df_predictions=df_predictions,
-            key_output=out_col,
-            out_dir=out_dir,
-            file_stub=f"scatter_true_vs_pred_{out_col}",
-            lag_feature=lag_feature,
-        )
-    '''
-
     df_corr = save_error_correlations_csv(
         df_predictions=df_predictions,
         target_cols=target_cols,
@@ -536,21 +434,8 @@ def evaluate_temporal_rf(
         file_stub="corr_vs_true_total_error",
         lag_feature=lag_feature,
         total_error_col="total_error",
-        # max_points_per_series=1200,
         n_bins=20,
-        # show_points=False,
     )
-
-    '''
-    plot_correlations_vs_true_total_error(
-        df_predictions=df_predictions,
-        target_cols=target_cols,
-        out_dir=out_dir,
-        file_stub="corr_vs_true_total_error",
-        lag_feature=lag_feature,
-        total_error_col="total_error",
-    )
-    '''
 
     example_run = df_predictions["group_run"].iloc[0]
     example_df = df_predictions[df_predictions["group_run"] == example_run].sort_values("time_s").copy()
@@ -583,73 +468,6 @@ def evaluate_temporal_rf(
         lag_feature=lag_feature,
     )
 
-    '''
-    # figure 1: RMSE by run
-    key_rmse_col = f"RMSE_{key_output}"
-    if key_rmse_col in df_run_metrics.columns:
-        plot_df = df_run_metrics.sort_values(key_rmse_col).copy()
-
-        plt.figure(figsize=(12, 5))
-        sns.barplot(data=plot_df, x="group_run", y=key_rmse_col, color="steelblue")
-        plt.axhline(plot_df[key_rmse_col].mean(), color="red", linestyle="--", label="Mean")
-        plt.xlabel("Run")
-        plt.ylabel(f"RMSE of {key_output}")
-        plt.title(f"Temporal generalization: {key_output} RMSE by run")
-        plt.xticks(rotation=90)
-        plt.legend()
-        plt.tight_layout()
-        if lag_feature == True:
-            plt.savefig(os.path.join(out_dir, f"rmse_by_run_{key_output}_lag.png"), dpi=300, bbox_inches="tight")
-        plt.savefig(os.path.join(out_dir, f"rmse_by_run_{key_output}.png"), dpi=300, bbox_inches="tight")
-        plt.close()
-
-    # Figure 2: True vs predicted scatter plot
-    plt.figure(figsize=(6, 6))
-    x_true = df_predictions[f"true_{key_output}"]
-    y_pred_plot = df_predictions[f"pred_{key_output}"]
-    plt.scatter(x_true, y_pred_plot, alpha=0.25)
-
-    lims = [min(x_true.min(), y_pred_plot.min()), max(x_true.max(), y_pred_plot.max())]
-    plt.plot(lims, lims, "r--")
-    plt.xlabel(f"True {key_output}")
-    plt.ylabel(f"Predicted {key_output}")
-    plt.title(f"True vs predicted {key_output}")
-    plt.tight_layout()
-    if lag_feature == True:
-        plt.savefig(os.path.join(out_dir, f"scatter_true_vs_pred_{key_output}_lag.png"), dpi=300, bbox_inches="tight")
-    plt.savefig(os.path.join(out_dir, f"scatter_true_vs_pred_{key_output}.png"), dpi=300, bbox_inches="tight")
-    plt.close()
-
-    # figure 3: Example run trace
-    example_run = df_predictions["group_run"].iloc[0]
-    example_df = df_predictions[df_predictions["group_run"] == example_run].sort_values("time_s").copy()
-
-    plt.figure(figsize=(12, 4))
-    plt.plot(example_df["time_s"], example_df[f"true_{key_output}"], label=f"True {key_output}")
-    plt.plot(example_df["time_s"], example_df[f"pred_{key_output}"], label=f"Predicted {key_output}", alpha=0.85)
-    plt.xlabel("Time (s)")
-    plt.ylabel(key_output)
-    plt.title(f"Example temporal prediction trace for run {example_run}")
-    plt.legend()
-    plt.tight_layout()
-    if lag_feature == True:
-        plt.savefig(os.path.join(out_dir, f"timeseries_example_{key_output}_lag.png"), dpi=300, bbox_inches="tight")
-    plt.savefig(os.path.join(out_dir, f"timeseries_example_{key_output}.png"), dpi=300, bbox_inches="tight")
-    plt.close()
-
-     # figure 4: Feature importance
-    topn = min(10, len(df_importance))
-    df_top = df_importance.head(topn).sort_values("importance")
-    plt.barh(df_top["feature"], df_top["importance"], color="darkgreen")
-    plt.xlabel("Feature importance")
-    plt.ylabel("Feature")
-    plt.title("Top RF feature importances")
-    plt.tight_layout()
-    if lag_feature == True:
-        plt.savefig(os.path.join(out_dir, "rf_feature_importance_top10_lag.png"), dpi=300, bbox_inches="tight")
-    plt.savefig(os.path.join(out_dir, "rf_feature_importance_top10.png"), dpi=300, bbox_inches="tight")
-    plt.close()
-    '''
     # SHAP
     shap_output_idx = target_cols.index(key_output)
 

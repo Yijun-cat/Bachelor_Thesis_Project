@@ -1,8 +1,10 @@
-# function training model and selecet the best model using Grid Search Cross Validation
+# Utility functions for training model and selecet the best model using Grid Search Cross Validation
 from sklearn.model_selection import GridSearchCV
 
-# train model function
 def train_model_rf(X_trainval, y_trainval, base_model, param_grid, cv):
+    """
+    Random Forest training setting
+    """
     grid = GridSearchCV(
         estimator = base_model,
         param_grid = param_grid,
@@ -22,6 +24,9 @@ def train_model_rf(X_trainval, y_trainval, base_model, param_grid, cv):
     return best_model, best_params
 
 def train_model_xgb(X_trainval, y_trainval, base_model, param_grid, cv):
+    """
+    XGBoost training setting
+    """
     grid = GridSearchCV(
         estimator = base_model,
         param_grid = param_grid,
@@ -41,6 +46,9 @@ def train_model_xgb(X_trainval, y_trainval, base_model, param_grid, cv):
     return best_model, best_params
 
 def train_model_cat(X_trainval, y_trainval, base_model, param_grid, cv):
+    """
+    CatBoost training setting
+    """
     grid = GridSearchCV(
         estimator=base_model,
         param_grid=param_grid,

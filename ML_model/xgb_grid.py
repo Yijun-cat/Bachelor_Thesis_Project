@@ -21,16 +21,18 @@ def xgb_grid(df_model, X_trainval, y_trainval, cv_method: str):
         "estimator__n_estimators": [10, 100],
         "estimator__max_depth": [2, 3, 4, 5],
         "estimator__colsample_bytree": [0.3, 0.4, 0.5],
-        # "booster": ["gbtree"]
     }
 
     # cross validation method
-    if cv_method == 'logo': # Leave one group out cross-validator
+    if cv_method == 'logo': # Leave one group out cross-validator (subject-level generalization)
+        # group using subeject ID
         groups = df_model['sub_id']
         logo = LeaveOneGroupOut()
         cv = logo.split(X_trainval, y_trainval, groups=groups)
-    elif cv_method == 'gkf': # K-fold cross validator
+    elif cv_method == 'gkf': # K-fold cross validator (temporal generalization)
+        # train and validation set  
         trainval_mask = ~df_model['is_temporal_test']
+        # same subject ID and run number is in the same group
         group_trainval = (
             df_model.loc[trainval_mask, "sub_id"].astype(str)
             + "_"

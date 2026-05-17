@@ -1,3 +1,4 @@
+# XGBoost subject-level generalization without lagged features
 from build_dataframe import construct_df
 from xgb_grid import xgb_grid
 from train_model import train_model_xgb
@@ -13,6 +14,7 @@ subjects = [
 
 df_model, feature_cols, target_cols = construct_df(subjects, with_lag_feature=False)
 
+# group train and validation set
 trainval_mask = ~df_model["is_temporal_test"]
 X_trainval = df_model.loc[trainval_mask, feature_cols].to_numpy()
 y_trainval = df_model.loc[trainval_mask, target_cols].to_numpy()
@@ -20,6 +22,7 @@ y_trainval = df_model.loc[trainval_mask, target_cols].to_numpy()
 base_model, param_grid, cv = xgb_grid(df_model, X_trainval, y_trainval, cv_method="gkf")
 best_model, best_params = train_model_xgb(X_trainval, y_trainval, base_model, param_grid, cv)
 
+# evaluate model performance
 results = evaluate_temporal_xgb(
     df_model=df_model,
     feature_cols=feature_cols,

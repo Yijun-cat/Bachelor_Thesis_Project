@@ -37,13 +37,14 @@ def construct_df(subjects: list, with_lag_feature=False):
         # reserve test set
         df_all.loc[df_run.index, 'is_temporal_test'] = id_test
 
-    if with_lag_feature == True:
+    if with_lag_feature:
         # add error at t-1, t-2 as lag features
         for error in ['glideslope_error_deg', 'localizer_error_deg', 'airspeed_error_kts', 'total_error']:
             df_all[f'{error}_lag1'] = df_all.groupby(['sub_id', 'level', 'run_id'])[error].shift(1)
             df_all[f'{error}_lag2'] = df_all.groupby(['sub_id', 'level', 'run_id'])[error].shift(2)
 
-        # feature labels
+        # define feature labels
+        # includ lagged performance errors
         features = [
             'level',
             'HR_mean', 'HR_std', 'HR_min', 'HR_max', 'HR_range',
@@ -58,6 +59,7 @@ def construct_df(subjects: list, with_lag_feature=False):
             'total_error_lag1', 'total_error_lag2',
         ]
     else:
+        # without lagged performance errors 
         features = [
             'level',
             'HR_mean', 'HR_std', 'HR_min', 'HR_max', 'HR_range',

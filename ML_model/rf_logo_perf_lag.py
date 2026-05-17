@@ -1,4 +1,4 @@
-# train and evaluate RandomForest model performance (subject-level generalization)
+# train and evaluate Random Forest model performance (subject-level generalization)
 from build_dataframe import construct_df
 from rf_grid import rf_grid
 from train_model import train_model_rf
@@ -21,6 +21,7 @@ y = df_model[target_cols].to_numpy()
 base_model, param_grid, cv = rf_grid(df_model, X, y, cv_method='logo')
 best_model, best_params = train_model_rf(X, y, base_model, param_grid, cv)
 
+# evaluate model performance
 results = evaluate_subject_level_rf(
     df_model=df_model,
     feature_cols=feature_cols,

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2026.5.7)  12 MAY 2026 22:11
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2026.5.7)  17 MAY 2026 12:07
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -626,32 +626,74 @@ Package caption Info: New subtype `subfigure' on input line 238.
 Package caption Info: New subtype `subtable' on input line 238.
 \c@subtable=\count301
 )
-Package hyperref Info: Option `colorlinks' set `true' on input line 19.
+(/usr/share/texlive/texmf-dist/tex/latex/tools/tabularx.sty
+Package: tabularx 2023/07/08 v2.11c `tabularx' package (DPC)
+
+(/usr/share/texlive/texmf-dist/tex/latex/tools/array.sty
+Package: array 2023/10/16 v2.5g Tabular extension package (FMi)
+\col@sep=\dimen194
+\ar@mcellbox=\box57
+\extrarowheight=\dimen195
+\NC@list=\toks33
+\extratabsurround=\skip103
+\backup@length=\skip104
+\ar@cellbox=\box58
+)
+\TX@col@width=\dimen196
+\TX@old@table=\dimen197
+\TX@old@col=\dimen198
+\TX@target=\dimen199
+\TX@delta=\dimen256
+\TX@cols=\count302
+\TX@ftn=\toks34
+)
+Package hyperref Info: Option `colorlinks' set `true' on input line 20.
 
 (/usr/share/texlive/texmf-dist/tex/latex/apacite/apacite.sty
 Package: apacite 2013/07/21 v6.03 APA citation
-\c@BibCnt=\count302
-\bibleftmargin=\skip103
-\bibindent=\skip104
-\bibparsep=\skip105
-\bibitemsep=\skip106
-\biblabelsep=\skip107
+\c@BibCnt=\count303
+\bibleftmargin=\skip105
+\bibindent=\skip106
+\bibparsep=\skip107
+\bibitemsep=\skip108
+\biblabelsep=\skip109
 )
 (/usr/share/texlive/texmf-dist/tex/latex/natbib/natbib.sty
 Package: natbib 2010/09/13 8.31b (PWD, AO)
-\bibhang=\skip108
-\bibsep=\skip109
+\bibhang=\skip110
+\bibsep=\skip111
 LaTeX Info: Redefining \cite on input line 694.
-\c@NAT@ctr=\count303
+\c@NAT@ctr=\count304
 )
-LaTeX Info: Redefining \BBA on input line 55.
+LaTeX Info: Redefining \BBA on input line 56.
 
 (/usr/share/texlive/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
 File: l3backend-pdftex.def 2024-01-04 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count304
-\l__pdf_internal_box=\box57
+\l__color_backend_stack_int=\count305
+\l__pdf_internal_box=\box59
 )
 (./report.aux
+
+LaTeX Warning: Label `tab:results' multiply defined.
+
+
+LaTeX Warning: Label `tab:results' multiply defined.
+
+
+LaTeX Warning: Label `tab:results' multiply defined.
+
+
+LaTeX Warning: Label `tab:results' multiply defined.
+
+
+LaTeX Warning: Label `fig:probs' multiply defined.
+
+
+LaTeX Warning: Label `tab:results' multiply defined.
+
+
+LaTeX Warning: Label `tab:results' multiply defined.
+
 
 LaTeX Warning: Label `tab:results' multiply defined.
 
@@ -664,37 +706,37 @@ LaTeX Warning: Label `tab:results' multiply defined.
 )
 \openout1 = `report.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 59.
-LaTeX Font Info:    ... okay on input line 59.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 59.
-LaTeX Font Info:    ... okay on input line 59.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 59.
-LaTeX Font Info:    ... okay on input line 59.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 59.
-LaTeX Font Info:    ... okay on input line 59.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 59.
-LaTeX Font Info:    ... okay on input line 59.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 59.
-LaTeX Font Info:    ... okay on input line 59.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 59.
-LaTeX Font Info:    ... okay on input line 59.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 59.
-LaTeX Font Info:    ... okay on input line 59.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 59.
-LaTeX Font Info:    ... okay on input line 59.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 60.
+LaTeX Font Info:    ... okay on input line 60.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 60.
+LaTeX Font Info:    ... okay on input line 60.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 60.
+LaTeX Font Info:    ... okay on input line 60.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 60.
+LaTeX Font Info:    ... okay on input line 60.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 60.
+LaTeX Font Info:    ... okay on input line 60.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 60.
+LaTeX Font Info:    ... okay on input line 60.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 60.
+LaTeX Font Info:    ... okay on input line 60.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 60.
+LaTeX Font Info:    ... okay on input line 60.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 60.
+LaTeX Font Info:    ... okay on input line 60.
  (/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count305
-\scratchdimen=\dimen194
-\scratchbox=\box58
-\nofMPsegments=\count306
-\nofMParguments=\count307
-\everyMPshowfont=\toks33
-\MPscratchCnt=\count308
-\MPscratchDim=\dimen195
-\MPnumerator=\count309
-\makeMPintoPDFobject=\count310
-\everyMPtoPDFconversion=\toks34
+\scratchcounter=\count306
+\scratchdimen=\dimen257
+\scratchbox=\box60
+\nofMPsegments=\count307
+\nofMParguments=\count308
+\everyMPshowfont=\toks35
+\MPscratchCnt=\count309
+\MPscratchDim=\dimen258
+\MPnumerator=\count310
+\makeMPintoPDFobject=\count311
+\everyMPtoPDFconversion=\toks36
 ) (/usr/share/texlive/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
 
@@ -712,19 +754,19 @@ G,.JBIG2,.JB2,.eps]
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-LaTeX Info: Redefining \microtypecontext on input line 59.
-Package microtype Info: Applying patch `item' on input line 59.
-Package microtype Info: Applying patch `toc' on input line 59.
-Package microtype Info: Applying patch `eqnum' on input line 59.
-Package microtype Info: Applying patch `footnote' on input line 59.
-Package microtype Info: Applying patch `verbatim' on input line 59.
+LaTeX Info: Redefining \microtypecontext on input line 60.
+Package microtype Info: Applying patch `item' on input line 60.
+Package microtype Info: Applying patch `toc' on input line 60.
+Package microtype Info: Applying patch `eqnum' on input line 60.
+Package microtype Info: Applying patch `footnote' on input line 60.
+Package microtype Info: Applying patch `verbatim' on input line 60.
 Package microtype Info: Generating PDF output.
 Package microtype Info: Character protrusion enabled (level 2).
 Package microtype Info: Using default protrusion set `alltext'.
 Package microtype Info: Automatic font expansion enabled (level 2),
 (microtype)             stretch: 20, shrink: 20, step: 1, non-selected.
 Package microtype Info: Using default expansion set `alltext-nott'.
-LaTeX Info: Redefining \showhyphens on input line 59.
+LaTeX Info: Redefining \showhyphens on input line 60.
 Package microtype Info: No adjustment of tracking.
 Package microtype Info: No adjustment of interword spacing.
 Package microtype Info: No adjustment of character kerning.
@@ -736,7 +778,7 @@ Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: float package is loaded.
 Package caption Info: hyperref package is loaded.
 Package caption Info: End \AtBeginDocument code.
-Package hyperref Info: Link coloring ON on input line 59.
+Package hyperref Info: Link coloring ON on input line 60.
  (./report.out)
 (./report.out)
 \@outlinefile=\write3
@@ -777,7 +819,7 @@ Package hyperref Info: Link coloring ON on input line 59.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-\c@maskedRefs=\count311
+\c@maskedRefs=\count312
 (/usr/share/texlive/texmf-dist/tex/latex/apacite/english.apc
 File: english.apc 2013/07/21 v6.03 apacite language file
 LaTeX Info: Redefining \BPBI on input line 129.
@@ -826,7 +868,7 @@ Package epstopdf Info: Source file: <logo.eps>
 logo.eps>
 (epstopdf)             \includegraphics on input line 12.
 Package epstopdf Info: Output file is already uptodate.
-<logo-eps-converted-to.pdf, id=64, 339.2675pt x 86.3225pt>
+<logo-eps-converted-to.pdf, id=68, 339.2675pt x 86.3225pt>
 File: logo-eps-converted-to.pdf Graphic file (type pdf)
 <use logo-eps-converted-to.pdf>
 Package pdftex.def Info: logo-eps-converted-to.pdf  used on input line 12.
@@ -935,14 +977,14 @@ LaTeX Font Info:    Font shape `U/msb/m/n' will be
 LaTeX Font Info:    Font shape `U/msb/m/n' will be
 (Font)              scaled to size 7.29405pt on input line 71.
 )
-LaTeX Font Info:    Trying to load font information for T1+fvm on input line 65
+LaTeX Font Info:    Trying to load font information for T1+fvm on input line 66
 .
 
 (/usr/share/texlive/texmf-dist/tex/latex/bera/t1fvm.fd
 File: t1fvm.fd 2004/09/07 scalable font definitions for T1/fvm.
 )
 LaTeX Font Info:    Font shape `T1/fvm/m/n' will be
-(Font)              scaled to size 8.50006pt on input line 65.
+(Font)              scaled to size 8.50006pt on input line 66.
 Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `fvm' (encoding: T1).
 (microtype)             For optimal results, create family-specific settings.
@@ -951,107 +993,176 @@ Package microtype Info: Character `029' is missing
 (microtype)             in font `T1/pplj/m/sc/10.95'.
 (microtype)             Ignoring protrusion settings for this character.
 LaTeX Font Info:    Trying to load font information for TS1+pplj on input line 
-73.
+74.
 
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/ts1pplj.fd
 File: ts1pplj.fd 2004/09/06 font definitions for TS1/pplj.
 ) [1]
+
+Package natbib Warning: Citation `Yang2021' on page 2 undefined on input line 1
+13.
+
+
+Package natbib Warning: Citation `Yang2021' on page 2 undefined on input line 1
+13.
+
+
+Package natbib Warning: Citation `Caballero et al.' on page 2 undefined on inpu
+t line 113.
+
+
+Package natbib Warning: Citation `2023' on page 2 undefined on input line 113.
+
+
+Package natbib Warning: Citation `Caballero et al.' on page 2 undefined on inpu
+t line 114.
+
+
+Package natbib Warning: Citation `2023' on page 2 undefined on input line 114.
+
+
+Package natbib Warning: Citation `Barry2025' on page 2 undefined on input line 
+115.
+
 Package microtype Info: Character `029' is missing
 (microtype)             in font `T1/pplj/m/sc/10'.
 (microtype)             Ignoring protrusion settings for this character.
- [2]
+[2]
 LaTeX Font Info:    Font shape `T1/fvm/m/n' will be
-(Font)              scaled to size 9.30756pt on input line 115.
+(Font)              scaled to size 9.30756pt on input line 117.
 LaTeX Font Info:    Font shape `U/msa/m/n' will be
-(Font)              scaled to size 5.21004pt on input line 134.
+(Font)              scaled to size 5.21004pt on input line 136.
 LaTeX Font Info:    Font shape `U/msb/m/n' will be
-(Font)              scaled to size 5.21004pt on input line 134.
+(Font)              scaled to size 5.21004pt on input line 136.
 LaTeX Font Info:    Font shape `T1/fvm/m/n' will be
-(Font)              scaled to size 7.65005pt on input line 134.
+(Font)              scaled to size 7.65005pt on input line 136.
  [3]
 
 Package natbib Warning: Citation `Rao2022' on page 4 undefined on input line 14
-0.
+2.
 
 
 Package natbib Warning: Citation `Goldberger2000' on page 4 undefined on input 
-line 140.
+line 142.
 
 
-Overfull \hbox (4.11774pt too wide) in paragraph at lines 142--143
-\T1/pplj/m/n/10.95 (-20) elec-tro-der-mal ac-tiv-ity (EDA), elec-tro-car-dio-g-
-ra-phy (ECG), res-pi-ra-tion (RESP),
- []
+Package natbib Warning: Citation `Rao2022' on page 4 undefined on input line 14
+4.
 
 
-Package natbib Warning: Citation `Koerner2025' on page 4 undefined on input lin
-e 145.
+Package natbib Warning: Citation `Rao2022' on page 4 undefined on input line 14
+4.
 
 
-Package natbib Warning: Citation `Grassmann2016' on page 4 undefined on input l
-ine 145.
+Package natbib Warning: Citation `Rao2022' on page 4 undefined on input line 14
+4.
+
+
+Package natbib Warning: Citation `Rao2022' on page 4 undefined on input line 14
+4.
+
+
+Package natbib Warning: Citation `Rao2022' on page 4 undefined on input line 14
+4.
 
 [4]
 
-Package natbib Warning: Citation `Elgendi2010' on page 5 undefined on input lin
+Package natbib Warning: Citation `Koerner2025' on page 5 undefined on input lin
 e 147.
 
 
+Package natbib Warning: Citation `Grassmann2016' on page 5 undefined on input l
+ine 147.
+
+
 Package natbib Warning: Citation `Elgendi2010' on page 5 undefined on input lin
-e 147.
+e 149.
+
+
+Package natbib Warning: Citation `Elgendi2010' on page 5 undefined on input lin
+e 149.
 
 
 Package natbib Warning: Citation `Zhao2018' on page 5 undefined on input line 1
-47.
+49.
 
 
 Package natbib Warning: Citation `Khodadad2018' on page 5 undefined on input li
-ne 149.
+ne 151.
 
 [5] [6] [7] [8]
-<scatter_true_vs_pred_glideslope_error_deg_lag.png, id=136, 426.393pt x 425.429
+<rmse_total_error_RF_vs_Cat_per_subject.png, id=139, 722.7pt x 361.35pt>
+File: rmse_total_error_RF_vs_Cat_per_subject.png Graphic file (type png)
+<use rmse_total_error_RF_vs_Cat_per_subject.png>
+Package pdftex.def Info: rmse_total_error_RF_vs_Cat_per_subject.png  used on in
+put line 252.
+(pdftex.def)             Requested size: 358.50473pt x 179.252pt.
+ [9] [10 <./rmse_total_error_RF_vs_Cat_per_subject.png>]
+<temporal total-error RMSE .png, id=155, 570.933pt x 354.123pt>
+File: temporal total-error RMSE .png Graphic file (type png)
+<use temporal total-error RMSE .png>
+Package pdftex.def Info: temporal total-error RMSE .png  used on input line 311
+.
+(pdftex.def)             Requested size: 358.50473pt x 222.36919pt.
+
+[11 <./temporal total-error RMSE .png>]
+<corr_vs_true_total_error_subject_lag.png, id=164, 787.743pt x 497.6994pt>
+File: corr_vs_true_total_error_subject_lag.png Graphic file (type png)
+<use corr_vs_true_total_error_subject_lag.png>
+Package pdftex.def Info: corr_vs_true_total_error_subject_lag.png  used on inpu
+t line 345.
+(pdftex.def)             Requested size: 358.50473pt x 226.50673pt.
+<corr_vs_true_total_error_temporal_lag.png, id=165, 787.743pt x 497.6994pt>
+File: corr_vs_true_total_error_temporal_lag.png Graphic file (type png)
+<use corr_vs_true_total_error_temporal_lag.png>
+Package pdftex.def Info: corr_vs_true_total_error_temporal_lag.png  used on inp
+ut line 351.
+(pdftex.def)             Requested size: 358.50473pt x 226.50673pt.
+ [12] [13 <./corr_vs_true_total_error_subject_lag.png> <./corr_vs_true_total_er
+ror_temporal_lag.png>] [14]
+(./report.bbl)
+Overfull \hbox (66.34508pt too wide) in paragraph at lines 422--457
+ [][] 
+ []
+
+<scatter_true_vs_pred_glideslope_error_deg_lag.png, id=185, 426.393pt x 425.429
 4pt>
 File: scatter_true_vs_pred_glideslope_error_deg_lag.png Graphic file (type png)
 
 <use scatter_true_vs_pred_glideslope_error_deg_lag.png>
 Package pdftex.def Info: scatter_true_vs_pred_glideslope_error_deg_lag.png  use
-d on input line 255.
+d on input line 463.
 (pdftex.def)             Requested size: 172.08073pt x 171.68774pt.
-<scatter_true_vs_pred_localizer_error_deg_lag.png, id=138, 426.393pt x 425.4294
+<scatter_true_vs_pred_localizer_error_deg_lag.png, id=186, 426.393pt x 425.4294
 pt>
 File: scatter_true_vs_pred_localizer_error_deg_lag.png Graphic file (type png)
 <use scatter_true_vs_pred_localizer_error_deg_lag.png>
 Package pdftex.def Info: scatter_true_vs_pred_localizer_error_deg_lag.png  used
- on input line 261.
+ on input line 469.
 (pdftex.def)             Requested size: 172.08073pt x 171.68774pt.
-<scatter_true_vs_pred_airspeed_error_kts_lag.png, id=139, 426.393pt x 425.4294p
+<scatter_true_vs_pred_airspeed_error_kts_lag.png, id=187, 426.393pt x 425.4294p
 t>
 File: scatter_true_vs_pred_airspeed_error_kts_lag.png Graphic file (type png)
 <use scatter_true_vs_pred_airspeed_error_kts_lag.png>
 Package pdftex.def Info: scatter_true_vs_pred_airspeed_error_kts_lag.png  used 
-on input line 267.
+on input line 475.
 (pdftex.def)             Requested size: 172.08073pt x 171.68774pt.
-<scatter_true_vs_pred_total_error_lag.png, id=140, 426.393pt x 425.4294pt>
+<scatter_true_vs_pred_total_error_lag.png, id=188, 426.393pt x 425.4294pt>
 File: scatter_true_vs_pred_total_error_lag.png Graphic file (type png)
 <use scatter_true_vs_pred_total_error_lag.png>
 Package pdftex.def Info: scatter_true_vs_pred_total_error_lag.png  used on inpu
-t line 273.
+t line 481.
 (pdftex.def)             Requested size: 172.08073pt x 171.68774pt.
-<rmse_total_error_RF_vs_Cat_per_subject.png, id=141, 722.7pt x 361.35pt>
-File: rmse_total_error_RF_vs_Cat_per_subject.png Graphic file (type png)
-<use rmse_total_error_RF_vs_Cat_per_subject.png>
-Package pdftex.def Info: rmse_total_error_RF_vs_Cat_per_subject.png  used on in
-put line 287.
-(pdftex.def)             Requested size: 358.50473pt x 179.252pt.
- [9] [10 <./scatter_true_vs_pred_glideslope_error_deg_lag.png> <./scatter_true_
-vs_pred_localizer_error_deg_lag.png> <./scatter_true_vs_pred_airspeed_error_kts
-_lag.png> <./scatter_true_vs_pred_total_error_lag.png>]
-(./report.bbl [11 <./rmse_total_error_RF_vs_Cat_per_subject.png>])
-Overfull \hbox (66.34508pt too wide) in paragraph at lines 319--354
- [][] 
- []
-
-[12]
+<shap_summary_total_error_lag.png, id=189, 564.4287pt x 678.6153pt>
+File: shap_summary_total_error_lag.png Graphic file (type png)
+<use shap_summary_total_error_lag.png>
+Package pdftex.def Info: shap_summary_total_error_lag.png  used on input line 5
+85.
+(pdftex.def)             Requested size: 358.50473pt x 431.04019pt.
+[15] [16] [17 <./scatter_true_vs_pred_glideslope_error_deg_lag.png> <./scatter_
+true_vs_pred_localizer_error_deg_lag.png> <./scatter_true_vs_pred_airspeed_erro
+r_kts_lag.png> <./scatter_true_vs_pred_total_error_lag.png>] [18] [19] [20 <./s
+hap_summary_total_error_lag.png>]
 
 Package natbib Warning: There were undefined citations.
 
@@ -1064,23 +1175,17 @@ L3 programming layer <2024-01-22>
 
 LaTeX Warning: There were multiply-defined labels.
 
-
-Package rerunfilecheck Warning: File `report.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `report.out':
-(rerunfilecheck)             Before: D7E67A7629B71E23EAB22A367919D143;2165
-(rerunfilecheck)             After:  DB5F6DE9F3451E76EF7BB38E6E1E95C3;2341.
+Package rerunfilecheck Info: File `report.out' has not changed.
+(rerunfilecheck)             Checksum: 3EDD871F6B89DDF331FB49E01BD1027D;2518.
  ) 
 Here is how much of TeX's memory you used:
- 19262 strings out of 476106
- 336035 string characters out of 5793934
- 1939975 words of memory out of 5000000
- 40369 multiletter control sequences out of 15000+600000
- 717091 words of font info for 540 fonts, out of 8000000 for 9000
+ 19496 strings out of 476106
+ 340007 string characters out of 5793934
+ 1951975 words of memory out of 5000000
+ 40527 multiletter control sequences out of 15000+600000
+ 719803 words of font info for 580 fonts, out of 8000000 for 9000
  59 hyphenation exceptions out of 8191
- 123i,22n,121p,1179b,651s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 123i,22n,121p,1180b,650s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr
 /share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share
 /texlive/texmf-dist/fonts/type1/public/fpl/fplrc8a.pfb></usr/share/texlive/texm
@@ -1088,10 +1193,10 @@ f-dist/fonts/type1/public/fpl/fplrij8a.pfb></usr/share/texlive/texmf-dist/fonts
 /type1/public/bera/fvmr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/pa
 latino/uplb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/palatino/uplr8
 a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/palatino/uplri8a.pfb>
-Output written on report.pdf (14 pages, 1396192 bytes).
+Output written on report.pdf (22 pages, 2270000 bytes).
 PDF statistics:
- 220 PDF objects out of 1000 (max. 8388607)
- 174 compressed objects within 2 object streams
- 39 named destinations out of 1000 (max. 500000)
- 171671 words of extra memory for PDF output out of 184870 (max. 10000000)
+ 280 PDF objects out of 1000 (max. 8388607)
+ 217 compressed objects within 3 object streams
+ 59 named destinations out of 1000 (max. 500000)
+ 171699 words of extra memory for PDF output out of 184870 (max. 10000000)
 

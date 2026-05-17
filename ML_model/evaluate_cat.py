@@ -1,4 +1,4 @@
-# functions evaluate Catboost performance
+# Utility functions for CatBoost performance evaluation
 import os
 import numpy as np
 import pandas as pd
@@ -19,19 +19,14 @@ from plotting_utils import (
     plot_correlations_vs_true_total_error,
 )
 
-'''
-def save_name(base_name, lag_feature=False, ext="csv"):
-    if lag_feature:
-        return f"{base_name}_lag.{ext}"
-    return f"{base_name}.{ext}"
-'''
 
-# helper function that make sure value from SHAP explainer is scalar
 def scalar_expected_value(expected_value):
+    """
+    helper function that make sure value from SHAP explainer is scalar
+    """
     if np.isscalar(expected_value):
         return expected_value
     return np.array(expected_value).reshape(-1)[0]
-
 
 def evaluate_subject_level_cat(
     df_model,
@@ -43,12 +38,16 @@ def evaluate_subject_level_cat(
     shap_output_name="total_error",
     shap_sample_size=1000,
 ):
+    """
+    evaluation on subject-level genearlization
+    """
     os.makedirs(out_dir, exist_ok=True)
     sns.set_style("whitegrid")
 
     X = df_model[feature_cols].to_numpy()
     y = df_model[target_cols].to_numpy()
 
+    # lists to store model performance metrics
     mae_list, rmse_list, r2_list = [], [], []
     rows_metrics = []
     rows_preds = []
@@ -61,10 +60,10 @@ def evaluate_subject_level_cat(
         y_train, y_test = y[train_id], y[test_id]
 
         subject_test = df_model.iloc[test_id]["sub_id"].iloc[0]
-
+        
         best_model.fit(X_train, y_train)
         y_pred = best_model.predict(X_test)
-
+        # compute the mean of each metrics on mutiple outputs 
         mae_fold = mean_absolute_error(y_test, y_pred, multioutput="raw_values")
         rmse_fold = root_mean_squared_error(y_test, y_pred, multioutput="raw_values")
         r2_fold = r2_score(y_test, y_pred, multioutput="raw_values")
@@ -93,6 +92,7 @@ def evaluate_subject_level_cat(
     df_subject_metrics = pd.DataFrame(rows_metrics)
     df_predictions = pd.concat(rows_preds, axis=0, ignore_index=True)
 
+    # performance metrics for each target variable
     df_summary = pd.DataFrame({
         "output": target_cols,
         "MAE_mean": mae_arr.mean(axis=0),
@@ -103,6 +103,7 @@ def evaluate_subject_level_cat(
         "R2_std": r2_arr.std(axis=0),
     })
 
+    # mean metrics computed across all outputs
     overall_row = pd.DataFrame([{
         "output": "overall_mean_across_outputs",
         "MAE_mean": mae_arr.mean(),
@@ -167,17 +168,6 @@ def evaluate_subject_level_cat(
             max_points=5000,
         )
 
-    '''
-    for out_col in target_cols:
-        plot_true_vs_pred_scatter(
-            df_predictions=df_predictions,
-            key_output=out_col,
-            out_dir=out_dir,
-            file_stub=f"scatter_true_vs_pred_{out_col}",
-            lag_feature=lag_feature,
-        )
-    '''
-
     df_corr = save_error_correlations_csv(
         df_predictions=df_predictions,
         target_cols=target_cols,
@@ -194,22 +184,10 @@ def evaluate_subject_level_cat(
         file_stub="corr_vs_true_total_error",
         lag_feature=lag_feature,
         total_error_col="total_error",
-        # max_points_per_series=1200,
         n_bins=20,
-        # show_points=False,
     )
 
-    '''
-    plot_correlations_vs_true_total_error(
-        df_predictions=df_predictions,
-        target_cols=target_cols,
-        out_dir=out_dir,
-        file_stub="corr_vs_true_total_error",
-        lag_feature=lag_feature,
-        total_error_col="total_error",
-    )
-    '''
-
+    # subset for plotting time series trace
     example_sub = df_predictions["sub_id"].iloc[0]
     example_df = df_predictions[df_predictions["sub_id"] == example_sub].sort_values("time_s").copy()
 
@@ -241,138 +219,8 @@ def evaluate_subject_level_cat(
         lag_feature=lag_feature,
     )
 
-    '''
-    plot_rmse_bar(
-        df_metrics=df_subject_metrics,
-        x_col="sub_id",
-        y_col=f"RMSE_{key_output}",
-        x_label="Held-out subject",
-        y_label=f"RMSE of {key_output}",
-        title=f"Subject-level generalization: {key_output} RMSE by subject",
-        out_dir=out_dir,
-        file_stub=f"rmse_by_subject_{key_output}",
-        lag_feature=lag_feature,
-        rotate_xticks=False,
-        figsize=(10, 5),
-    )
-
-    plot_true_vs_pred_scatter(
-        df_predictions=df_predictions,
-        key_output=key_output,
-        out_dir=out_dir,
-        file_stub=f"scatter_true_vs_pred_{key_output}",
-        lag_feature=lag_feature,
-    )
-
-    plot_all_outputs_true_vs_pred(
-        df_predictions=df_predictions,
-        target_cols=target_cols,
-        out_dir=out_dir,
-        file_stub="scatter_true_vs_pred_all_outputs",
-        lag_feature=lag_feature,
-    )
-
-    example_sub = df_predictions["sub_id"].iloc[0]
-    example_df = df_predictions[df_predictions["sub_id"] == example_sub].sort_values("time_s").copy()
-
-    plot_example_trace(
-        example_df=example_df,
-        key_output=key_output,
-        time_col="time_s",
-        title=f"Example prediction trace for held-out subject {example_sub}",
-        out_dir=out_dir,
-        file_stub=f"timeseries_example_{key_output}",
-        lag_feature=lag_feature,
-    )
-
-    plot_all_outputs_time_traces(
-        example_df=example_df,
-        x_col="time_s",
-        target_cols=target_cols,
-        title=f"Example prediction traces for held-out subject {example_sub}",
-        out_dir=out_dir,
-        file_stub="timeseries_example_all_outputs",
-        lag_feature=lag_feature,
-    )
-
-    plot_feature_importance_bar(
-        df_importance=df_importance,
-        title="Top CatBoost feature importances",
-        out_dir=out_dir,
-        file_stub="cat_feature_importance_top10",
-        lag_feature=lag_feature,
-    )
-    '''
-
-    '''
-    key_rmse_col = f"RMSE_{key_output}"
-
-    if key_rmse_col in df_subject_metrics.columns:
-        plt.figure(figsize=(10, 5))
-        plot_df = df_subject_metrics.sort_values(key_rmse_col)
-        sns.barplot(data=plot_df, x="sub_id", y=key_rmse_col, color="steelblue")
-        plt.axhline(plot_df[key_rmse_col].mean(), color="red", linestyle="--", label="Mean")
-        plt.xlabel("Held-out subject")
-        plt.ylabel(f"RMSE of {key_output}")
-        plt.title(f"Subject-level generalization: {key_output} RMSE by subject")
-        plt.legend()
-        plt.tight_layout()
-        plt.savefig(
-            os.path.join(out_dir, save_name(f"rmse_by_subject_{key_output}", lag_feature, "png")),
-            dpi=300, bbox_inches="tight"
-        )
-        plt.close()
-
-    plt.figure(figsize=(6, 6))
-    x_true = df_predictions[f"true_{key_output}"]
-    y_pred_plot = df_predictions[f"pred_{key_output}"]
-    plt.scatter(x_true, y_pred_plot, alpha=0.25)
-    lims = [min(x_true.min(), y_pred_plot.min()), max(x_true.max(), y_pred_plot.max())]
-    plt.plot(lims, lims, "r--")
-    plt.xlabel(f"True {key_output}")
-    plt.ylabel(f"Predicted {key_output}")
-    plt.title(f"True vs predicted {key_output}")
-    plt.tight_layout()
-    plt.savefig(
-        os.path.join(out_dir, save_name(f"scatter_true_vs_pred_{key_output}", lag_feature, "png")),
-        dpi=300, bbox_inches="tight"
-    )
-    plt.close()
-
-    example_sub = df_predictions["sub_id"].iloc[0]
-    example_df = df_predictions[df_predictions["sub_id"] == example_sub].sort_values("time_s").copy()
-
-    plt.figure(figsize=(12, 4))
-    plt.plot(example_df["time_s"], example_df[f"true_{key_output}"], label=f"True {key_output}")
-    plt.plot(example_df["time_s"], example_df[f"pred_{key_output}"], label=f"Predicted {key_output}", alpha=0.85)
-    plt.xlabel("Time (s)")
-    plt.ylabel(key_output)
-    plt.title(f"Example prediction trace for held-out subject {example_sub}")
-    plt.legend()
-    plt.tight_layout()
-    plt.savefig(
-        os.path.join(out_dir, save_name(f"timeseries_example_{key_output}", lag_feature, "png")),
-        dpi=300, bbox_inches="tight"
-    )
-    plt.close()
-
-    topn = min(10, len(df_importance))
-    df_top = df_importance.head(topn).sort_values("importance")
-
-    plt.figure(figsize=(8, 5))
-    plt.barh(df_top["feature"], df_top["importance"], color="darkgreen")
-    plt.xlabel("Feature importance")
-    plt.ylabel("Feature")
-    plt.title("Top CatBoost feature importances")
-    plt.tight_layout()
-    plt.savefig(
-        os.path.join(out_dir, save_name("cat_feature_importance_top10", lag_feature, "png")),
-        dpi=300, bbox_inches="tight"
-    )
-    plt.close()
-    '''
-
     X_shap_df = df_model[feature_cols].copy()
+    # ensure sample size fall into pre-defined size used to compute shap values
     if len(X_shap_df) > shap_sample_size:
         X_shap_df = X_shap_df.sample(n=shap_sample_size, random_state=42)
 
@@ -380,6 +228,7 @@ def evaluate_subject_level_cat(
     shap_values_target = explainer.shap_values(X_shap_df)
     expected_value_target = scalar_expected_value(explainer.expected_value)
 
+    # shap summary plot
     shap.summary_plot(
         shap_values_target,
         X_shap_df,
@@ -392,7 +241,8 @@ def evaluate_subject_level_cat(
         dpi=300, bbox_inches="tight"
     )
     plt.close()
-
+    
+    # shap bar plot 
     shap.summary_plot(
         shap_values_target,
         X_shap_df,
@@ -442,12 +292,15 @@ def evaluate_temporal_cat(
     shap_output_name="total_error",
     shap_sample_size=1000      
 ):
+    """
+    evaluation on temporal genearlization
+    """
     os.makedirs(out_dir, exist_ok=True)
     sns.set_style("whitegrid")
 
     trainval_mask = ~df_model["is_temporal_test"]
     test_mask = df_model["is_temporal_test"]
-
+    # train, validation and test sets separation
     X_trainval = df_model.loc[trainval_mask, feature_cols].to_numpy()
     y_trainval = df_model.loc[trainval_mask, target_cols].to_numpy()
     X_test = df_model.loc[test_mask, feature_cols].to_numpy()
@@ -463,13 +316,14 @@ def evaluate_temporal_cat(
     rmse = root_mean_squared_error(y_test, y_pred, multioutput="raw_values")
     r2 = r2_score(y_test, y_pred, multioutput="raw_values")
 
+    # performance metrics for each target variable
     df_summary = pd.DataFrame({
         "output": target_cols,
         "MAE": mae,
         "RMSE": rmse,
         "R2": r2
     })
-
+    # mean metrics computed across all outputs
     overall_row = pd.DataFrame([{
         "output": "overall_mean_across_outputs",
         "MAE": np.mean(mae),
@@ -554,17 +408,6 @@ def evaluate_temporal_cat(
             max_points=5000,
         )
 
-    '''
-    for out_col in target_cols:
-        plot_true_vs_pred_scatter(
-            df_predictions=df_predictions,
-            key_output=out_col,
-            out_dir=out_dir,
-            file_stub=f"scatter_true_vs_pred_{out_col}",
-            lag_feature=lag_feature,
-        )
-    '''
-
     df_corr = save_error_correlations_csv(
         df_predictions=df_predictions,
         target_cols=target_cols,
@@ -581,22 +424,10 @@ def evaluate_temporal_cat(
         file_stub="corr_vs_true_total_error",
         lag_feature=lag_feature,
         total_error_col="total_error",
-        # max_points_per_series=1200,
         n_bins=20,
-        # show_points=False,
     )
 
-    '''
-    plot_correlations_vs_true_total_error(
-        df_predictions=df_predictions,
-        target_cols=target_cols,
-        out_dir=out_dir,
-        file_stub="corr_vs_true_total_error",
-        lag_feature=lag_feature,
-        total_error_col="total_error",
-    )
-    '''
-
+    # subset for plotting time series trace
     example_run = df_predictions["group_run"].iloc[0]
     example_df = df_predictions[df_predictions["group_run"] == example_run].sort_values("time_s").copy()
 
@@ -628,140 +459,8 @@ def evaluate_temporal_cat(
         lag_feature=lag_feature,
     )
 
-    '''
-    plot_rmse_bar(
-        df_metrics=df_run_metrics,
-        x_col="group_run",
-        y_col=f"RMSE_{key_output}",
-        x_label="Run",
-        y_label=f"RMSE of {key_output}",
-        title=f"Temporal generalization: {key_output} RMSE by run",
-        out_dir=out_dir,
-        file_stub=f"rmse_by_run_{key_output}",
-        lag_feature=lag_feature,
-        rotate_xticks=True,
-        figsize=(12, 5),
-    )
-
-    plot_true_vs_pred_scatter(
-        df_predictions=df_predictions,
-        key_output=key_output,
-        out_dir=out_dir,
-        file_stub=f"scatter_true_vs_pred_{key_output}",
-        lag_feature=lag_feature,
-    )
-
-    plot_all_outputs_true_vs_pred(
-        df_predictions=df_predictions,
-        target_cols=target_cols,
-        out_dir=out_dir,
-        file_stub="scatter_true_vs_pred_all_outputs",
-        lag_feature=lag_feature,
-    )
-
-    example_run = df_predictions["group_run"].iloc[0]
-    example_df = df_predictions[df_predictions["group_run"] == example_run].sort_values("time_s").copy()
-
-    plot_example_trace(
-        example_df=example_df,
-        key_output=key_output,
-        time_col="time_s",
-        title=f"Example temporal prediction trace for run {example_run}",
-        out_dir=out_dir,
-        file_stub=f"timeseries_example_{key_output}",
-        lag_feature=lag_feature,
-    )
-
-    plot_all_outputs_time_traces(
-        example_df=example_df,
-        x_col="time_s",
-        target_cols=target_cols,
-        title=f"Example temporal prediction traces for run {example_run}",
-        out_dir=out_dir,
-        file_stub="timeseries_example_all_outputs",
-        lag_feature=lag_feature,
-    )
-
-    plot_feature_importance_bar(
-        df_importance=df_importance,
-        title="Top CatBoost feature importances",
-        out_dir=out_dir,
-        file_stub="cat_feature_importance_top10",
-        lag_feature=lag_feature,
-    )
-    '''
-
-    '''
-    key_rmse_col = f"RMSE_{key_output}"
-    if key_rmse_col in df_run_metrics.columns:
-        plot_df = df_run_metrics.sort_values(key_rmse_col).copy()
-
-        plt.figure(figsize=(12, 5))
-        sns.barplot(data=plot_df, x="group_run", y=key_rmse_col, color="steelblue")
-        plt.axhline(plot_df[key_rmse_col].mean(), color="red", linestyle="--", label="Mean")
-        plt.xlabel("Run")
-        plt.ylabel(f"RMSE of {key_output}")
-        plt.title(f"Temporal generalization: {key_output} RMSE by run")
-        plt.xticks(rotation=90)
-        plt.legend()
-        plt.tight_layout()
-        plt.savefig(
-            os.path.join(out_dir, save_name(f"rmse_by_run_{key_output}", lag_feature, "png")),
-            dpi=300, bbox_inches="tight"
-        )
-        plt.close()
-
-
-    plt.figure(figsize=(6, 6))
-    x_true = df_predictions[f"true_{key_output}"]
-    y_pred_plot = df_predictions[f"pred_{key_output}"]
-    plt.scatter(x_true, y_pred_plot, alpha=0.25)
-    lims = [min(x_true.min(), y_pred_plot.min()), max(x_true.max(), y_pred_plot.max())]
-    plt.plot(lims, lims, "r--")
-    plt.xlabel(f"True {key_output}")
-    plt.ylabel(f"Predicted {key_output}")
-    plt.title(f"True vs predicted {key_output}")
-    plt.tight_layout()
-    plt.savefig(
-        os.path.join(out_dir, save_name(f"scatter_true_vs_pred_{key_output}", lag_feature, "png")),
-        dpi=300, bbox_inches="tight"
-    )
-    plt.close()
-
-    example_run = df_predictions["group_run"].iloc[0]
-    example_df = df_predictions[df_predictions["group_run"] == example_run].sort_values("time_s").copy()
-
-    plt.figure(figsize=(12, 4))
-    plt.plot(example_df["time_s"], example_df[f"true_{key_output}"], label=f"True {key_output}")
-    plt.plot(example_df["time_s"], example_df[f"pred_{key_output}"], label=f"Predicted {key_output}", alpha=0.85)
-    plt.xlabel("Time (s)")
-    plt.ylabel(key_output)
-    plt.title(f"Example temporal prediction trace for run {example_run}")
-    plt.legend()
-    plt.tight_layout()
-    plt.savefig(
-        os.path.join(out_dir, save_name(f"timeseries_example_{key_output}", lag_feature, "png")),
-        dpi=300, bbox_inches="tight"
-    )
-    plt.close()
-
-    topn = min(10, len(df_importance))
-    df_top = df_importance.head(topn).sort_values("importance")
-
-    plt.figure(figsize=(8, 5))
-    plt.barh(df_top["feature"], df_top["importance"], color="darkgreen")
-    plt.xlabel("Feature importance")
-    plt.ylabel("Feature")
-    plt.title("Top CatBoost feature importances")
-    plt.tight_layout()
-    plt.savefig(
-        os.path.join(out_dir, save_name("cat_feature_importance_top10", lag_feature, "png")),
-        dpi=300, bbox_inches="tight"
-    )
-    plt.close()
-    '''
-
     X_shap_df = df_model.loc[trainval_mask, feature_cols].copy()
+    # ensure sample size fall into pre-defined size used to compute shap values
     if len(X_shap_df) > shap_sample_size:
         X_shap_df = X_shap_df.sample(n=shap_sample_size, random_state=42)
 
@@ -769,6 +468,7 @@ def evaluate_temporal_cat(
     shap_values_target = explainer.shap_values(X_shap_df)
     expected_value_target = scalar_expected_value(explainer.expected_value)
 
+    # shap summary plot
     shap.summary_plot(
         shap_values_target,
         X_shap_df,
@@ -782,6 +482,7 @@ def evaluate_temporal_cat(
     )
     plt.close()
 
+    # shap bar plot
     shap.summary_plot(
         shap_values_target,
         X_shap_df,

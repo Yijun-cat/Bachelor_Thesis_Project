@@ -1,10 +1,13 @@
+# Utility functions for plotting model performance, feature importance,
+# time-series examples, and correlation summaries.
 import os
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-
+# Consistent colors, markers, and labels for each target variable
+# so plots use the same visual encoding throughout the project.
 OUTPUT_STYLES = {
     "glideslope_error_deg": {"color": "tab:blue", "marker": "x", "label": "Glideslope error"},
     "localizer_error_deg": {"color": "goldenrod", "marker": "s", "label": "Localizer error"},
@@ -14,12 +17,24 @@ OUTPUT_STYLES = {
 
 
 def save_name(base_name, lag_feature=False, ext="png"):
+    """
+    Build a standardized output filename.
+    Parameters
+    base_name : str, Base filename without extension.
+                If lag_feature True, append '_lag' before the extension.
+    ext : str, optional File extension to use.
+    Returns Final filename.
+    """
     if lag_feature:
         return f"{base_name}_lag.{ext}"
     return f"{base_name}.{ext}"
 
 
 def get_output_style(output_name):
+    """
+    Return the plotting style for a target variable.
+    Falls back to a default marker/label if the target name is not found in OUTPUT_STYLES.
+    """
     return OUTPUT_STYLES.get(
         output_name,
         {"color": None, "marker": "o", "label": output_name}
@@ -27,6 +42,10 @@ def get_output_style(output_name):
 
 
 def sample_for_plot(df, max_points=5000, random_state=42):
+    """
+    Randomly downsample a dataframe for plotting.
+    This helps keep scatter plots readable
+    """
     if max_points is None or len(df) <= max_points:
         return df.copy()
     return df.sample(n=max_points, random_state=random_state).copy()
@@ -39,6 +58,11 @@ def stratified_sample_for_plot(
     n_bins=20,
     random_state=42,
 ):
+    """
+    Downsample a dataframe while preserving the distribution of one column.
+    The stratify column is divided into quantile-based bins, then a similar
+    number of rows is sampled from each bin.
+    """
     if max_points is None or len(df) <= max_points:
         return df.copy()
 
@@ -50,7 +74,8 @@ def stratified_sample_for_plot(
     n_unique = tmp[stratify_col].nunique()
     if n_unique < 2:
         return tmp.sample(n=min(max_points, len(tmp)), random_state=random_state).copy()
-
+    
+    # Quantile bins spread the sampled points more evenly across the full range.
     tmp["_plot_bin"] = pd.qcut(
         tmp[stratify_col],
         q=min(n_bins, n_unique),
@@ -85,9 +110,13 @@ def downsample_timeseries(df, max_points=1500):
 
 
 def make_binned_summary(df, x_col, y_col, n_bins=20):
+    """
+    Summarize the relationship between x and y using quantile bins.
+    Returns the mean x, mean y, y standard deviation, and count per bin.
+    """
     x = pd.to_numeric(df[x_col], errors="coerce")
     y = pd.to_numeric(df[y_col], errors="coerce")
-
+    # Keep only rows where both variables are valid numbers.
     tmp = pd.DataFrame({
         "x_val": x,
         "y_val": y,
@@ -97,6 +126,7 @@ def make_binned_summary(df, x_col, y_col, n_bins=20):
         return pd.DataFrame(columns=["x_mean", "y_mean", "y_std", "n"])
 
     n_unique = tmp["x_val"].nunique()
+     # If x is nearly constant, fall back to one overall summary row.
     if n_unique < 2:
         return pd.DataFrame({
             "x_mean": [tmp["x_val"].mean()],
@@ -124,7 +154,6 @@ def make_binned_summary(df, x_col, y_col, n_bins=20):
 
     return df_bin
 
-
 def plot_rmse_bar(
     df_metrics,
     x_col,
@@ -138,9 +167,15 @@ def plot_rmse_bar(
     rotate_xticks=False,
     figsize=(10, 5),
 ):
+    """
+    Plot a bar chart of RMSE values for one grouping variable.
+    """
+
+    # Skip plotting if the requested metric is not available.
     if y_col not in df_metrics.columns:
         return
 
+    # Sort bars by RMSE so the relative ranking is easier to inspect.
     plot_df = df_metrics.sort_values(y_col).copy()
 
     plt.figure(figsize=figsize)
@@ -172,16 +207,22 @@ def plot_true_vs_pred_scatter(
     figsize=(6, 6),
     max_points=5000,
 ):
+    """
+    Create a scatter plot of true vs. predicted values for a single output.
+    """
+
     true_col = f"true_{key_output}"
     pred_col = f"pred_{key_output}"
     if true_col not in df_predictions.columns or pred_col not in df_predictions.columns:
         return
-
+    
+    # Randomly subsample for dense datasets so the figure stays readable.
     df_plot = sample_for_plot(df_predictions[[true_col, pred_col]], max_points=max_points, random_state=42)
 
     plt.figure(figsize=figsize)
 
     style = get_output_style(key_output)
+    # Ensure both axes are numeric and drop rows with NaNs.
     x_true = pd.to_numeric(df_plot[true_col], errors="coerce")
     y_pred = pd.to_numeric(df_plot[pred_col], errors="coerce")
 
@@ -198,7 +239,7 @@ def plot_true_vs_pred_scatter(
         s=24,
         label=f"{style['label']} (n={len(x_true)})",
     )
-
+    # Add y = x reference line if at least one point is valid.
     if len(x_true) > 0:
         lims = [
             min(x_true.min(), y_pred.min()),
@@ -287,9 +328,15 @@ def plot_all_outputs_time_traces(
     figsize=(14, 8),
     max_points=1500,
 ):
+    """
+    Plot true and predicted time traces for multiple outputs in a subplot grid.
+    Each output gets its own panel, using consistent colors and line styles:
+    solid for true values and dashed for predicted values.
+    """
+
     if x_col not in example_df.columns:
         return
-
+    # Downsample long runs so the panel plot remains readable.
     df_plot = downsample_timeseries(example_df.sort_values(x_col), max_points=max_points)
 
     n_outputs = len(target_cols)
@@ -302,7 +349,7 @@ def plot_all_outputs_time_traces(
     for ax, col in zip(axes, target_cols):
         true_col = f"true_{col}"
         pred_col = f"pred_{col}"
-
+        # Hide the panel if one of the required columns is missing.
         if true_col not in df_plot.columns or pred_col not in df_plot.columns:
             ax.axis("off")
             continue
@@ -353,6 +400,11 @@ def plot_feature_importance_bar(
     topn=10,
     figsize=(8, 5),
 ):
+    """
+    Plot the top-N feature importances as a horizontal bar chart.
+    """
+
+    # Keep only the strongest features and sort them so the largest bar appears at the top.
     topn = min(topn, len(df_importance))
     df_top = df_importance.head(topn).sort_values("importance")
 
@@ -375,6 +427,16 @@ def compute_error_correlations(
     target_cols,
     total_error_col="total_error",
 ):
+    """
+    Compute Pearson correlations between each output series and true total error.
+
+    For each target variable, this function computes the correlation between:
+    - true_<target> and true_<total_error_col>
+    - pred_<target> and true_<total_error_col>
+
+    The special case true total error vs true total error is set to 1.0
+    when enough non-missing values are available.
+    """
     rows = []
 
     true_total_col = f"true_{total_error_col}"
@@ -390,7 +452,7 @@ def compute_error_correlations(
         ]:
             if y_col not in df_predictions.columns:
                 continue
-
+            # The correlation of true total error with itself is defined as 1.
             if col == total_error_col and series_type == "true":
                 tmp = df_predictions[[true_total_col]].dropna().copy()
                 r_val = 1.0 if len(tmp) >= 2 else np.nan
@@ -445,11 +507,17 @@ def plot_correlations_vs_true_total_error(
     figsize=(11, 7),
     n_bins=20,
 ):
+    """
+    Plot binned markers and regression lines for each output vs. true total error.
+    For each variable in target_cols, the function computes 
+    Pearson correlation between y = true/pred_<variable> and x = true_<total_error_col>,
+    """
     true_total_col = f"true_{total_error_col}"
     if true_total_col not in df_predictions.columns:
         return
 
     plt.figure(figsize=figsize)
+    # Track which labels have already been used so the legend is compact.
     marker_labels_added = set()
     line_labels_added = set()
 
@@ -462,8 +530,9 @@ def plot_correlations_vs_true_total_error(
         ]:
             if y_col not in df_predictions.columns:
                 continue
-
+            # Prepare numeric, non-missing raw data for regression and r.
             if col == total_error_col and series_type == "true":
+                # Special case: correlation of true total error with itself.
                 full_df = df_predictions[[true_total_col]].copy()
                 full_df[true_total_col] = pd.to_numeric(full_df[true_total_col], errors="coerce")
                 full_df = full_df.dropna()
@@ -474,6 +543,8 @@ def plot_correlations_vs_true_total_error(
                 x_full = full_df[true_total_col].to_numpy().ravel()
                 y_full = x_full.copy()
 
+                # Construct a small temporary dataframe so make_binned_summary
+                # can be reused for the diagonal.
                 tmp_for_bin = pd.DataFrame({
                     "x_val": x_full,
                     "y_val": y_full,
@@ -505,7 +576,8 @@ def plot_correlations_vs_true_total_error(
 
             label_base = f"{'True' if series_type == 'true' else 'Pred'} {style['label']}"
 
-            # binned markers only, no connecting line
+            # Plot binned mean markers (no connecting line) to show the trend
+            # without overplotting all individual points. 
             if len(df_bin) > 0:
                 if series_type == "true":
                     marker_kwargs = dict(
@@ -553,7 +625,8 @@ def plot_correlations_vs_true_total_error(
                         **marker_kwargs
                     )
 
-            # regression line from full raw data
+            # Fit regression line on the full raw data to compute r and overlay
+            # the linear trend.
             if col == total_error_col and series_type == "true":
                 x_line = np.linspace(np.min(x_full), np.max(x_full), 100)
                 y_line = x_line.copy()
@@ -597,173 +670,3 @@ def plot_correlations_vs_true_total_error(
         bbox_inches="tight",
     )
     plt.close()
-
-'''
-def plot_correlations_vs_true_total_error(
-    df_predictions,
-    target_cols,
-    out_dir,
-    file_stub="corr_vs_true_total_error",
-    lag_feature=False,
-    total_error_col="total_error",
-    figsize=(11, 7),
-    max_points_per_series=1200,
-    n_bins=20,
-    show_points=False,
-):
-    true_total_col = f"true_{total_error_col}"
-    if true_total_col not in df_predictions.columns:
-        return
-
-    plt.figure(figsize=figsize)
-    legend_added = set()
-
-    for col in target_cols:
-        style = get_output_style(col)
-
-        for series_type, y_col, line_style, line_alpha in [
-            ("true", f"true_{col}", "-", 0.95),
-            ("pred", f"pred_{col}", "--", 0.75),
-        ]:
-            if y_col not in df_predictions.columns:
-                continue
-
-            if col == total_error_col and series_type == "true":
-                full_df = df_predictions.loc[:, [true_total_col]].copy()
-                full_df[true_total_col] = pd.to_numeric(full_df[true_total_col], errors="coerce")
-                full_df = full_df.dropna()
-
-                if len(full_df) < 2:
-                    continue
-
-                x_full = full_df[true_total_col].to_numpy().ravel()
-                y_full = x_full.copy()
-
-                plot_df = sample_for_plot(
-                    full_df,
-                    max_points=max_points_per_series,
-                    random_state=42,
-                )
-                x_plot = plot_df[true_total_col].to_numpy().ravel()
-                y_plot = x_plot.copy()
-
-                tmp_for_bin = pd.DataFrame({
-                    true_total_col: x_full,
-                    y_col: y_full,
-                })
-                df_bin = make_binned_summary(
-                    tmp_for_bin,
-                    x_col=true_total_col,
-                    y_col=y_col,
-                    n_bins=n_bins,
-                )
-            else:
-                full_df = df_predictions.loc[:, [true_total_col, y_col]].copy()
-                full_df[true_total_col] = pd.to_numeric(full_df[true_total_col], errors="coerce")
-                full_df[y_col] = pd.to_numeric(full_df[y_col], errors="coerce")
-                full_df = full_df.dropna()
-
-                if len(full_df) < 2:
-                    continue
-
-                x_full = full_df[true_total_col].to_numpy().ravel()
-                y_full = full_df[y_col].to_numpy().ravel()
-
-                plot_df = stratified_sample_for_plot(
-                    full_df,
-                    stratify_col=true_total_col,
-                    max_points=max_points_per_series,
-                    n_bins=n_bins,
-                    random_state=42,
-                )
-                x_plot = plot_df[true_total_col].to_numpy().ravel()
-                y_plot = plot_df[y_col].to_numpy().ravel()
-
-                df_bin = make_binned_summary(
-                    full_df,
-                    x_col=true_total_col,
-                    y_col=y_col,
-                    n_bins=n_bins,
-                )
-
-            label_base = f"{'True' if series_type == 'true' else 'Pred'} {style['label']}"
-
-            if show_points and len(x_plot) > 0:
-                if f"{label_base}_points" not in legend_added:
-                    plt.scatter(
-                        x_plot,
-                        y_plot,
-                        color=style["color"],
-                        marker=style["marker"],
-                        alpha=0.10 if series_type == "pred" else 0.14,
-                        s=8,
-                        label=label_base,
-                    )
-                    legend_added.add(f"{label_base}_points")
-                else:
-                    plt.scatter(
-                        x_plot,
-                        y_plot,
-                        color=style["color"],
-                        marker=style["marker"],
-                        alpha=0.10 if series_type == "pred" else 0.14,
-                        s=8,
-                    )
-
-            if len(df_bin) > 0:
-                if f"{label_base}_bin" not in legend_added:
-                    plt.plot(
-                        df_bin["x_mean"],
-                        df_bin["y_mean"],
-                        color=style["color"],
-                        linestyle=line_style,
-                        linewidth=2.2,
-                        marker=style["marker"],
-                        markersize=5,
-                        label=label_base,
-                    )
-                    legend_added.add(f"{label_base}_bin")
-                else:
-                    plt.plot(
-                        df_bin["x_mean"],
-                        df_bin["y_mean"],
-                        color=style["color"],
-                        linestyle=line_style,
-                        linewidth=2.2,
-                        marker=style["marker"],
-                        markersize=5,
-                    )
-
-            if col == total_error_col and series_type == "true":
-                x_line = np.linspace(np.min(x_full), np.max(x_full), 100)
-                y_line = x_line.copy()
-                r_val = 1.0
-            else:
-                slope, intercept = np.polyfit(x_full, y_full, 1)
-                x_line = np.linspace(np.min(x_full), np.max(x_full), 100)
-                y_line = slope * x_line + intercept
-                r_val = np.corrcoef(x_full, y_full)[0, 1]
-
-            plt.plot(
-                x_line,
-                y_line,
-                color=style["color"],
-                linestyle=line_style,
-                linewidth=1.3,
-                alpha=line_alpha,
-                label=f"{label_base} r = {r_val:.2f}",
-            )
-
-
-    plt.xlabel("True Total Error")
-    plt.ylabel("Value")
-    plt.title("Correlations with true total error")
-    plt.legend(ncol=2, fontsize=9)
-    plt.tight_layout()
-    plt.savefig(
-        os.path.join(out_dir, save_name(file_stub, lag_feature, "png")),
-        dpi=300,
-        bbox_inches="tight",
-    )
-    plt.close()
-'''
