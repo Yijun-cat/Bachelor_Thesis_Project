@@ -110,30 +110,47 @@ model (MODEL NAME + SOURCE) was used to improve the author's original content, f
 
 
 \section{Introduction} \label{sec:introduction}
-In the aviation industry, pilot training plays a vital role and is directly linked to both flight safety and the effective execution of flight operations \citep{Yang2021}. However, the current training framework is largely instructor-led and and may lead to high workload, subjective trainee evaluation, and a lack of real-time feedback on risky behaviors \citep{Yang2021}. Multiple studies have examined the integration of machine learning (ML) techniques with virtual reality (VR) to address these challenges; however, the adoption of ML in pilot training and education remains comparatively underexplored \citep{Caballero et al., 2023}. Machine learning techniques leveraging physiological
-signals from trainee pilots incorporate more readily into legacy training equipment \citep{Caballero et al., 2023}; moreover, they enable precise error measurement, replacing labor-intensive
-evaluation processes typically performed by human instructors \citep{Barry2025}.
+In the aviation industry, pilot training plays a vital role and is directly linked to both flight safety and the effective execution of flight operations \citep{Yang2021}. However, the current training framework is largely instructor‑led and can lead to high instructor workload, subjective trainee evaluation, and a lack of real‑time feedback on risky behaviors \citep{Yang2021}. Multiple studies have examined the integration of machine learning (ML) techniques with virtual reality (VR) to address these challenges; nevertheless, the adoption of ML in pilot training and education remains comparatively limited \citep{Caballero2023}. ML approaches that leverage physiological signals from trainee pilots can be integrated into legacy training equipment and simulators \citep{Caballero2023}, and they enable more precise and continuous error measurement, reducing the need for labor‑intensive evaluations by human instructors \citep{Barry2025}. Building on these developments, the present project investigates near real‑time task performance prediction using ML models trained on multimodal physiological and simulator‑derived data, with the goal of informing the design of adaptive and scalable pilot training systems.
 
-You can refer to chapters like the current Section~\ref{sec:introduction}. If you want to list research questions it's probably best to use \texttt{quote} and/or \texttt{itemize}, like so:
+From a scientific perspective, this thesis advances research on physiology-based flight performance modeling by systematically assessing tree‑based regression methods for the continuous prediction of multiple performance-error metrics in a VR landing task. Psychophysiological signals have been used in prior work to monitor pilot performance in real time and to forecast fatigue \citep{Alreshidi2024; DideriksenWilliams2019; Wilson2019}, demonstrating the feasibility of physiology‑informed performance models in aviation contexts. Many of these studies, however, have focused on either physical cockpits with $2$D simulator displays or real‑flight scenarios, and performance monitoring and modeling within fully immersive VR training environments remain comparatively underexplored. Existing work in VR‑integrated simulators has often relied on single‑modal physiological inputs when applying machine learning to analysis of pilot performance \citep{Moore2023; Rajendran2021}. Given these limitations, the present thesis investigates multimodal physiological and simulator-derived features for performance prediction in an integrated VR environment, thereby providing empirical evidence on how such models can support near real-time, adaptive training feedback.
+
+Flight simulators are becoming increasingly important for training and research because of growing concerns about flight safety, shortages of qualified pilots and instructors, and rapid technological developments in the aviation industry \citep{Wang2024}. Virtual reality has further advanced simulator-based pilot training by integrating VR headsets into existing platforms and providing high-fidelity three-dimensional flight scenarios, which offer immersive and realistic virtual cockpits while improving cost-effectiveness, operational safety, and overall training efficiency \citep{Wang2024}. Despite these advantages, current simulator-based training still depends extensively on human instructors and evaluators for continuous performance monitoring and adaptive difficulty adjustment, which constrains training output when instructor resources are limited \citep{Caballero2023}. Adaptive automated training systems that continuously monitor pilot performance and dynamically adjust task difficulty could help alleviate these constraints and reduce the operational burden on active pilots who serve as instructors \citep{Barry2025}. From a societal perspective, by enabling more accurate and timely prediction of task performance from multimodal physiological and simulator-derived data, the models examined in this thesis can inform the design of such systems and support safer and more scalable pilot training.
+
+The central research question of this thesis is therefore:
 
 \begin{quote}
-\emph{To what extent we define a main research question?}
+\emph{How accurately can task performance during virtual reality pilot training tasks be predicted in near real time using tree‑based machine learning models trained on multimodal physiological and simulator‑derived features?}
 \end{quote}
 
-\noindent The sub-questions can be listed seperately, as such:
+%\noindent The sub-questions can be listed seperately, as such:
 
-\begin{itemize}
-    \item[RQ1] \emph{How does sub question one influence the main RQ?}
-    \item[RQ2] \emph{To what degree does sub question add anything?}
-\end{itemize}
+%\begin{itemize}
+    %\item[RQ1] \emph{How does sub question one influence the main RQ?}
+    %\item[RQ2] \emph{To what degree does sub question add anything?}
+%\end{itemize}
 
-\noindent Or, format it as you desire (tip: you can nest \texttt{itemize} as well). You can alternate \emph{emph} and \textbf{textbf} however you wish. This should cover most of the things required for the introduction.
+Give a one-paragraph overview of your main findings.
 
 \section{Related Work}
+This section reviews prior work relevant to VR pilot training, physiological measurement, and machine learning-based performance modeling. The aim is to position the present study within the broader literature and to highlight how existing approaches inform, but also differ from the goals of this thesis.
 
-Here you provide a synthesis of the existing literature, comparing and drawing parallels across studies to establish the state-of-the-art. Cite relevant theories, models, and recent work. Describe what prior research has found, any contradicting findings or competing approaches. Identify any gaps or limitations in existing research and how your thesis potentially addresses these gaps in terms of methodology, data used, etc.
+\subsection{VR in Aviation Training}
+Virtual reality (VR) has increasingly been adopted across multiple domains of aviation training, ranging from ab initio pilot instruction to aircraft maintenance and service roles. \citep{FussellTruong2020, Hight2022, Peña2025}. Studies with student pilots have evaluated VR flight simulators as primary or supplementary training devices and typically compare them to desktop‑based or traditional aviation training devices \citep{Hight2022, GuthridgeClinton-Lisell2023}. These developments highlight its potential as a general-purpose medium for high-fidelity simulation in aviation.
 
-Copy paste BibTeX code\footnote{Using e.g. the quote icon in GScholar, then BibTeX at the bottom.} and put it in \texttt{references.bib}. After, you can cite some work \citep{mackay2003information} -- using \texttt{\textbackslash citep}. You can refer to the author of e.g. \cite{minsky1961steps} directly like using \texttt{\textbackslash cite} (this does not work when using bracket-citation). If you use bracket-style,\footnote{Find the \texttt{natbib} part in the \texttt{main.tex} \LaTeX{} script.} you might want use \texttt{\textbackslash citeauthor} when citing, like: see \citeauthor{ananny2018seeing} \cite{ananny2018seeing}.  If you want to add pages you can use brackets in \texttt{\textbackslash citep[][p. 5]\{mackay2003information\}}, which looks like: \citep[][p. 5]{mackay2003information}. The first brackets can be used for things like \emph{see}, and \emph{e.g.}. If you want to cite multiple authors, simply comma-separate them (\texttt{\textbackslash citep\{\-minsky\-1961\-steps,\-mackay\-2003\-information\}}) and it will aggregate them automatically \citep{minsky1961steps,mackay2003information}.
+The effectiveness of VR in pilot training has been assessed in a number of empirical studies. For ab initio pilot training, \citet{Hight2022} conducted a quasi‑experimental pilot study with civilian pilots, comparing desktop $2$D simulations and head‑mounted VR simulations while keeping other training factors identical \citep{Hight2022}. They found no significant differences in academic performance between the VR and $2$D conditions, based on module and final scores, and also collected subjective ratings of the learning materials. Their findings suggest that VR does not hinder skill acquisition, and that students in both conditions rated simulation‑based training as highly beneficial and preferred it over other learning media \citep{Hight2022}. In another study, \citet{GuthridgeClinton‑Lisell2023} evaluated beginning-level instrument pilots' pre-test and post-test performance on a visual traffic pattern task after trained in either VR simulator, a PC-based simulator, or no simulator. The results showed that both the VR and PC‑based training groups improved significantly on flight maneuvers relative to the group without simulator training, with the VR group performing broadly comparably to the PC‑based group \citep{GuthridgeClinton‑Lisell2023}. Students also perceived VR as an acceptable and immersive training technology \citep{GuthridgeClinton‑Lisell2023}. 
+
+These studies suggest that immersive VR simulators can support training outcomes comparable to those achieved with 2D desktop or PC‑based simulators. Students generally perceive both 2D and VR simulations as beneficial and often prefer simulator‑based practice over more traditional learning materials \citep{Hight2022,GuthridgeClinton‑Lisell2023}, even though current VR systems still present technical, implementation, and integration challenges \citep{Peña2025}. However, existing evaluation methods mostly rely on aggregated academic performance or discrete measures of maneuver accuracy rather than continuous, time‑resolved performance metrics or physiology‑informed models. This methodological emphasis underscores a persisting gap in the literature and motivates the present thesis, which seeks to integrate VR flight tasks with multimodal physiological monitoring and machine‑learning‑based performance prediction.
+
+\subsection{Physiological Measures of Workload in Pilot Training}
+A number of studies have investigated how electrocardiography‑ (ECG‑) and respiration‑based measures reflect cognitive load and stress in simulated flight tasks. \citet{Korner2025} examined heart rate as an index of mental workload and performance in VR landing tasks, and found that mean heart rate increased with task difficulty, decreased across repeated runs of the same difficulty, and rose near touchdown compared with the start of the flight, while correlating positively with subjective workload and negatively with performance. These results indicate that heart rate can support real‑time task‑difficulty adaptation to keep trainees within an optimal workload band \citep{Korner2025}. \citet{Bruna2018} investigated ECG and respiration during simulated emergency landings and related them to pilots’ subjective stress ratings, and reported that ECG‑derived heart‑rate variability parameters showed no significant changes across flight phases, whereas several respiration features, including average breathing frequency and low‑frequency respiratory power, increased during approach and landing \citep{Bruna2018}. These findings suggest that breathing rate and spectral power are sensitive markers of elevated workload and stress in high‑demand piloting scenarios \citep{Bruna2018}.
+
+While these studies demonstrate that physiological data provide useful indicators of mental workload and stress, they primarily focus on analyses of physiology averaged over discrete flight phases or conditions and treat physiology as an outcome or indicator of task demand rather than as input to models predicting continuous performance. In contrast, the present thesis incorporates ECG‑ and respiration‑derived features, together with simulator‑derived variables, into tree‑based regression models that aim to predict performance errors in near real time. By evaluating how well these models generalize across subjects and over future time segments within runs, the thesis investigates the extent to which multimodal physiological signals can support continuous, sample‑wise prediction of pilot performance.
+
+\subsection{Machine Learning for VR Flight Performance Prediction}
+Several studies have explored machine learning models trained on different physiological and simulator‑derived signals to support the development of adaptive VR‑integrated flight simulators for pilot training. A commonly used dataset in this context is the CogPilot corpus \citep{Rao2022}, which contains multimodal physiological and simulator data from participants performing VR‑based landing tasks. \citet{Caballero2023} used this dataset to classify flight difficulty from multimodal physiological signals, training an AdaBoost‑based pipeline on features derived via functional principal component analysis and feature selection, and achieving around 87\% accuracy with an area under the ROC curve (AUC) of 0.88. Building on the same dataset, \citet{Moore2023} focused on eye‑tracking and electrodermal activity signals for the same classification problem, combining the Minimally Random Convolutional Kernel Transform with a deep neural network; their model achieved an AUC of 0.91 while reducing the original time‑series representation by approximately 99.7\%. More recently, \citet{Barry2025} proposed a multimodal functional learning framework for landing‑error regression on the same dataset, transforming high‑frequency physiological and aircraft signals into tabular features using summary statistics and functional principal component analysis, applying feature selection with BorutaSHAP, and training several tree‑based models to predict approach‑error metrics.
+
+Together, these studies demonstrate that multimodal time‑series from VR flight tasks can be effectively leveraged by machine learning models for both flight‑difficulty classification and offline prediction of landing performance, and they provide an important methodological foundation for intelligent instructor and evaluator systems. However, existing work predominantly targets post‑hoc analysis using either discrete difficulty labels or aggregated performance scores, and does not address continuous, near real‑time prediction of approach‑error trajectories or systematically examine subject‑level and temporal generalization behavior of different tree‑based model families. The present thesis extends this line of research by applying and comparing tree‑based multi‑output regression models to predict performance metrics in near real time from multimodal physiological and simulator‑derived features, and by explicitly analyzing their generalization across unseen pilots and across future time segments within runs.
+
 
 \section{Methods}
 The following sections describe the dataset, the extraction of physiological and aircraft features in sliding time windows, and the construction of multi‑output targets. They also provide a brief summary of the machine learning model training and the metrics used for evaluation.
@@ -141,25 +158,25 @@ The following sections describe the dataset, the extraction of physiological and
 \subsection{Dataset}
 The CogPilot dataset \citep{Rao2022} was used in this project and is publicly available via PhysioNet \citep{Goldberger2000}. The dataset contains multimodal physiological, task performance, and interaction data collected from 35 participants who each performed flight–landing tasks at various difficulty levels. In a virtual reality environment, each participant followed an Instrument Landing System (ILS) approach and primarily relied on cockpit instrument readings to land an aircraft along a prescribed ideal flight path. Each experimental session consisted of three blocks with four missions per block, resulting in twelve missions per participant, with one difficulty level per mission.
 
-Multiple wearable sensors were used to record seven physiological modalities, with nominal sampling rates ranging from 128 to 1024 Hz \citep{Rao2022}. These modalities comprise electromyography (EMG), accelerometry (ACC), electrodermal activity (EDA), electrocardiography (ECG), respiration (RESP), eye tracking (ETK), and photoplethysmography (PPG). A detailed overview of the functional data derived from each physiological signal is provided in Table 4 in Appendix~A. Mission difficulty was manipulated via four distinct weather conditions \citep{Rao2022}. According to the dataset description, flight performance measures were derived from the simulated aircraft behavior and grouped into three components \citep{Rao2022}. The first two are the localizer and glide slope errors, defined as the angular deviations from the ideal horizontal and vertical landing trajectories \citep{Rao2022}, respectively, each ranging from -3 to 3 degrees. The third component is the absolute deviation from the ideal airspeed, where the raw airspeed error was divided by 10 so that the maximum error is mapped to the same -3 to 3 scale \citep{Rao2022}.
+Multiple wearable sensors were used to record seven physiological modalities, with nominal sampling rates ranging from 128 to 1024 Hz \citep{Rao2022}. These modalities comprise electromyography (EMG), accelerometry (ACC), electrodermal activity (EDA), electrocardiography (ECG), respiration (RESP), eye tracking (ETK), and photoplethysmography (PPG). A detailed overview of the functional data derived from each physiological signal is provided in Table 4 in Appendix A. Mission difficulty was manipulated via four distinct weather conditions \citep{Rao2022}. According to the dataset description, flight performance measures were derived from the simulated aircraft behavior and grouped into three components \citep{Rao2022}. The first two are the localizer and glide slope errors, defined as the angular deviations from the ideal horizontal and vertical landing trajectories \citep{Rao2022}, respectively, each ranging from -3 to 3 degrees. The third component is the absolute deviation from the ideal airspeed, where the raw airspeed error was divided by 10 so that the maximum error is mapped to the same -3 to 3 scale \citep{Rao2022}.
 
 \subsection{Feature Engineering}
 Recordings of ECG and RESP were selected as the physiological modalities for feature preprocessing and extraction. Heart rate (HR) derived from ECG can be used as a practical signal for real‑time adaptation of task difficulty to maintain trainees within an optimal workload range \citep{Koerner2025}, and respiratory behavior is a robust marker of cognitive processing, with mentally demanding tasks typically associated with an increased breathing rate (BR) and higher‑frequency ventilation \citep{Grassmann2016}.
 
 The raw ECG signal was first band‑pass filtered between 8 and 20~Hz using a Butterworth filter, as this passband has been shown to be optimal for QRS complex detection with a favorable signal‑to‑noise ratio \citep{Elgendi2010}. R‑peaks were then detected in the cleaned signal using the QRS detection algorithm proposed by \citet{Elgendi2010}. Subsequently, the signal‑quality index (SQI) mechanism from \citet{Zhao2018} was applied to identify low‑quality ECG segments, and HR was computed from the detected R‑peaks only for 25 subjects with ECG recordings classified as having excellent quality.
 
-For the RES signals, an optimized breath detection algorithm developed by \citet{Khodadad2018} was used to preprocess the respiratory traces and to derive breathing rate and respiratory peaks. This method has been shown to outperform conventional algorithms on breath detection in terms of receiver–operating–characteristic performance. Respiratory amplitude was computed as the difference between each respiratory peak and its preceding trough. 
+For the RESP signals, an optimized breath detection algorithm developed by \citet{Khodadad2018} was used to preprocess the respiratory traces and to derive breathing rate and respiratory peaks. This method has been shown to outperform conventional algorithms on breath detection in terms of receiver–operating–characteristic performance. Respiratory amplitude was computed as the difference between each respiratory peak and its preceding trough. 
 
-Because ECG and RESP were recorded using the same sensing device, no additional timestamp alignment was required between these two signals. For each subject, difficulty level, and run number, physiological and aircraft features were extracted within a sliding 10~s window that was aligned to the performance timestamps. First, the performance, ECG, RESP, and aircraft data streams were converted from MATLAB time format to seconds and aligned by correcting for the offset between the start times of the performance and physiological recordings, yielding a common time axis for all signals. A 10~s window $(t-10, t]$ was then defined and advanced in 1~s steps along the aligned performance timeline. For each window, the last available performance sample was used to assign the glide slope, localizer, airspeed, and total error as target variables at time $t$.
+Because ECG and RESP were recorded using the same sensing device, no additional timestamp alignment was required between these two signals. For each subject, difficulty level, and run number, physiological and aircraft features were extracted within a sliding 10-second window that was aligned to the performance timestamps. First, the performance, ECG, RESP, and aircraft data streams were converted from MATLAB time format to seconds and aligned by correcting for the offset between the start times of the performance and physiological recordings, yielding a common time axis for all signals. A 10-second window $(t-10$, $t]$ was then defined and advanced in 1-second steps along the aligned performance timeline. For each window, the last available performance sample was used to assign the glide slope, localizer, airspeed, and total error as target variables at time $t$.
 
-Within the same 10~s interval, the corresponding segments of the cleaned HR and respiration signals were selected, and the following time‑domain features were computed: the mean, standard deviation, minimum, maximum, and range of HR; the mean and standard deviation of BR; and the mean and standard deviation of respiratory amplitude. In parallel, the mean aircraft elevation trim, aileron trim, and landing‑gear position were computed over the window. Each window thus yielded a single feature vector, comprising physiological and aircraft features, paired with the contemporaneous performance errors, resulting in a second‑by‑second sequence of 10~s summary observations for subsequent modeling.
+Within the same 10-second interval, the corresponding segments of the cleaned HR and respiration signals were selected, and the following time‑domain features were computed: the mean, standard deviation, minimum, maximum, and range of HR; the mean and standard deviation of BR; and the mean and standard deviation of respiratory amplitude. In parallel, the mean aircraft elevation trim, aileron trim, and landing‑gear position were computed over the window. Each window thus yielded a single feature vector, comprising physiological and aircraft features, paired with the contemporaneous performance errors, resulting in a second‑by‑second sequence of 10-second summary observations for subsequent modeling.
 
 \subsection{Machine Learning Setup}
-All predictive analyses were conducted on subject‑level dataframes constructed from the 10‑s windows described above. For each subject, difficulty level, and run, physiological, aircraft, and performance information were aggregated into a feature matrix and a multi‑output target matrix, where each row represents one time window and the targets correspond to glide slope, localizer, airspeed, and total error. Two feature configurations were considered. In the no‑lag condition, the feature set contained only physiological and aircraft features derived from the current window. In the lag condition, the feature set was augmented with lagged performance measures corresponding to the four target variables at the preceding one and two seconds, thereby enabling the models to exploit very recent performance history.
+All predictive analyses were conducted on subject‑level dataframes constructed from the 10-second windows described above. For each subject, difficulty level, and run, physiological, aircraft, and performance information were aggregated into a feature matrix and a multi‑output target matrix, where each row represents one time window and the targets correspond to glide slope, localizer, airspeed, and total error. Two feature configurations were considered. In the no‑lag condition, the feature set contained only physiological and aircraft features derived from the current window. In the lag condition, the feature set was augmented with lagged performance measures corresponding to the four target variables at the preceding one and two seconds $(t-1, t-2)$, thereby enabling the models to exploit very recent performance history.
 
-To quantify generalization, two cross‑validation strategies were implemented that respect the hierarchical and temporal structure of the data. For subject‑level generalization, leave‑one‑subject‑out cross‑validation was applied using the subject identifier as grouping variable, such that all windows from one participant were held out as test data in each fold and the models were trained on the remaining participants. For within‑run temporal generalization, the final 60 s of data in each run of the subjects were excluded from the training–validation set, flagged as temporal test segments, and retained exclusively for final evaluation. On the remaining data , grouped 5‑fold cross‑validation was used, with groups defined as unique subject–run combinations so that all windows from a given run were assigned to the same fold. In both evaluation schemes, hyperparameter tuning was carried out within the respective cross‑validation procedure on the training–validation set only; the selected configuration was then refitted on the full training–validation data before testing.
+To quantify generalization, two cross‑validation strategies were implemented that respect the hierarchical and temporal structure of the data. For subject‑level generalization, leave‑one‑subject‑out cross‑validation was applied using the subject identifier as grouping variable, such that all windows from one participant were held out as test data in each fold and the models were trained on the remaining participants. For within‑run temporal generalization, the final 60 seconds of data in each run of the subjects were excluded from the training–validation set, flagged as temporal test segments, and retained exclusively for final evaluation. On the remaining data , grouped 5‑fold cross‑validation was used, with groups defined as unique subject–run combinations so that all windows from a given run were assigned to the same fold. In both evaluation schemes, hyperparameter tuning was carried out within the respective cross‑validation procedure on the training–validation set only; the selected configuration was then refitted on the full training–validation data before testing.
 
-Three tree‑based regression algorithms were used for model training and evaluation: Random Forest (RF), XGBoost (XGB), and CatBoost (CB). Barry et al. (2025) implemented the same models on this dataset using an ad‑hoc approach to predict performance error; the present study extends this work by systematically examining real‑time forecasting performance across feature configurations (lag vs. no‑lag) and generalization strategies. For each algorithm, a discrete hyperparameter grid was specified to reflect key design choices (e.g., number of trees or boosting iterations, maximum tree depth, and column subsampling rate), and hyperparameter optimization was performed using exhaustive grid search with cross‑validation (GridSearchCV). The negative root mean squared error, averaged across output variables, served as the selection criterion for the best estimator. The explored hyperparameters and their candidate values are summarized in Table 1.
+Three tree‑based regression algorithms were used for model training and evaluation: Random Forest (RF), XGBoost (XGB), and CatBoost (CB). \citet{Barry2025} implemented the same models on this dataset using an ad‑hoc approach to predict performance error; the present study extends this work by systematically examining real‑time forecasting performance across feature configurations (lag vs. no‑lag) and generalization strategies. For each algorithm, a discrete hyperparameter grid was specified to reflect key design choices (e.g., number of trees or boosting iterations, maximum tree depth, and column subsampling rate), and hyperparameter optimization was performed using exhaustive grid search with cross‑validation. The negative root mean squared error, averaged across output variables, served as the selection criterion for the best estimator. The explored hyperparameters and their candidate values are summarized in Table 1.
 
 \begin{table}[htbp]
 	\caption{Candidate model hyperparameters}
@@ -202,7 +219,7 @@ In this section, how well the three models generalize to unseen pilots in the su
 
 Table 2 presents the mean MAE, RMSE, and $R^2$ across outputs and subjects for the Random Forest baseline, XGBoost, and CatBoost, with and without lagged features. In the no-lag condition, all models generate negative overall $R^2$ values, indicating performance below a simple mean predictor, with Random Forest showing the worst fit and CatBoost the best of the tree. When lag features are included, overall $R^2$ increases to approximately 0.96 for Random Forest and XGBoost and to 0.97 for CatBoost, accompanied by marked reductions in MAE and RMSE.
 
-Per‑output performance for the best subject‑level model (CatBoost with lag features) is reported in Table 3. For glide slope and localizer errors, $R^2$ values of approximately 0.98 indicate that the model captures most of the between‑subject variance in these errors. Airspeed error is slightly more difficult to predict, with $R^2$ values around 0.96, whereas total error shows somewhat lower but still high explained variance ($R^2$ $\approx$ 0.97). The corresponding Figure 5 in Appendix A shows that predicted values cluster tightly around the identity line for all outputs, confirming that both the direction and the magnitude of subject‑level deviations are reproduced well.
+Per‑output performance for the best subject‑level model (CatBoost with lagged features) is reported in Table 3. For glide slope and localizer errors, $R^2$ values of approximately 0.98 indicate that the model captures most of the between‑subject variance in these errors. Airspeed error is slightly more difficult to predict, with $R^2$ values around 0.96, whereas total error shows somewhat lower but still high explained variance ($R^2$ $\approx$ 0.97). The corresponding Figure 5 in Appendix A shows that predicted values cluster tightly around the identity line for all outputs, confirming that both the direction and the magnitude of subject‑level deviations are reproduced well.
 
 \begin{table}[htbp]
 	\caption{Overall subject‑level generalization performance of the models, with and without lagged features.}
@@ -338,18 +355,18 @@ Table 6 reports Pearson correlations between true component errors and true tota
 	\end{tabular}
 \end{table}
 
-In contrast, in the lag conditions, all three models match the observed correlation pattern more closely. For both subject-level and temporal generalization, predicted component errors exhibit correlations with total error that closely resemble the true correlations. The correlation between predicted and true total error reaches 0.99 across models. These results indicate that the models achieve accurate predictions of total error and, at the same time, reproduce the observed relationships between the individual error components and overall approach performance. Figure 4 and 5 illustrates these relationships for the CatBoost model under the lag condition, showing that the regression lines for the predicted component errors closely follow those of the true errors across the range of total error.
+In contrast, in the lag conditions, all three models match the observed correlation pattern more closely. For both subject-level and temporal generalization, predicted component errors exhibit correlations with total error that closely resemble the true correlations. The correlation between predicted and true total error reaches 0.99 across models. These results indicate that the models achieve accurate predictions of total error and, at the same time, reproduce the observed relationships between the individual error components and overall approach performance. Figure 3 and 4 illustrates these relationships for the CatBoost model under the lag condition, showing that the regression lines for the predicted component errors closely follow those of the true errors across the range of total error.
 
 \begin{figure}[htbp]
 	\centering
 	\includegraphics[width=\textwidth]{corr_vs_true_total_error_subject_lag.png}
-	\caption{Correlations between component errors and the true total error for CatBoost (subject-level generalization with lag features) }
+	\caption{Correlations between component errors and the true total error for CatBoost (subject-level generalization with lagged features) }
 	\label{fig:corr-sub-lag}
 \end{figure}
 \begin{figure}[htbp]
 	\centering
 	\includegraphics[width=\textwidth]{corr_vs_true_total_error_temporal_lag.png}
-	\caption{Correlations between component errors and the true total error for CatBoost (temporal generalization with lag features)}
+	\caption{Correlations between component errors and the true total error for CatBoost (temporal generalization with lagged features)}
 	\label{fig:corr-temp-lag}
 \end{figure}
 
@@ -358,21 +375,21 @@ Feature importance analyses for the models in the no‑lag condition, as shown i
 \begin{table}[htbp]
 	\caption{Feature importance for subject-level generalization (lag condition).
 		Only the most influential lag features are shown.}
-	\label{tab:results}
+	\label{tab:feat-imp-sub-lag}
 	\centering
 	\small
 	\begin{tabular}{lccc}
 		\toprule
 		Feature & Random Forest & XGBoost & CatBoost \\
 		\midrule
-		Total Error (lag1)          & 0.5211 & 0.0193 & 80.3380 \\
-		Total Error (lag2)          & 0.0006 & 0.1728 & 19.1385 \\
-		Airspeed Error (lag2)    & 0.0010 & 0.0537 &  0.1709 \\
-		Airspeed Error (lag1)    & 0.1424 & 0.1776 &  0.1596 \\
-		Glide Slope Error (lag1) & 0.1989 & 0.2410 &  0.0513 \\
-		Glide Slope Error (lag2) & 0.0022 & 0.0560 &  0.0509 \\
-		Localizer Error (lag1)   & 0.1259 & 0.0873 &  0.0258 \\
-		Localizer Error (lag2)   & 0.0045 & 0.1616 &  0.0117 \\
+		Total Error (lag1)          & 0.521 & 0.019 & 80.338 \\
+		Total Error (lag2)          & 0.001 & 0.173 & 19.139 \\
+		Airspeed Error (lag2)    & 0.001 & 0.054 &  0.171 \\
+		Airspeed Error (lag1)    & 0.142 & 0.178 &  0.159 \\
+		Glide Slope Error (lag1) & 0.199 & 0.241 &  0.051 \\
+		Glide Slope Error (lag2) & 0.002 & 0.056 &  0.051 \\
+		Localizer Error (lag1)   & 0.126 & 0.087 &  0.026 \\
+		Localizer Error (lag2)   & 0.005 & 0.162 &  0.012 \\
 		\bottomrule
 	\end{tabular}
 \end{table}
@@ -382,28 +399,49 @@ When lagged features are included, the importance pattern changes substantially,
 \begin{table}[htbp]
 	\caption{Feature importance for temporal generalization (lag condition).
 		Only the most influential lag features are shown.}
-	\label{tab:results}
+	\label{tab:feat-imp-temp-lag}
 	\centering
 	\small
 	\begin{tabular}{lccc}
 		\toprule
 		Feature & Random Forest & XGBoost & CatBoost \\
 		\midrule
-		Total Error (lag1)       & 0.5235 & 0.0215 & 89.8342 \\
-		Total Error (lag2)       & 0.0008 & 0.1533 &  9.6466 \\
-		Airspeed Error (lag2)    & 0.0011 & 0.0381 &  0.1909 \\
-		Airspeed Error (lag1)    & 0.1523 & 0.1851 &  0.1743 \\
-		Localizer Error (lag1)   & 0.1261 & 0.0986 &  0.0311 \\
-		Glide Slope Error (lag2) & 0.0193 & 0.0674 &  0.0238 \\
-		Glide Slope Error (lag1) & 0.1679 & 0.2328 &  0.0220 \\
-		Localizer Error (lag2)   & 0.0045 & 0.1668 &  0.0121 \\
+		Total Error (lag1)       & 0.524 & 0.022 & 89.834 \\
+		Total Error (lag2)       & 0.001 & 0.153 &  9.647 \\
+		Airspeed Error (lag2)    & 0.001 & 0.038 &  0.191 \\
+		Airspeed Error (lag1)    & 0.152 & 0.185 &  0.174 \\
+		Localizer Error (lag1)   & 0.126 & 0.099 &  0.031 \\
+		Glide Slope Error (lag2) & 0.019 & 0.067 &  0.024 \\
+		Glide Slope Error (lag1) & 0.168 & 0.233 &  0.022 \\
+		Localizer Error (lag2)   & 0.005 & 0.167 &  0.012 \\
 		\bottomrule
 	\end{tabular}
 \end{table}
 
-SHAP analysis for the CatBoost model in the temporal generalization setting with lag features confirms the feature‑importance findings. The SHAP summary plot (Figure 6 in Appendix A) shows that lagged total error from the preceding one second has the largest impact on the predicted total error, followed by lagged total error from the previous two seconds and the lagged airspeed, localizer, and glideslope errors, which is consistent with the dominance of lagged performance variables in the importance rankings. High values of the lagged total error are associated with positive SHAP values, indicating increased predicted total error, whereas low values of this lagged error yield negative SHAP values and thus reduce the prediction. Physiological features such as HR range and mean BR exhibit much smaller SHAP magnitudes, indicating that these variables play only a minor role compared to lagged performance errors in the CatBoost model.
+SHAP analysis for the CatBoost model in the temporal generalization setting with lag features confirms the feature‑importance findings. The SHAP summary plot (Figure 6 in Appendix A) shows that lagged total error from the preceding one second has the largest impact on the predicted total error, followed by lagged total error from the previous two seconds and the lagged airspeed, localizer, and glide slope errors, which is consistent with the dominance of lagged performance variables in the importance rankings. High values of the lagged total error are associated with positive SHAP values, indicating increased predicted total error, whereas low values of this lagged error yield negative SHAP values and thus reduce the prediction. Physiological features such as HR range and mean BR exhibit much smaller SHAP magnitudes, indicating that these variables play only a minor role compared to lagged performance errors in the CatBoost model.
 
 \section{Discussion}
+This section presents an evaluation of the results obtained from the three tree‑based regression models for forecasting performance errors, and discusses the limitations of the study as well as directions for future research.
+
+\subsection{Main Findings}
+This thesis examined how accurately pilots’ performance during virtual reality landing tasks can be predicted in near real time using tree‑based regression models trained on multimodal physiological and simulator‑derived features. In both subject‑level and temporal generalization settings, models without lagged flight‑performance features achieved limited predictive accuracy: in the subject‑level setting, all models yielded negative $R^2$ values, values, indicating performance below a mean‑baseline predictor, and in the temporal setting, overall $R^2$ reached only about 0.20. In contrast, adding one‑ and two‑step lagged error features led to high explained variance for all three models, with $R^2$ increasing to approximately 0.97 in the subject‑level setting and to 0.98 in the temporal setting, and MAE and RMSE decreasing to roughly one‑tenth of their values in the corresponding no‑lag condition.
+
+Differences between the three models were relatively small compared with the gains obtained from including lagged features. CatBoost consistently achieved the lowest MAE and RMSE and the highest $R^2$ values, but Random Forest and XGBoost showed only negligible differences on the same evaluation metrics, suggesting that the inclusion of recent performance history is more critical than the  specific model architecture. Comparing results from the two generalization methods further revealed that temporal prediction within runs is slightly easier than generalization to unseen pilots: all models achieved higher $R^2$ in the temporal setting than in the subject‑level setting, indicating that individual pilots exhibit consistent short‑term dynamics that are easier to predict than cross‑subject variability.
+
+Analyses of error correlations showed that, in the true data, component errors were weakly associated with total error, indicating that overall landing performance reflects a combination of distinct error sources rather than being dominated by a single component. When lagged performance errors were included, all three models closely replicate this correlation pattern, and high correlation between predicted and true total error, indicating that the models not only achieved accurate point predictions but also reserved the relationships among error components. Feature-importance and SHAP analyses further indicated that lagged performance variables dominated the predictions in both generalization settings, whereas physiological features had much smaller effects.
+
+\subsection{Relation to Prior Work}
+Prior studies in simulated and VR flight paradigms have shown that ECG‑derived heart rate and respiration measures are sensitive to mental workload, stress, and overall performance \citep{Korner2025, Bruna2018, Grassmann2016}. Consistent with these findings, the present models assigned non‑zero importance to certain HR‑ and respiration‑based features; however, their contributions were clearly outweighed by lagged performance variables and simulator‑derived features in the temporal generalization setting. This pattern suggests that recent error and control history already capture much of the information needed for short‑horizon prediction, leaving comparatively little unique variance to be explained by physiology.
+
+The present findings also extend earlier studies conducted on the same dataset that focused on flight‑difficulty classification or offline landing‑error regression. Tree‑based and deep learning models have been shown to classify discrete difficulty levels from subsets of physiological and eye‑tracking signals \citep{Caballero2023, Moore2023}, and \citet{Barry2025} demonstrated that tree‑based models trained on summary features can predict aggregated landing‑error metrics. The current results go beyond this work by showing that tree‑based multi‑output regressors, equipped with simple lagged performance features, can achieve high explained variance for continuous landing‑error trajectories at a one‑second prediction horizon in both subject‑level and temporal generalization settings.
+
+\subsection{Methodological Considerations and Limitations}
+The generalisability of these findings is constrained by several methodological choices. First, all analyses were conducted on a relatively small sample of participants performing a single VR ILS landing task, which may limit the extent to which the models transfer to other training scenarios or populations. Second, the models focused on very short time‑window prediction using one‑ and two‑step lagged error and feature values; longer‑horizon forecasting may reveal a stronger role for physiological dynamics, as \citet{McGuire2026} showed that physiological signals can estimated errors up to 10 seconds before they occur in real‑world flight operations. Third, the feature engineering pipeline used manually designed summary statistics and lagged features instead of end‑to‑end temporal models that learn directly from raw time‑series data. Finally, although the study examined both cross‑subject and temporal generalization, the models were not tested in scenarios where they provide feedback to human instructors during training.
+
+\subsection{Implications and Future Directions}
+Despite these limitations, the strong predictive power of lagger error terms suggest that relatively simple models, deployed with simulator metrics, could provide reliable short-term forecasts of performance pattern and thus allow automated feedback to instructors. The comparatively smaller contributions of physiological features indicate that physiology can complement performance history to monitor workload and stress. More broadly, the modeling framework illustrates how multimodal data form VR training devices can be integrated into interpretable, real-time error-prediction pipelines, providing a step towards intelligent instructor systems that support scalable, objective assessment.
+
+Future research could extend this work in multiple directions. First, evaluating models for longer‑horizon performance prediction would provide insight into how far ahead performance errors can be forecast, and whether physiological dynamics contribute more strongly when predicting several seconds into the future. Second, applying the modeling framework to other VR flight tasks or datasets, including scenarios with different levels of difficulty, environmental conditions, or trainee expertise, would help assess robustness and external validity. Finally, integration of such models into live VR training sessions could help study their impact on instructor workload, trainee learning curves, and relevant safety behavior while providing empirical evidence on whether physiology‑informed performance prediction meaningfully improves training efficiency and operational safety outcomes.
 
 
 \section{Conclusion}
@@ -538,18 +576,18 @@ SHAP analysis for the CatBoost model in the temporal generalization setting with
 		\toprule
 		Feature & Random Forest & XGBoost & CatBoost \\
 		\midrule
-		Mean Elevation       & 0.2474 & 0.2219 & 33.7163 \\
-		HR Range            & 0.0937 & 0.0618 & 18.2773 \\
-		Mean Aileron        & 0.1269 & 0.1382 & 12.4337 \\
-		Difficulty Level    & 0.0531 & 0.1336 & 10.6098 \\
-		Mean HR             & 0.0655 & 0.0355 &  4.6005 \\
-		Mean BR             & 0.0749 & 0.0501 &  4.4261 \\
-		SD BR              & 0.0536 & 0.0461 &  3.8130 \\
-		Max HR              & 0.0586 & 0.1167 &  5.3498 \\
-		Min HR              & 0.0780 & 0.0515 &  1.2061 \\
-		SD HR             & 0.0350 & 0.0664 &  0.4180 \\
-		Mean RESP Amp       & 0.0711 & 0.0518 &  5.1496 \\
-		SD RESP Amp        & 0.0422 & 0.0264 &  0.0000 \\
+		Mean Elevation       & 0.247 & 0.222 & 33.716 \\
+		HR Range            & 0.094 & 0.062 & 18.277 \\
+		Mean Aileron        & 0.127 & 0.138 & 12.434 \\
+		Difficulty Level    & 0.053 & 0.134 & 10.610 \\
+		Mean HR             & 0.066 & 0.036 &  4.601 \\
+		Mean BR             & 0.075 & 0.050 &  4.426 \\
+		SD BR              & 0.054 & 0.046 &  3.813 \\
+		Max HR              & 0.059 & 0.117 &  5.350 \\
+		Min HR              & 0.078 & 0.052 &  1.206 \\
+		SD HR             & 0.035 & 0.066 &  0.418 \\
+		Mean RESP Amp       & 0.071 & 0.052 &  5.150 \\
+		SD RESP Amp        & 0.042 & 0.026 &  0.000 \\
 		\bottomrule
 	\end{tabular}
 \end{table}
@@ -564,18 +602,18 @@ SHAP analysis for the CatBoost model in the temporal generalization setting with
 		\toprule
 		Feature & Random Forest & XGBoost & CatBoost \\
 		\midrule
-		Mean Elevation      & 0.2483 & 0.1537 & 30.0652 \\
-		HR Range            & 0.0888 & 0.0656 & 11.6198 \\
-		Mean Aileron         & 0.1305 & 0.1117 & 14.9291 \\
-		Difficulty Level     & 0.0557 & 0.1356 &  9.5925 \\
-		Mean HR             & 0.0623 & 0.0590 &  7.2717 \\
-		Mean BR             & 0.0749 & 0.0504 &  6.8984 \\
-		SD BR              & 0.0550 & 0.0484 &  4.0880 \\
-		Max HR              & 0.0613 & 0.0998 &  5.1017 \\
-		Min HR              & 0.0724 & 0.0507 &  3.4167 \\
-		SD HR             & 0.0364 & 0.1460 &  0.6144 \\
-		Mean RESP Amp       & 0.0735 & 0.0461 &  6.2590 \\
-		SD RESP Amp        & 0.0409 & 0.0329 &  0.1434 \\
+		Mean Elevation      & 0.248 & 0.154 & 30.065 \\
+		HR Range            & 0.089 & 0.066 & 11.620 \\
+		Mean Aileron         & 0.131 & 0.112 & 14.929 \\
+		Difficulty Level     & 0.056 & 0.136 &  9.593 \\
+		Mean HR             & 0.062 & 0.059 &  7.272 \\
+		Mean BR             & 0.075 & 0.050 &  6.898 \\
+		SD BR              & 0.055 & 0.048 &  4.088 \\
+		Max HR              & 0.061 & 0.010 &  5.102 \\
+		Min HR              & 0.072 & 0.051 &  3.417 \\
+		SD HR             & 0.036 & 0.146 &  0.614 \\
+		Mean RESP Amp       & 0.074 & 0.046 &  6.259 \\
+		SD RESP Amp        & 0.041 & 0.033 &  0.143 \\
 		\bottomrule
 	\end{tabular}
 \end{table}
