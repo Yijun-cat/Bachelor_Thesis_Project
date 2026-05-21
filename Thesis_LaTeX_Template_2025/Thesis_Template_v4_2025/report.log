@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2026.5.7)  19 MAY 2026 22:48
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2026.5.7)  21 MAY 2026 23:04
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -649,55 +649,19 @@ Package: array 2023/10/16 v2.5g Tabular extension package (FMi)
 )
 Package hyperref Info: Option `colorlinks' set `true' on input line 20.
 
-(/usr/share/texlive/texmf-dist/tex/latex/apacite/apacite.sty
-Package: apacite 2013/07/21 v6.03 APA citation
-\c@BibCnt=\count303
-\bibleftmargin=\skip105
-\bibindent=\skip106
-\bibparsep=\skip107
-\bibitemsep=\skip108
-\biblabelsep=\skip109
-)
 (/usr/share/texlive/texmf-dist/tex/latex/natbib/natbib.sty
 Package: natbib 2010/09/13 8.31b (PWD, AO)
-\bibhang=\skip110
-\bibsep=\skip111
+\bibhang=\skip105
+\bibsep=\skip106
 LaTeX Info: Redefining \cite on input line 694.
-\c@NAT@ctr=\count304
+\c@NAT@ctr=\count303
 )
-LaTeX Info: Redefining \BBA on input line 56.
-
 (/usr/share/texlive/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
 File: l3backend-pdftex.def 2024-01-04 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count305
+\l__color_backend_stack_int=\count304
 \l__pdf_internal_box=\box59
 )
-(./report.aux
-
-LaTeX Warning: Label `tab:results' multiply defined.
-
-
-LaTeX Warning: Label `tab:results' multiply defined.
-
-
-LaTeX Warning: Label `tab:results' multiply defined.
-
-
-LaTeX Warning: Label `tab:results' multiply defined.
-
-
-LaTeX Warning: Label `fig:probs' multiply defined.
-
-
-LaTeX Warning: Label `tab:results' multiply defined.
-
-
-LaTeX Warning: Label `tab:results' multiply defined.
-
-
-LaTeX Warning: Label `tab:results' multiply defined.
-
-)
+(./report.aux)
 \openout1 = `report.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 60.
@@ -718,18 +682,19 @@ LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 60.
 LaTeX Font Info:    ... okay on input line 60.
 LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 60.
 LaTeX Font Info:    ... okay on input line 60.
- (/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
+
+(/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count306
+\scratchcounter=\count305
 \scratchdimen=\dimen257
 \scratchbox=\box60
-\nofMPsegments=\count307
-\nofMParguments=\count308
+\nofMPsegments=\count306
+\nofMParguments=\count307
 \everyMPshowfont=\toks35
-\MPscratchCnt=\count309
+\MPscratchCnt=\count308
 \MPscratchDim=\dimen258
-\MPnumerator=\count310
-\makeMPintoPDFobject=\count311
+\MPnumerator=\count309
+\makeMPintoPDFobject=\count310
 \everyMPtoPDFconversion=\toks36
 ) (/usr/share/texlive/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
@@ -813,12 +778,6 @@ Package hyperref Info: Link coloring ON on input line 60.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-\c@maskedRefs=\count312
-(/usr/share/texlive/texmf-dist/tex/latex/apacite/english.apc
-File: english.apc 2013/07/21 v6.03 apacite language file
-LaTeX Info: Redefining \BPBI on input line 129.
-LaTeX Info: Redefining \BHBI on input line 130.
-)
 (./frontmatter.tex
 *geometry* verbose mode - [ newgeometry ] result:
 * driver: pdftex
@@ -862,7 +821,7 @@ Package epstopdf Info: Source file: <logo.eps>
 logo.eps>
 (epstopdf)             \includegraphics on input line 12.
 Package epstopdf Info: Output file is already uptodate.
-<logo-eps-converted-to.pdf, id=96, 339.2675pt x 86.3225pt>
+<logo-eps-converted-to.pdf, id=92, 339.2675pt x 86.3225pt>
 File: logo-eps-converted-to.pdf Graphic file (type pdf)
 <use logo-eps-converted-to.pdf>
 Package pdftex.def Info: logo-eps-converted-to.pdf  used on input line 12.
@@ -971,377 +930,140 @@ LaTeX Font Info:    Font shape `U/msb/m/n' will be
 LaTeX Font Info:    Font shape `U/msb/m/n' will be
 (Font)              scaled to size 7.29405pt on input line 71.
 )
-LaTeX Font Info:    Trying to load font information for T1+fvm on input line 66
-.
-
-(/usr/share/texlive/texmf-dist/tex/latex/bera/t1fvm.fd
-File: t1fvm.fd 2004/09/07 scalable font definitions for T1/fvm.
-)
-LaTeX Font Info:    Font shape `T1/fvm/m/n' will be
-(Font)              scaled to size 8.50006pt on input line 66.
-Package microtype Info: Loading generic protrusion settings for font family
-(microtype)             `fvm' (encoding: T1).
-(microtype)             For optimal results, create family-specific settings.
-(microtype)             See the microtype manual for details.
 Package microtype Info: Character `029' is missing
 (microtype)             in font `T1/pplj/m/sc/10.95'.
 (microtype)             Ignoring protrusion settings for this character.
-LaTeX Font Info:    Trying to load font information for TS1+pplj on input line 
-74.
-
-(/usr/share/texlive/texmf-dist/tex/latex/psnfss/ts1pplj.fd
-File: ts1pplj.fd 2004/09/06 font definitions for TS1/pplj.
-) [1]
-
-Package natbib Warning: Citation `Yang2021' on page 2 undefined on input line 1
-13.
-
-
-Package natbib Warning: Citation `Yang2021' on page 2 undefined on input line 1
-13.
-
-
-Package natbib Warning: Citation `Caballero2023' on page 2 undefined on input l
-ine 113.
-
-
-Package natbib Warning: Citation `Caballero2023' on page 2 undefined on input l
-ine 113.
-
-
-Package natbib Warning: Citation `Barry2025' on page 2 undefined on input line 
-113.
-
+ [1]
 Package microtype Info: Character `029' is missing
 (microtype)             in font `T1/pplj/m/sc/10'.
 (microtype)             Ignoring protrusion settings for this character.
-[2]
-
-Package natbib Warning: Citation `Alreshidi2024; DideriksenWilliams2019; Wilson
-2019' on page 3 undefined on input line 115.
-
-
-Package natbib Warning: Citation `Moore2023; Rajendran2021' on page 3 undefined
- on input line 115.
-
-
-Overfull \hbox (4.42451pt too wide) in paragraph at lines 115--116
+ [2]
+Overfull \hbox (4.42451pt too wide) in paragraph at lines 85--86
 []\T1/pplj/m/n/10.95 (-20) From a sci-en-tific per-spec-tive, this the-sis ad-v
 ances re-search on physiology-
  []
 
-
-Package natbib Warning: Citation `Wang2024' on page 3 undefined on input line 1
-17.
-
-
-Package natbib Warning: Citation `Wang2024' on page 3 undefined on input line 1
-17.
-
-
-Package natbib Warning: Citation `Caballero2023' on page 3 undefined on input l
-ine 117.
-
-
-Package natbib Warning: Citation `Barry2025' on page 3 undefined on input line 
-117.
-
-[3]
-
-Package natbib Warning: Citation `FussellTruong2020' on page 4 undefined on inp
-ut line 138.
-
-
-Package natbib Warning: Citation `Hight2022' on page 4 undefined on input line 
-138.
-
-
-Package natbib Warning: Citation `Peña2025' on page 4 undefined on input line 
-138.
-
-
-Package natbib Warning: Citation `Hight2022' on page 4 undefined on input line 
-138.
-
-
-Package natbib Warning: Citation `GuthridgeClinton-Lisell2023' on page 4 undefi
-ned on input line 138.
-
-
-Package natbib Warning: Citation `Hight2022' on page 4 undefined on input line 
-140.
-
-
-Package natbib Warning: Citation `Hight2022' on page 4 undefined on input line 
-140.
-
-
-Package natbib Warning: Citation `Hight2022' on page 4 undefined on input line 
-140.
-
-
-Package natbib Warning: Citation `GuthridgeClinton‑Lisell2023' on page 4 unde
-fined on input line 140.
-
-
-Package natbib Warning: Citation `GuthridgeClinton‑Lisell2023' on page 4 unde
-fined on input line 140.
-
-
-Package natbib Warning: Citation `GuthridgeClinton‑Lisell2023' on page 4 unde
-fined on input line 140.
-
-[4]
-
-Package natbib Warning: Citation `Hight2022' on page 5 undefined on input line 
-142.
-
-
-Package natbib Warning: Citation `GuthridgeClinton‑Lisell2023' on page 5 unde
-fined on input line 142.
-
-
-Package natbib Warning: Citation `Peña2025' on page 5 undefined on input line 
-142.
-
-
-Package natbib Warning: Citation `Korner2025' on page 5 undefined on input line
- 145.
-
-
-Package natbib Warning: Citation `Korner2025' on page 5 undefined on input line
- 145.
-
-
-Package natbib Warning: Citation `Bruna2018' on page 5 undefined on input line 
-145.
-
-
-Package natbib Warning: Citation `Bruna2018' on page 5 undefined on input line 
-145.
-
-
-Package natbib Warning: Citation `Bruna2018' on page 5 undefined on input line 
-145.
-
-[5]
-
-Package natbib Warning: Citation `Rao2022' on page 6 undefined on input line 15
-0.
-
-
-Package natbib Warning: Citation `Caballero2023' on page 6 undefined on input l
-ine 150.
-
-
-Package natbib Warning: Citation `Moore2023' on page 6 undefined on input line 
-150.
-
-
-Package natbib Warning: Citation `Barry2025' on page 6 undefined on input line 
-150.
-
-[6]
-
-Package natbib Warning: Citation `Rao2022' on page 7 undefined on input line 15
-9.
-
-
-Package natbib Warning: Citation `Goldberger2000' on page 7 undefined on input 
-line 159.
-
-
-Package natbib Warning: Citation `Rao2022' on page 7 undefined on input line 16
-1.
-
-
-Package natbib Warning: Citation `Rao2022' on page 7 undefined on input line 16
-1.
-
-
-Package natbib Warning: Citation `Rao2022' on page 7 undefined on input line 16
-1.
-
-
-Package natbib Warning: Citation `Rao2022' on page 7 undefined on input line 16
-1.
-
-
-Package natbib Warning: Citation `Rao2022' on page 7 undefined on input line 16
-1.
-
-[7]
-
-Package natbib Warning: Citation `Koerner2025' on page 8 undefined on input lin
-e 164.
-
-
-Package natbib Warning: Citation `Grassmann2016' on page 8 undefined on input l
-ine 164.
-
-
-Package natbib Warning: Citation `Elgendi2010' on page 8 undefined on input lin
-e 166.
-
-
-Package natbib Warning: Citation `Elgendi2010' on page 8 undefined on input lin
-e 166.
-
-
-Package natbib Warning: Citation `Zhao2018' on page 8 undefined on input line 1
-66.
-
-
-Package natbib Warning: Citation `Khodadad2018' on page 8 undefined on input li
-ne 168.
-
-[8]
-
-Package natbib Warning: Citation `Barry2025' on page 9 undefined on input line 
-179.
-
-[9] [10] [11]
-<rmse_total_error_RF_vs_Cat_per_subject.png, id=164, 722.7pt x 361.35pt>
+[3] [4] [5] [6] [7] [8] [9] [10] [11]
+LaTeX Font Info:    Trying to load font information for TS1+pplj on input line 
+226.
+
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/ts1pplj.fd
+File: ts1pplj.fd 2004/09/06 font definitions for TS1/pplj.
+)
+<rmse_total_error_RF_vs_Cat_per_subject.png, id=253, 722.7pt x 361.35pt>
 File: rmse_total_error_RF_vs_Cat_per_subject.png Graphic file (type png)
 <use rmse_total_error_RF_vs_Cat_per_subject.png>
 Package pdftex.def Info: rmse_total_error_RF_vs_Cat_per_subject.png  used on in
-put line 269.
+put line 239.
 (pdftex.def)             Requested size: 358.50473pt x 179.252pt.
  [12] [13 <./rmse_total_error_RF_vs_Cat_per_subject.png>]
-<temporal total-error RMSE .png, id=179, 570.933pt x 354.123pt>
+<temporal total-error RMSE .png, id=271, 570.933pt x 354.123pt>
 File: temporal total-error RMSE .png Graphic file (type png)
 <use temporal total-error RMSE .png>
-Package pdftex.def Info: temporal total-error RMSE .png  used on input line 328
+Package pdftex.def Info: temporal total-error RMSE .png  used on input line 298
 .
 (pdftex.def)             Requested size: 358.50473pt x 222.36919pt.
- [14]
-<corr_vs_true_total_error_subject_lag.png, id=185, 787.743pt x 497.6994pt>
+ [14] [15 <./temporal total-error RMSE .png>]
+<corr_vs_true_total_error_subject_lag.png, id=290, 787.743pt x 497.6994pt>
 File: corr_vs_true_total_error_subject_lag.png Graphic file (type png)
 <use corr_vs_true_total_error_subject_lag.png>
 Package pdftex.def Info: corr_vs_true_total_error_subject_lag.png  used on inpu
-t line 362.
+t line 332.
 (pdftex.def)             Requested size: 358.50473pt x 226.50673pt.
-
-[15 <./temporal total-error RMSE .png>]
-<corr_vs_true_total_error_temporal_lag.png, id=193, 787.743pt x 497.6994pt>
+ [16 <./corr_vs_true_total_error_subject_lag.png>]
+<corr_vs_true_total_error_temporal_lag.png, id=308, 787.743pt x 497.6994pt>
 File: corr_vs_true_total_error_temporal_lag.png Graphic file (type png)
 <use corr_vs_true_total_error_temporal_lag.png>
 Package pdftex.def Info: corr_vs_true_total_error_temporal_lag.png  used on inp
-ut line 368.
+ut line 367.
 (pdftex.def)             Requested size: 358.50473pt x 226.50673pt.
- [16 <./corr_vs_true_total_error_subject_lag.png>] [17 <./corr_vs_true_total_er
-ror_temporal_lag.png>]
-Overfull \hbox (2.48997pt too wide) in paragraph at lines 427--428
+ [17]
+Overfull \hbox (2.48997pt too wide) in paragraph at lines 398--399
 \T1/pplj/m/n/10.95 (-20) gres-sion mod-els trained on mul-ti-modal phys-i-o-log
 -i-cal and simulator[]derived
  []
 
-[18]
-
-Package natbib Warning: Citation `Korner2025' on page 19 undefined on input lin
-e 434.
-
-
-Package natbib Warning: Citation `Bruna2018' on page 19 undefined on input line
- 434.
+[18 <./corr_vs_true_total_error_temporal_lag.png>] [19] [20] (./report.bbl
+[21]
+Underfull \hbox (badness 3078) in paragraph at lines 46--48
+[]\T1/pplj/m/n/10.95 (+20) Perplexity AI, ``Per-plex-ity,'' [Gen-er-a-tive AI s
+earch as-sis-tant].
+ []
 
 
-Package natbib Warning: Citation `Grassmann2016' on page 19 undefined on input 
-line 434.
+Underfull \hbox (badness 10000) in paragraph at lines 50--52
+[]\T1/pplj/m/n/10.95 (+20) OpenAI, ``GPT-5.1,'' [Large lan-guage model].
+ []
 
-
-Package natbib Warning: Citation `Caballero2023' on page 19 undefined on input 
-line 436.
-
-
-Package natbib Warning: Citation `Moore2023' on page 19 undefined on input line
- 436.
-
-
-Package natbib Warning: Citation `Barry2025' on page 19 undefined on input line
- 436.
-
-
-Package natbib Warning: Citation `McGuire2026' on page 19 undefined on input li
-ne 439.
-
-[19] (./report.bbl [20])
-Overfull \hbox (66.34508pt too wide) in paragraph at lines 460--495
+[22] [23])
+Overfull \hbox (66.34508pt too wide) in paragraph at lines 431--466
  [][] 
  []
 
-<scatter_true_vs_pred_glideslope_error_deg_lag.png, id=221, 426.393pt x 425.429
+<scatter_true_vs_pred_glideslope_error_deg_lag.png, id=374, 426.393pt x 425.429
 4pt>
 File: scatter_true_vs_pred_glideslope_error_deg_lag.png Graphic file (type png)
 
 <use scatter_true_vs_pred_glideslope_error_deg_lag.png>
 Package pdftex.def Info: scatter_true_vs_pred_glideslope_error_deg_lag.png  use
-d on input line 501.
+d on input line 472.
 (pdftex.def)             Requested size: 172.08073pt x 171.68774pt.
-<scatter_true_vs_pred_localizer_error_deg_lag.png, id=222, 426.393pt x 425.4294
+<scatter_true_vs_pred_localizer_error_deg_lag.png, id=375, 426.393pt x 425.4294
 pt>
 File: scatter_true_vs_pred_localizer_error_deg_lag.png Graphic file (type png)
 <use scatter_true_vs_pred_localizer_error_deg_lag.png>
 Package pdftex.def Info: scatter_true_vs_pred_localizer_error_deg_lag.png  used
- on input line 507.
+ on input line 478.
 (pdftex.def)             Requested size: 172.08073pt x 171.68774pt.
-<scatter_true_vs_pred_airspeed_error_kts_lag.png, id=223, 426.393pt x 425.4294p
+<scatter_true_vs_pred_airspeed_error_kts_lag.png, id=376, 426.393pt x 425.4294p
 t>
 File: scatter_true_vs_pred_airspeed_error_kts_lag.png Graphic file (type png)
 <use scatter_true_vs_pred_airspeed_error_kts_lag.png>
 Package pdftex.def Info: scatter_true_vs_pred_airspeed_error_kts_lag.png  used 
-on input line 513.
+on input line 484.
 (pdftex.def)             Requested size: 172.08073pt x 171.68774pt.
-<scatter_true_vs_pred_total_error_lag.png, id=224, 426.393pt x 425.4294pt>
+<scatter_true_vs_pred_total_error_lag.png, id=377, 426.393pt x 425.4294pt>
 File: scatter_true_vs_pred_total_error_lag.png Graphic file (type png)
 <use scatter_true_vs_pred_total_error_lag.png>
 Package pdftex.def Info: scatter_true_vs_pred_total_error_lag.png  used on inpu
-t line 519.
+t line 490.
 (pdftex.def)             Requested size: 172.08073pt x 171.68774pt.
-<shap_summary_total_error_lag.png, id=225, 564.4287pt x 678.6153pt>
+<shap_summary_total_error_lag.png, id=378, 564.4287pt x 678.6153pt>
 File: shap_summary_total_error_lag.png Graphic file (type png)
 <use shap_summary_total_error_lag.png>
-Package pdftex.def Info: shap_summary_total_error_lag.png  used on input line 6
-23.
+Package pdftex.def Info: shap_summary_total_error_lag.png  used on input line 5
+94.
 (pdftex.def)             Requested size: 358.50473pt x 431.04019pt.
-[21] [22 <./scatter_true_vs_pred_glideslope_error_deg_lag.png> <./scatter_true_
-vs_pred_localizer_error_deg_lag.png> <./scatter_true_vs_pred_airspeed_error_kts
-_lag.png> <./scatter_true_vs_pred_total_error_lag.png>] [23] [24] [25 <./shap_s
-ummary_total_error_lag.png>] [26]
-
-Package natbib Warning: There were undefined citations.
-
-(./report.aux)
+[24] [25] [26 <./scatter_true_vs_pred_glideslope_error_deg_lag.png> <./scatter_
+true_vs_pred_localizer_error_deg_lag.png> <./scatter_true_vs_pred_airspeed_erro
+r_kts_lag.png> <./scatter_true_vs_pred_total_error_lag.png>] [27] [28] [29 <./s
+hap_summary_total_error_lag.png>] (./report.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-22>
  ***********
-
-
-LaTeX Warning: There were multiply-defined labels.
-
 Package rerunfilecheck Info: File `report.out' has not changed.
-(rerunfilecheck)             Checksum: 438DDCD7AB8F0D2993920218839488E4;4209.
+(rerunfilecheck)             Checksum: 9436D4ECBF3CFD31AF76E3786A066C3B;3910.
  ) 
 Here is how much of TeX's memory you used:
- 19518 strings out of 476106
- 340103 string characters out of 5793934
- 1953975 words of memory out of 5000000
- 40517 multiletter control sequences out of 15000+600000
- 711240 words of font info for 592 fonts, out of 8000000 for 9000
+ 19169 strings out of 476106
+ 335738 string characters out of 5793934
+ 1954975 words of memory out of 5000000
+ 40163 multiletter control sequences out of 15000+600000
+ 707495 words of font info for 591 fonts, out of 8000000 for 9000
  59 hyphenation exceptions out of 8191
- 123i,22n,121p,1535b,650s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 123i,22n,121p,1596b,648s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr
 /share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share
 /texlive/texmf-dist/fonts/type1/public/fpl/fplrc8a.pfb></usr/share/texlive/texm
 f-dist/fonts/type1/public/fpl/fplrij8a.pfb></usr/share/texlive/texmf-dist/fonts
-/type1/public/bera/fvmr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/pa
-latino/uplb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/palatino/uplr8
-a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/palatino/uplri8a.pfb>
-Output written on report.pdf (28 pages, 2285392 bytes).
+/type1/urw/palatino/uplb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/p
+alatino/uplr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/palatino/uplr
+i8a.pfb>
+Output written on report.pdf (31 pages, 2297090 bytes).
 PDF statistics:
- 321 PDF objects out of 1000 (max. 8388607)
- 252 compressed objects within 3 object streams
- 72 named destinations out of 1000 (max. 500000)
- 155371 words of extra memory for PDF output out of 184870 (max. 10000000)
+ 465 PDF objects out of 1000 (max. 8388607)
+ 394 compressed objects within 4 object streams
+ 96 named destinations out of 1000 (max. 500000)
+ 138467 words of extra memory for PDF output out of 154059 (max. 10000000)
 

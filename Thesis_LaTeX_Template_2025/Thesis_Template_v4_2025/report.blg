@@ -1,64 +1,76 @@
 This is BibTeX, Version 0.99d (TeX Live 2023/Debian)
 Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
 The top-level auxiliary file: report.aux
-The style file: apacite.bst
-Reallocated glb_str_ptr (elt_size=4) to 20 items from 10.
-Reallocated global_strs (elt_size=200001) to 20 items from 10.
-Reallocated glb_str_end (elt_size=4) to 20 items from 10.
+The style file: IEEEtranN.bst
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
 Reallocated singl_function (elt_size=4) to 100 items from 50.
 Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
 Reallocated singl_function (elt_size=4) to 100 items from 50.
-Reallocated singl_function (elt_size=4) to 100 items from 50.
-Reallocated wiz_functions (elt_size=4) to 9000 items from 6000.
-Reallocated singl_function (elt_size=4) to 100 items from 50.
 Database file #1: references.bib
-Warning--I didn't find a database entry for "Rao2022"
-Warning--I didn't find a database entry for "Goldberger2000"
-Warning--I didn't find a database entry for "Koerner2025"
-Warning--I didn't find a database entry for "Grassmann2016"
-Warning--I didn't find a database entry for "Elgendi2010"
-Warning--I didn't find a database entry for "Zhao2018"
-Warning--I didn't find a database entry for "Khodadad2018"
-apacite.bst [2013/07/21 v6.03 APA bibliography style]
-You've used 3 entries,
-            6951 wiz_defined-function locations,
-            1303 strings with 11278 characters,
-and the built_in function-call counts, 5415 in all, are:
-= -- 669
-> -- 38
-< -- 259
-+ -- 264
-- -- 6
-* -- 351
-:= -- 1063
-add.period$ -- 12
-call.type$ -- 3
-change.case$ -- 51
-chr.to.int$ -- 0
-cite$ -- 6
-duplicate$ -- 124
-empty$ -- 215
-format.name$ -- 62
-if$ -- 1018
-int.to.chr$ -- 0
-int.to.str$ -- 9
-missing$ -- 0
-newline$ -- 75
-num.names$ -- 24
-pop$ -- 93
+I was expecting a `,' or a `}'---line 289 of file references.bib
+ :  
+ :  year = {2026},
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+I was expecting a `,' or a `}'---line 299 of file references.bib
+ :  
+ :  year = {2025},
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+-- IEEEtranN.bst version 1.14 (2015/08/26) by Michael Shell.
+-- http://www.michaelshell.org/tex/ieeetran/bibtex/
+-- See the "IEEEtran_bst_HOWTO.pdf" manual for usage information.
+** Natbib version - not for normal IEEE work.
+Reallocated glb_str_ptr (elt_size=4) to 20 items from 10.
+Reallocated global_strs (elt_size=200001) to 20 items from 10.
+Reallocated glb_str_end (elt_size=4) to 20 items from 10.
+Warning--missing publisher in yang-2021
+Warning--missing publisher in dideriksen-2019
+Warning--empty booktitle in moore-2023
+Warning--empty booktitle in elgendi-2010
+Warning--empty booktitle in mcguire-2026
+
+Done.
+You've used 25 entries,
+            4855 wiz_defined-function locations,
+            1113 strings with 14793 characters,
+and the built_in function-call counts, 23335 in all, are:
+= -- 2039
+> -- 885
+< -- 121
++ -- 405
+- -- 220
+* -- 1462
+:= -- 3738
+add.period$ -- 50
+call.type$ -- 25
+change.case$ -- 50
+chr.to.int$ -- 244
+cite$ -- 30
+duplicate$ -- 1521
+empty$ -- 1545
+format.name$ -- 274
+if$ -- 5142
+int.to.chr$ -- 1
+int.to.str$ -- 26
+missing$ -- 268
+newline$ -- 145
+num.names$ -- 75
+pop$ -- 677
 preamble$ -- 1
-purify$ -- 12
-quote$ -- 0
-skip$ -- 342
+purify$ -- 25
+quote$ -- 2
+skip$ -- 1651
 stack$ -- 0
-substring$ -- 287
-swap$ -- 77
-text.length$ -- 6
+substring$ -- 639
+swap$ -- 1167
+text.length$ -- 40
 text.prefix$ -- 0
-top$ -- 1
-type$ -- 240
-warning$ -- 0
-while$ -- 19
+top$ -- 6
+type$ -- 381
+warning$ -- 5
+while$ -- 99
 width$ -- 0
-write$ -- 88
-(There were 7 warnings)
+write$ -- 376
+(There were 2 error messages)
