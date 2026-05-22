@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2026.5.7)  21 MAY 2026 23:04
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2026.5.7)  22 MAY 2026 22:32
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -945,33 +945,33 @@ ances re-search on physiology-
 
 [3] [4] [5] [6] [7] [8] [9] [10] [11]
 LaTeX Font Info:    Trying to load font information for TS1+pplj on input line 
-226.
+224.
 
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/ts1pplj.fd
 File: ts1pplj.fd 2004/09/06 font definitions for TS1/pplj.
 )
-<rmse_total_error_RF_vs_Cat_per_subject.png, id=253, 722.7pt x 361.35pt>
+<rmse_total_error_RF_vs_Cat_per_subject.png, id=251, 722.7pt x 361.35pt>
 File: rmse_total_error_RF_vs_Cat_per_subject.png Graphic file (type png)
 <use rmse_total_error_RF_vs_Cat_per_subject.png>
 Package pdftex.def Info: rmse_total_error_RF_vs_Cat_per_subject.png  used on in
 put line 239.
 (pdftex.def)             Requested size: 358.50473pt x 179.252pt.
  [12] [13 <./rmse_total_error_RF_vs_Cat_per_subject.png>]
-<temporal total-error RMSE .png, id=271, 570.933pt x 354.123pt>
+<temporal total-error RMSE .png, id=269, 570.933pt x 354.123pt>
 File: temporal total-error RMSE .png Graphic file (type png)
 <use temporal total-error RMSE .png>
 Package pdftex.def Info: temporal total-error RMSE .png  used on input line 298
 .
 (pdftex.def)             Requested size: 358.50473pt x 222.36919pt.
  [14] [15 <./temporal total-error RMSE .png>]
-<corr_vs_true_total_error_subject_lag.png, id=290, 787.743pt x 497.6994pt>
+<corr_vs_true_total_error_subject_lag.png, id=289, 787.743pt x 497.6994pt>
 File: corr_vs_true_total_error_subject_lag.png Graphic file (type png)
 <use corr_vs_true_total_error_subject_lag.png>
 Package pdftex.def Info: corr_vs_true_total_error_subject_lag.png  used on inpu
 t line 332.
 (pdftex.def)             Requested size: 358.50473pt x 226.50673pt.
  [16 <./corr_vs_true_total_error_subject_lag.png>]
-<corr_vs_true_total_error_temporal_lag.png, id=308, 787.743pt x 497.6994pt>
+<corr_vs_true_total_error_temporal_lag.png, id=307, 787.743pt x 497.6994pt>
 File: corr_vs_true_total_error_temporal_lag.png Graphic file (type png)
 <use corr_vs_true_total_error_temporal_lag.png>
 Package pdftex.def Info: corr_vs_true_total_error_temporal_lag.png  used on inp
@@ -995,49 +995,51 @@ Underfull \hbox (badness 10000) in paragraph at lines 50--52
 []\T1/pplj/m/n/10.95 (+20) OpenAI, ``GPT-5.1,'' [Large lan-guage model].
  []
 
-[22] [23])
-Overfull \hbox (66.34508pt too wide) in paragraph at lines 431--466
+[22] [23]) [24]
+Overfull \hbox (39.10503pt too wide) in paragraph at lines 437--472
  [][] 
  []
 
-<scatter_true_vs_pred_glideslope_error_deg_lag.png, id=374, 426.393pt x 425.429
+<scatter_true_vs_pred_glideslope_error_deg_lag.png, id=378, 426.393pt x 425.429
 4pt>
 File: scatter_true_vs_pred_glideslope_error_deg_lag.png Graphic file (type png)
 
 <use scatter_true_vs_pred_glideslope_error_deg_lag.png>
 Package pdftex.def Info: scatter_true_vs_pred_glideslope_error_deg_lag.png  use
-d on input line 472.
+d on input line 572.
 (pdftex.def)             Requested size: 172.08073pt x 171.68774pt.
-<scatter_true_vs_pred_localizer_error_deg_lag.png, id=375, 426.393pt x 425.4294
+<scatter_true_vs_pred_localizer_error_deg_lag.png, id=379, 426.393pt x 425.4294
 pt>
 File: scatter_true_vs_pred_localizer_error_deg_lag.png Graphic file (type png)
 <use scatter_true_vs_pred_localizer_error_deg_lag.png>
 Package pdftex.def Info: scatter_true_vs_pred_localizer_error_deg_lag.png  used
- on input line 478.
+ on input line 578.
 (pdftex.def)             Requested size: 172.08073pt x 171.68774pt.
-<scatter_true_vs_pred_airspeed_error_kts_lag.png, id=376, 426.393pt x 425.4294p
+<scatter_true_vs_pred_airspeed_error_kts_lag.png, id=380, 426.393pt x 425.4294p
 t>
 File: scatter_true_vs_pred_airspeed_error_kts_lag.png Graphic file (type png)
 <use scatter_true_vs_pred_airspeed_error_kts_lag.png>
 Package pdftex.def Info: scatter_true_vs_pred_airspeed_error_kts_lag.png  used 
-on input line 484.
+on input line 584.
 (pdftex.def)             Requested size: 172.08073pt x 171.68774pt.
-<scatter_true_vs_pred_total_error_lag.png, id=377, 426.393pt x 425.4294pt>
+<scatter_true_vs_pred_total_error_lag.png, id=381, 426.393pt x 425.4294pt>
 File: scatter_true_vs_pred_total_error_lag.png Graphic file (type png)
 <use scatter_true_vs_pred_total_error_lag.png>
 Package pdftex.def Info: scatter_true_vs_pred_total_error_lag.png  used on inpu
-t line 490.
+t line 590.
 (pdftex.def)             Requested size: 172.08073pt x 171.68774pt.
-<shap_summary_total_error_lag.png, id=378, 564.4287pt x 678.6153pt>
+<shap_summary_total_error_lag.png, id=382, 564.4287pt x 678.6153pt>
 File: shap_summary_total_error_lag.png Graphic file (type png)
 <use shap_summary_total_error_lag.png>
-Package pdftex.def Info: shap_summary_total_error_lag.png  used on input line 5
-94.
+Package pdftex.def Info: shap_summary_total_error_lag.png  used on input line 6
+00.
 (pdftex.def)             Requested size: 358.50473pt x 431.04019pt.
-[24] [25] [26 <./scatter_true_vs_pred_glideslope_error_deg_lag.png> <./scatter_
-true_vs_pred_localizer_error_deg_lag.png> <./scatter_true_vs_pred_airspeed_erro
-r_kts_lag.png> <./scatter_true_vs_pred_total_error_lag.png>] [27] [28] [29 <./s
-hap_summary_total_error_lag.png>] (./report.aux)
+[25
+
+] [26] [27] [28 <./scatter_true_vs_pred_glideslope_error_deg_lag.png> <./scatte
+r_true_vs_pred_localizer_error_deg_lag.png> <./scatter_true_vs_pred_airspeed_er
+ror_kts_lag.png> <./scatter_true_vs_pred_total_error_lag.png>] [29 <./shap_summ
+ary_total_error_lag.png>] (./report.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-22>
@@ -1046,13 +1048,13 @@ Package rerunfilecheck Info: File `report.out' has not changed.
 (rerunfilecheck)             Checksum: 9436D4ECBF3CFD31AF76E3786A066C3B;3910.
  ) 
 Here is how much of TeX's memory you used:
- 19169 strings out of 476106
- 335738 string characters out of 5793934
- 1954975 words of memory out of 5000000
+ 19164 strings out of 476106
+ 335688 string characters out of 5793934
+ 1949975 words of memory out of 5000000
  40163 multiletter control sequences out of 15000+600000
- 707495 words of font info for 591 fonts, out of 8000000 for 9000
+ 707209 words of font info for 587 fonts, out of 8000000 for 9000
  59 hyphenation exceptions out of 8191
- 123i,22n,121p,1596b,648s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 123i,23n,121p,1612b,644s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr
 /share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share
 /texlive/texmf-dist/fonts/type1/public/fpl/fplrc8a.pfb></usr/share/texlive/texm
@@ -1060,10 +1062,10 @@ f-dist/fonts/type1/public/fpl/fplrij8a.pfb></usr/share/texlive/texmf-dist/fonts
 /type1/urw/palatino/uplb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/p
 alatino/uplr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/palatino/uplr
 i8a.pfb>
-Output written on report.pdf (31 pages, 2297090 bytes).
+Output written on report.pdf (31 pages, 2297673 bytes).
 PDF statistics:
- 465 PDF objects out of 1000 (max. 8388607)
- 394 compressed objects within 4 object streams
+ 464 PDF objects out of 1000 (max. 8388607)
+ 393 compressed objects within 4 object streams
  96 named destinations out of 1000 (max. 500000)
  138467 words of extra memory for PDF output out of 154059 (max. 10000000)
 
