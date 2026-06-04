@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2026.5.7)  22 MAY 2026 22:32
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2026.5.7)  30 MAY 2026 17:18
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1048,11 +1048,11 @@ Package rerunfilecheck Info: File `report.out' has not changed.
 (rerunfilecheck)             Checksum: 9436D4ECBF3CFD31AF76E3786A066C3B;3910.
  ) 
 Here is how much of TeX's memory you used:
- 19164 strings out of 476106
- 335688 string characters out of 5793934
+ 19174 strings out of 476106
+ 335788 string characters out of 5793934
  1949975 words of memory out of 5000000
  40163 multiletter control sequences out of 15000+600000
- 707209 words of font info for 587 fonts, out of 8000000 for 9000
+ 707781 words of font info for 595 fonts, out of 8000000 for 9000
  59 hyphenation exceptions out of 8191
  123i,23n,121p,1612b,644s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr
@@ -1062,7 +1062,7 @@ f-dist/fonts/type1/public/fpl/fplrij8a.pfb></usr/share/texlive/texmf-dist/fonts
 /type1/urw/palatino/uplb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/p
 alatino/uplr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/palatino/uplr
 i8a.pfb>
-Output written on report.pdf (31 pages, 2297673 bytes).
+Output written on report.pdf (31 pages, 2297745 bytes).
 PDF statistics:
  464 PDF objects out of 1000 (max. 8388607)
  393 compressed objects within 4 object streams
