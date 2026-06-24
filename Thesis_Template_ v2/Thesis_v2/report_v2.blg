@@ -1,0 +1,80 @@
+This is BibTeX, Version 0.99d (TeX Live 2023/Debian)
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: report_v2.aux
+The style file: IEEEtranN.bst
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Database file #1: references.bib
+I was expecting a `,' or a `}'---line 289 of file references.bib
+ :  
+ :  year = {2026},
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+I was expecting a `,' or a `}'---line 299 of file references.bib
+ :  
+ :  year = {2025},
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+Repeated entry---line 360 of file references.bib
+ : @article{van-weelden-2024
+ :                          ,
+I'm skipping whatever remains of this entry
+-- IEEEtranN.bst version 1.14 (2015/08/26) by Michael Shell.
+-- http://www.michaelshell.org/tex/ieeetran/bibtex/
+-- See the "IEEEtran_bst_HOWTO.pdf" manual for usage information.
+** Natbib version - not for normal IEEE work.
+Reallocated glb_str_ptr (elt_size=4) to 20 items from 10.
+Reallocated global_strs (elt_size=200001) to 20 items from 10.
+Reallocated glb_str_end (elt_size=4) to 20 items from 10.
+Warning--missing publisher in yang-2021
+Warning--missing publisher in dideriksen-2019
+Warning--empty booktitle in moore-2023
+Warning--empty booktitle in elgendi-2010
+Warning--empty booktitle in mcguire-2026
+
+Done.
+You've used 31 entries,
+            4855 wiz_defined-function locations,
+            1154 strings with 16317 characters,
+and the built_in function-call counts, 29099 in all, are:
+= -- 2598
+> -- 1062
+< -- 154
++ -- 488
+- -- 262
+* -- 1816
+:= -- 4667
+add.period$ -- 62
+call.type$ -- 31
+change.case$ -- 62
+chr.to.int$ -- 304
+cite$ -- 36
+duplicate$ -- 1912
+empty$ -- 1903
+format.name$ -- 330
+if$ -- 6431
+int.to.chr$ -- 1
+int.to.str$ -- 32
+missing$ -- 327
+newline$ -- 175
+num.names$ -- 93
+pop$ -- 800
+preamble$ -- 1
+purify$ -- 31
+quote$ -- 2
+skip$ -- 2087
+stack$ -- 0
+substring$ -- 815
+swap$ -- 1485
+text.length$ -- 54
+text.prefix$ -- 0
+top$ -- 6
+type$ -- 477
+warning$ -- 5
+while$ -- 122
+width$ -- 0
+write$ -- 468
+(There were 3 error messages)
